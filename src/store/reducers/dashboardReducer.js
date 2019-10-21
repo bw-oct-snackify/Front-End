@@ -1,18 +1,41 @@
 const initState = {
 
+    user: {
+        name: 'Not John',
+        role: 'admin',
+        image: 'https://avatars3.githubusercontent.com/u/13228579?s=460&v=4',
+        company: 'Team Chris',
+    },
+
     employees: [
         {
             id: 0,
             email: 'fearthedeveloper@gmail.com',
             name: 'John Shoff',
+            role: 'admin',
             suggestions: ['Taco Bites', 'Reeses Cups'],
         },
         {
             id: 1,
             email: 'luisocasio03@gmail.com',
             name: 'Luis Ocasio',
+            role: 'user',
             suggestions: ['Gummy Bears', 'Watermelon Sour Patch Kids'],
         },
+        {
+            id: 2,
+            email: 'easyas123l1@aol.com',
+            name: 'Andrew Wilson',
+            role: 'user',
+            suggestions: ['Chips', 'Reeses Cups'],
+        },
+        {
+            id: 3,
+            email: 'markyshuk@gmail.com',
+            name: "Mark Artishuk",
+            role: 'user',
+            suggestions: ["Reeses Cups", "Hot Cheetos"],
+        }
     ], 
 
     order: [
