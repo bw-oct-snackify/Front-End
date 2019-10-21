@@ -9,7 +9,7 @@ import App from './App';
 import {BrowserRouter as Router} from 'react-router-dom';
 
 // Import reducers
-import {dashboardReducer} from './components';
+import {dashboardReducer} from './store/';
 
 const rootReducer = combineReducers({
     dashboardReducer,

@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
-import {AppBar, Toolbar, IconButton, Typography, Avatar, Menu, MenuItem} from '@material-ui/core';
+import React from 'react';
+import {AppBar, Toolbar, Avatar} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import navBackground from '../../assets/images/snackbox.png';
 import { Link } from "react-router-dom";
+import {connect} from 'react-redux';
 import navbar from './navbar.module.scss';
 
 const useStyles = makeStyles(theme =>({
@@ -39,42 +40,25 @@ const useStyles = makeStyles(theme =>({
     },
 }));
 
-const NavBar = props =>{
-
-    const CompanyName = 'Lambda School';
-    const userAvatar = 'https://avatars3.githubusercontent.com/u/13228579?s=460&v=4';
+const NavBar = ({user}) =>{
     const classes = useStyles();
-
-    const [anchorEl, setAnchorEl] = useState(null);
-
-    const handleClick = event => {
-        setAnchorEl(event.currentTarget);
-      };
-    
-      const handleClose = () => {
-        setAnchorEl(null);
-      };
 
     return(
         <div className={classes.root}>
             <AppBar className={classes.appbar} position='static'>
                 <Toolbar className={classes.toolbar}>
-                    <h2 className={navbar.company}>{CompanyName}</h2>                  
+                    <h2 className={navbar.company}>{user.company}</h2>                  
                     <div className={navbar.navlist}>
                         <div className={navbar.main}>
-                            <Link to="/snacks">Snacks</Link>     
-                            <Link to="/users">Users</Link> 
+                            {user.role === 'admin' && 
+                            <>
+                                <Link to="/cp/snacks">Manage Snacks</Link>     
+                                <Link to="/cp/users">Manage Users</Link> 
+                            </>}    
                         </div>     
                         <div className={navbar.secondary}>
-                            <Link to ="/myaccount">My Account</Link>
-
-                            <Avatar onClick={handleClick} src={userAvatar}  className={classes.avatar}/> 
-
-                            <Menu id='simple-menu' anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-                                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                                <MenuItem onClick={handleClose}>My Snacks</MenuItem>
-                                <MenuItem onClick={handleClose}>Logout</MenuItem>
-                            </Menu>
+                            <Link to='/settings'>{user.name}</Link>
+                            <Avatar src={user.image}  className={classes.avatar}/> 
                         </div>
                     </div>
                 </Toolbar>
@@ -83,4 +67,11 @@ const NavBar = props =>{
     );
 };
 
-export default NavBar;
+
+const mapStateToProps = state =>{
+    return{
+        user: state.dashboardReducer.user,
+    };
+};
+
+export default connect(mapStateToProps, {})(NavBar);

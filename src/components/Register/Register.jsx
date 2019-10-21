@@ -1,82 +1,107 @@
-import React from 'react'
-import register from "./register.module.scss"
-import { withFormik, Form, Field } from 'formik';
-import * as Yup from 'yup';
-// import axios from 'axios';
+import React from 'react';
+import { UserInfo, CompanyInfo, PackageSelection } from '../../components';
+import  {connect} from 'react-redux';
+//import axios from 'axios';
 
-const Register = ({ values, touched, errors }) => {
+const Register = () => {
 
     return (
         <div>
-            <h1>Sign Up</h1>
-            <Form>
-                <label>Email {touched.email && errors.email && (
-                    <p>{errors.email}</p> 
-                )}<br></br>
-                <Field
-                type='email'
-                name='email'
-                placeholder='Email Address'
-                value={values.name}
-                /></label><br></br>
-
-                <label>Password {touched.password && errors.password && (
-                    <p>{errors.password}</p>
-                )}<br></br>
-                <Field 
-                type='password'
-                name='password'
-                placeholder='Password'
-                value={values.password}
-                /></label><br></br>
-
-                <label>Confirm Password {touched.confirm && errors.confirm && (
-                    <p>{errors.confirm}</p>
-                )}<br></br>
-                <Field
-                type='password'
-                name='confirm'
-                placeholder='Confirm Password'
-                value={values.confirm}
-                /></label>
-
-                <p>Password must be 8 Characters long</p>
-                <label>Compony Code (optional) <br></br>
-                <Field
-                type='text'
-                name='code'
-                placeholder='appleseed-snackify-123'
-                value={values.code}
-                /></label><br></br>
-
-                <p>A company code would be provided by your admin</p>
-                <button type='submit'>Create Account!</button>
-                <p>Have an account? <span> Sign in </span></p>
-            </Form>
+            {/* img left side */}
+            {/* right side div */}
+            {/* choose component userinfo, companyinfo, and snackneeds */}
+            <UserInfo />
+            <CompanyInfo />
+            <PackageSelection />
         </div>
     )
 }
 
-const FormikRegister = withFormik({
-    mapPropsToValues({ email, password, confirm, code }) {
-        return {
-            email: email || '',
-            password: password || '',
-            confirm: confirm || '',
-            code: code || ''
-        }
-    },
-    validationSchema: Yup.object().shape({
-        email: Yup.string().email().required('Please enter a valid e-mail!'),
-        password: Yup.string().required('Please enter a valid password!'),
-        confirm: Yup.string()
-        .oneOf([Yup.ref('password'), null], 'Password must match')
-        .required('Please enter the same password again!')
-    }),
-    handleSubmit(values) {
-        //where we will do our post or move onto next part of registration
-        console.log(values);
-    }
-})(Register);
 
-export default FormikRegister;
+const mapStateToProps = state =>{
+    return {
+
+    };
+}
+
+export default connect(mapStateToProps, {})(Register);
+
+
+// import React from 'react';
+// import {Link} from 'react-router-dom';
+// import {withFormik, Form, Field} from 'formik';
+// import * as Yup from 'yup';
+// import { connect } from 'react-redux';
+// import { register } from '../store/actions';
+
+// const RegisterForm = ({values, errors, touched}) =>{
+
+
+//     return (
+//         <div className="register-form-wrapper" >
+//             <h2 className="register-form-title"><i className="fas fa-headphones fa-1x"></i> Register</h2>
+//             <Form className="register-form">
+
+//                 <div className="register-status">
+//                     {touched.username && errors.username && (<p className="err">{errors.username}</p>)}
+//                     {touched.email && errors.email && (<p className="err">{errors.email}</p>)}
+//                     {touched.pass && errors.pass && (<p className="err">{errors.pass}</p>)}
+//                     {touched.repass && errors.repass && (<p className="err">{errors.repass}</p>)}
+//                 </div>
+
+//                 <label htmlFor="username">Username: </label>
+//                 <Field type="text" name="username" id="username" placeholder="JDoe1337" />
+
+//                 <label htmlFor="email">Email: </label>
+//                 <Field type="text" name="email" id="email" placeholder="johndoe@unknown.app" />
+
+//                 <label htmlFor="pass">Password: </label>
+//                 <Field type="password" name="pass" id="pass" />
+
+//                 <label htmlFor="repass">Confirm password: </label>
+//                 <Field type="password" name="repass" id="repass" />
+
+//                 <button type="submit">Register</button>
+//             </Form>
+//             <p>If you have an account <Link to="/login"> click here to login</Link>.</p>
+//         </div>
+//     );
+// };
+
+// const FormikRegisterForm = withFormik({
+//     mapPropsToValues({username, email, pass, repass}){
+//         return{
+//             username: username || '',
+//             email: email || '',
+//             pass: pass || '',
+//             repass: repass || ''
+//         };
+//     },
+
+//     validationSchema: Yup.object().shape({
+//         username: Yup.string()
+//             .required('Username field is required.'),
+
+//         email: Yup.string()
+//             .email('Please enter a valid email.')
+//             .required('Email field is required.'),
+
+//         pass: Yup.string()
+//             .required('Password field is required.')
+//             .min(8, 'Your password must be at least 8 characters long.'),
+
+//         repass: Yup.string()
+//             .oneOf([Yup.ref('pass'), null], "Passwords don't match")
+//             .required('Confirm Password is required')
+
+//     }),
+
+//     handleSubmit(values, {resetForm, ...rest }){
+//         rest.props.register({username: values.username, password: values.pass})
+//         rest.props.history.push('/dashboard')
+//         resetForm('');
+//     }
+
+// });
+
+// export default connect((state)=>({...state}), {register})(FormikRegisterForm(RegisterForm));

@@ -1,37 +1,51 @@
 import React from 'react';
-import Register from './components/Register/Register';
 import {Switch, Route} from 'react-router-dom';
 import './styles/global.scss';
 import NavBar from './components/NavBar/NavBar';
 import Dashboard from './components/Dashboard/Dashboard';
-import { EmployeeTable, SnackTable} from './components';
+import { EmployeeTable, SnackManagement, Register, Login, Checkout} from './components';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import AccountSettings from './components/Dashboard/AccountSettings/AccountSettings';
+
 
 function App() {
   return (
     <div className="App">
       <NavBar />
+
       <Switch>
-        <Route exact path='/'>
-          <h2>Nothing to see here..</h2>
-        </Route>
 
-
-        <Route path="/users">
+        <PrivateRoute access={true} allowedUser={false} path='/cp/users' redirect='/login'>
           <Dashboard>
             <EmployeeTable />
           </Dashboard>
-        </Route>
+        </PrivateRoute>
 
-        <Route path="/snacks">
+        <PrivateRoute access={true} allowedUser={false} path="/cp/snacks" redirect="/login">
           <Dashboard>
-            <SnackTable />
+            <SnackManagement />
           </Dashboard>
+        </PrivateRoute>
+
+        <PrivateRoute access={true} allowedUser={true} path="/settings" redirect="/login">
+          <Dashboard>
+            <AccountSettings />
+          </Dashboard>
+        </PrivateRoute>
+
+        <PrivateRoute access={true} allowedUser={true} path='/cp/checkout' redirect='/login'>
+          <Checkout />
+        </PrivateRoute>
+        
+        <Route exact path='/login'>
+          <Login />
         </Route>
 
         <Route path='/register'>
-            {/* testing route */}
-            <Register />
-          </Route>
+          <Register />
+        </Route>
+
+
       </Switch>
     </div>
   );
