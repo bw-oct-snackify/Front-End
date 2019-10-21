@@ -1,0 +1,31 @@
+.navlist{
+    width:100%;
+    display:flex;
+    justify-content: flex-end;
+
+    a{
+        margin-left:20px;
+        text-decoration:none;
+        color:white;
+        font-size:0.8rem;
+    }
+
+
+    .main{
+        display:flex;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+
+    .secondary{
+        width:250px;
+        display:flex;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+}
+
+.company{
+    width:300px;
+    font-size:1.2rem;
+}
