@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import * as Yup from 'yup';
 import userinfo from './userInfo.module.scss'
 
-const UserInfo = ({ values, touched, errors }) => {
+const UserInfo = ({ values, touched, errors, isSubmitting }) => {
 
 
     return (
@@ -52,7 +52,7 @@ const UserInfo = ({ values, touched, errors }) => {
                     /></label>
 
                     <p className={userinfo.fade}>A company code would be provided by your admin</p>
-                    <button className={userinfo.button}type='submit'>Create Account!</button>
+                    <button disabled={isSubmitting} className={userinfo.button}type='submit'>Create Account!</button>
                     <p className={userinfo.logintitle}>Have an account? <Link className={userinfo.link} to='/login'> Sign In! </Link></p>
                     </div>
                 </Form>
@@ -71,13 +71,13 @@ const FormikUserInfo = withFormik({
         }
     },
     validationSchema: Yup.object().shape({
-        email: Yup.string().email().required('Please enter a valid e-mail!'),
-        password: Yup.string().min(8).required('Please enter a valid password!'),
+        email: Yup.string().email('Email not valid').required('Email is required'),
+        password: Yup.string().min(8, 'Password must be 8 character or longer').required('Please is required!'),
         confirm: Yup.string()
         .oneOf([Yup.ref('password'), null], 'Password must match')
         .required('Please enter the same password again!')
     }),
-    handleSubmit(values) {
+    handleSubmit(values, { setSubmitting }) {
         //where we will do our post or move onto next part of registration
         console.log(values);
     }
