@@ -1,8 +1,23 @@
 .container {
-    display: flex;
+  display: flex;
+  width: 100%;
 }
 
 .infoContainer {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+  margin-left: 30px;
+}
+
+.submitButton {
+  border-style: none;
+  border-radius: 50px;
+  background: #974d8e;
+  color: white;
+  margin-top: 34px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  height: 40px;
+  width: 100%;
 }

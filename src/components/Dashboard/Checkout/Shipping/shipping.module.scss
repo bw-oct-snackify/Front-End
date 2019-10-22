@@ -1,4 +1,32 @@
 .container {
-    border-radius: 25px;
-    border: 1px solid #DEDEDF;
+  border-radius: 25px;
+  border: 1px solid #dededf;
+  padding: 10px;
+  margin-top: 21px;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 25px;
+  margin-bottom: 6px;
+}
+
+.textInput {
+  border: 1px solid #dededf;
+  padding: 10px;
+  height: 40px;
+  margin-bottom: 15px;
+  outline: none;
+  border-radius: 30px;
+}
+
+.label {
+  color: #555555;
+  margin-bottom: 5px;
+  font-weight: 500;
 }

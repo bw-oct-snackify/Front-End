@@ -1,11 +1,23 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import styles from "./snackview.module.scss";
+import MySnack from "./MySnack/MySnack";
+const SnackView = props => {
+  return (
+    <div className={styles.container}>
+      <h2 className={styles.title}>Snacks</h2>
 
-
-const SnackView = () => {
-
-
-    return (<div> </div>);
-}
-
+      <div className={styles.snacksContainer}>
+        {props.snacks.map((snack, index) => (
+          <MySnack
+            snackname={snack.name}
+            brandname={snack.brand}
+            image={snack.img_url}
+            amount={1}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
 
 export default SnackView;
