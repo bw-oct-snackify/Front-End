@@ -40,6 +40,7 @@ const FormikPackageSelection = withFormik({
     props.incrementPage();
     props.createUser();
   }
+  
 })(PackageSelection);
 
 export default FormikPackageSelection;
