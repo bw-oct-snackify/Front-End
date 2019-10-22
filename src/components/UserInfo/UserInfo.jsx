@@ -4,9 +4,8 @@ import {Link} from 'react-router-dom';
 import * as Yup from 'yup';
 import userinfo from './userInfo.module.scss'
 
-const UserInfo = ({ values, touched, errors, isSubmitting }) => {
-
-
+const UserInfo = (  { values, touched, errors, isSubmitting , incrementPage }) => {
+    console.log(incrementPage);
     return (
         <div className={userinfo.background}>
             <div className={userinfo.container}>
@@ -77,7 +76,8 @@ const FormikUserInfo = withFormik({
         .oneOf([Yup.ref('password'), null], 'Password must match')
         .required('Please enter the same password again!')
     }),
-    handleSubmit(values, { setSubmitting }) {
+    handleSubmit(values, {props}) {
+        props.incrementPage();
         //where we will do our post or move onto next part of registration
         console.log(values);
     }

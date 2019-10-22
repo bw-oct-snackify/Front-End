@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import companyinfo from "./companyInfo.module.scss"
 
 
-const CompanyInfo = ({ values, touched, errors }) => {
+const CompanyInfo = ({ values, touched, errors, incrementPage }) => {
 
   return (
     <div className={companyinfo.background}>
@@ -76,7 +76,8 @@ const FormikCompany = withFormik({
     companyLocationState: Yup.string().required('Please enter a valid state')
 
   }),
-  handleSubmit(values) {
+  handleSubmit(values, {props}) {
+    props.incrementPage();
     console.log(values);
     //where we will do our post or move onto next part of registration (maybe?)
   }

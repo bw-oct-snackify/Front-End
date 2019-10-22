@@ -7,6 +7,10 @@ const Register = () => {
     //have some state to go thru the components.
     const [count, setCount] = useState(0);
 
+    const incrementPage = () => {
+        console.log(count);
+        setCount(count+1);
+    }
 
     return (
         <div>
@@ -14,11 +18,11 @@ const Register = () => {
             {/* right side div */}
             {/* choose component userinfo, companyinfo, and snackneeds */}
             {count === 0 ? (
-                <UserInfo />
+                <UserInfo incrementPage={incrementPage}/>
             ) : count===1 ? (
-                <CompanyInfo />
+                <CompanyInfo incrementPage={incrementPage}/>
             ) : (
-                <PackageSelection />
+                <PackageSelection incrementPage={incrementPage}/>
             )}
             {/* <UserInfo />
             <CompanyInfo />
