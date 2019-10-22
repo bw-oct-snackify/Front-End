@@ -4,8 +4,7 @@ import {Link} from 'react-router-dom';
 import * as Yup from 'yup';
 import userinfo from './userInfo.module.scss'
 
-const UserInfo = (  { values, touched, errors, isSubmitting , incrementPage }) => {
-    console.log(incrementPage);
+const UserInfo = (  { values, touched, errors, isSubmitting  }) => {
     return (
         <div className={userinfo.background}>
             <div className={userinfo.container}>
@@ -77,9 +76,13 @@ const FormikUserInfo = withFormik({
         .required('Please enter the same password again!')
     }),
     handleSubmit(values, {props}) {
-        props.incrementPage();
-        //where we will do our post or move onto next part of registration
-        console.log(values);
+        if (values.code) {
+            //should inherit company info off code. may need to add a check here that company code is valid.
+        } else {
+            //needs to call a function from register to update values.
+            props.updateUser(values);
+            props.incrementPage();
+        }
     }
 })(UserInfo);
 

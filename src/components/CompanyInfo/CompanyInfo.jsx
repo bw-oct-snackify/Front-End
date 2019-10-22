@@ -77,8 +77,8 @@ const FormikCompany = withFormik({
 
   }),
   handleSubmit(values, {props}) {
+    props.updateUser(values);
     props.incrementPage();
-    console.log(values);
     //where we will do our post or move onto next part of registration (maybe?)
   }
 })(CompanyInfo);
