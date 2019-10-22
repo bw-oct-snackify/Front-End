@@ -36,9 +36,9 @@ const FormikPackageSelection = withFormik({
     }
   },
   handleSubmit(values, {props}) {
-    console.log(values);
     props.updateUser(values);
     props.incrementPage();
+    props.createUser();
   }
 })(PackageSelection);
 
