@@ -13,32 +13,32 @@ const UserInfo = ({ values, touched, errors }) => {
     return (
         <div className={userinfo.background}>
             <div className={userinfo.container}>
-                <h2 className={userinfo.logintitle}>Sign Up</h2><br></br>
+                <h2 className={userinfo.logintitle}>Sign Up</h2>
                 <Form>
                     <div className={userinfo.formwrapper}>
                     <label className={userinfo.fieldlabel}>Email * {touched.email && errors.email && (
-                        <p>{errors.email}</p> 
-                    )}<br></br>
+                        <p className={userinfo.error}>{errors.email}</p> 
+                    )}
                     <Field className={userinfo.loginfield}
                     type='email'
                     name='email'
                     placeholder='Email Address'
                     value={values.email}
-                    /></label><br></br>
+                    /></label>
 
                     <label className={userinfo.fieldlabel}>Password *{touched.password && errors.password && (
-                        <p>{errors.password}</p>
-                    )}<br></br>
+                        <p className={userinfo.error}>{errors.password}</p>
+                    )}
                     <Field className={userinfo.loginfield}
                     type='password'
                     name='password'
                     placeholder='Password'
                     value={values.password}
-                    /></label><br></br>
+                    /></label>
                     <p>Password must be 8 Characters long</p>
                     <label className={userinfo.fieldlabel}>Confirm Password *{touched.confirm && errors.confirm && (
-                        <p>{errors.confirm}</p>
-                    )}<br></br>
+                        <p className={userinfo.error}>{errors.confirm}</p>
+                    )}
                     <Field className={userinfo.loginfield}
                     type='password'
                     name='confirm'
@@ -46,17 +46,17 @@ const UserInfo = ({ values, touched, errors }) => {
                     value={values.confirm}
                     /></label>
 
-                    <label className={userinfo.fieldlabel}>Compony Code (optional) <br></br>
+                    <label className={userinfo.fieldlabel}>Compony Code (optional) 
                     <Field className={userinfo.loginfield}
                     type='text'
                     name='code'
                     placeholder='appleseed-snackify-123'
                     value={values.code}
-                    /></label><br></br>
+                    /></label>
 
                     <p>A company code would be provided by your admin</p>
                     <button className={userinfo.button}type='submit'>Create Account!</button>
-                    <p>Have an account? <Link to='/login'> Sign In! </Link></p>
+                    <p className={userinfo.logintitle}>Have an account? <Link className={userinfo.link} to='/login'> Sign In! </Link></p>
                     </div>
                 </Form>
             </div>
