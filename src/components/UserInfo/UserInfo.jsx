@@ -6,9 +6,6 @@ import userinfo from './userInfo.module.scss'
 
 const UserInfo = ({ values, touched, errors }) => {
 
-    const handleSubmit = e =>{
-        console.log(e);
-    };
 
     return (
         <div className={userinfo.background}>
@@ -35,7 +32,7 @@ const UserInfo = ({ values, touched, errors }) => {
                     placeholder='Password'
                     value={values.password}
                     /></label>
-                    <p>Password must be 8 Characters long</p>
+                    <p className={userinfo.fade}>Password must be 8 Characters long</p>
                     <label className={userinfo.fieldlabel}>Confirm Password *{touched.confirm && errors.confirm && (
                         <p className={userinfo.error}>{errors.confirm}</p>
                     )}
@@ -54,7 +51,7 @@ const UserInfo = ({ values, touched, errors }) => {
                     value={values.code}
                     /></label>
 
-                    <p>A company code would be provided by your admin</p>
+                    <p className={userinfo.fade}>A company code would be provided by your admin</p>
                     <button className={userinfo.button}type='submit'>Create Account!</button>
                     <p className={userinfo.logintitle}>Have an account? <Link className={userinfo.link} to='/login'> Sign In! </Link></p>
                     </div>
