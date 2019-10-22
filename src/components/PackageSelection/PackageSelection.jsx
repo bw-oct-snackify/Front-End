@@ -14,12 +14,13 @@ const PackageSelection = ({ values }) => {
             <label className={packageselection.fieldlabel} for='small'>Small Team  -  0-10 Employees  -  199.00/mo</label>
             <label className={packageselection.fieldlabel} for='medium'>Medium Team  -  11-50 Employees  -  $399.00/mo</label>
             <label className={packageselection.fieldlabel} for='large'>Large Team  - 51-100 Employees  -  $599.00/mo</label>
-            <label className={packageselection.fieldlabel} for='mega'>Mega Team  -  > 100 Employees  -  Contact Us</label>
+            <label className={packageselection.fieldlabel} for='mega'>Mega Team  -  100+ Employees  -  Contact Us</label>
+            <label className={packageselection.fieldlabel} for='mega'>Please select one from the dropbox below:</label>
             <Field className={packageselection.selectfield}component='select'>
               <option value='small'>Small Team  -  0-10 Employees  -  199.00/mo</option>
               <option value='medium'>Medium Team  -  11-50 Employees  -  $399.00/mo</option>
               <option value='large'>Large Team  - 51-100 Employees  -  $599.00/mo</option>
-              <option value='mega'>Mega Team  -  > 100 Employees  -  Contact Us</option>
+              <option value='mega'>Mega Team  -  100+ Employees  -  Contact Us</option>
             </Field>
             <button className={packageselection.button}>Confirm Package!</button>
           </div>

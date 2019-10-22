@@ -1,18 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { UserInfo, CompanyInfo, PackageSelection } from '../../components';
 import  {connect} from 'react-redux';
 //import axios from 'axios';
 
 const Register = () => {
+    //have some state to go thru the components.
+    const [count, setCount] = useState(0);
+
 
     return (
         <div>
             {/* img left side */}
             {/* right side div */}
             {/* choose component userinfo, companyinfo, and snackneeds */}
-            <UserInfo />
+            {count === 0 ? (
+                <UserInfo />
+            ) : count===1 ? (
+                <CompanyInfo />
+            ) : (
+                <PackageSelection />
+            )}
+            {/* <UserInfo />
             <CompanyInfo />
-            <PackageSelection />
+            <PackageSelection /> */}
         </div>
     )
 }
@@ -20,7 +30,7 @@ const Register = () => {
 
 const mapStateToProps = state =>{
     return {
-
+        
     };
 }
 
