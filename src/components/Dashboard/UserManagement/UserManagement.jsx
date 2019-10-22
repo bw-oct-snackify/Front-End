@@ -1,22 +1,20 @@
 import React from 'react'
-import Snack from "./SnackTable/Snack"
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import List from '@material-ui/core/List';
-import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import { SnackTable } from '../..';
 import { purple } from '@material-ui/core/colors';
+import { EmployeeTable } from '../..';
 
 const useStyles = makeStyles(theme => ({
     demo: {
         backgroundColor: theme.palette.background.paper,
     },
-    title: {
-        margin: theme.spacing(4, 0, 2),
-        textDecorationLine: "underline",
-        textDecorationStyle: "solid",
+    container: {
+        width:"400px"  
+    },   
+    card: {
+      width:"200px"  
     },
     list: {
         textDecoration: "none",
@@ -31,6 +29,9 @@ const useStyles = makeStyles(theme => ({
     },
     root: {
         flexGrow: 1,
+        display: "flex",
+        justifyContent:"center"
+        
     },
     paper: {
         width: '100%',
@@ -60,28 +61,21 @@ const UserManagement = () => {
     const classes = useStyles();
 
     return (
+        
         <div className={classes.root}>
-            <Grid container spacing={1}>
+            <Grid className={classes.container} container spacing={1}>
                 <Grid item xs={3}>
                     <Card className={classes.card}>
                         <Typography variant="h6" className={classes.title}>
-                            Snacks Left:
-                            </Typography>
-                        <List className={classes.listContainer}>
-                            <ul >
-                                <a href="Selected Snacks" className={classes.list}>Selected Snacks</a>
-                                <a href="Suggested Snacks" className={classes.list}>Suggested Snacks</a>
-                                <a href="View All Snacks" className={classes.list}>View All Snacks</a>
-                            </ul>
-                        </List>
+                            Users Left:
+                            </Typography>                        
                     </Card>
-                </Grid>
-
-                <Grid item xs={9} className={classes.table}>
-                    <SnackTable />
-                </Grid>
-            </Grid>
+                </Grid>                    
+            </Grid>     
+            <EmployeeTable/>
         </div>
+       
+       
 
     );
 }

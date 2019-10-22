@@ -44,8 +44,9 @@ const EmployeeTable = ({employees}) => {
                     })}
                 </TableBody>
 
-            </Table>
+            </Table>            
         </Paper>
+   
     );
 };
 
