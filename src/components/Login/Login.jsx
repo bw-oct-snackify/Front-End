@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
@@ -7,7 +7,6 @@ import login from "./login.module.scss";
 import { axiosInstance } from "../../utils/axiosInstance";
 
 const Login = ({ errors, touched, status }) => {
-  console.log(status);
   return (
     <div className={login.background}>
       <div className={login.container}>

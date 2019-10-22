@@ -23,11 +23,11 @@ const Checkout = props => {
     }
   ]);
 
-  const companyCode = "lambda-school-snackify-123";
+  //const companyCode = "lambda-school-snackify-123";
   useEffect(() => {
     let instance = axiosInstance();
     instance
-      .get(`/company/${companyCode}/snacks`)
+      .get(`/company/${1}/snacks`)
       .then(res => {
         console.log(res.data);
       })
