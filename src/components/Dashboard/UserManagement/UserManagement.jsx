@@ -1,22 +1,20 @@
-import React from 'react'
-import Snack from "./SnackTable/Snack"
+import React, {useState} from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import List from '@material-ui/core/List';
-import ListItemText from '@material-ui/core/ListItemText';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import { SnackTable } from '../..';
+import {Card, Grid, Typography, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide} from '@material-ui/core';
 import { purple } from '@material-ui/core/colors';
+import UserTable  from './UserTable/UserTable';
+import { connect } from "react-redux";
+import {deleteUser} from '../../../store/actions/dashboardActions';
 
 const useStyles = makeStyles(theme => ({
     demo: {
         backgroundColor: theme.palette.background.paper,
     },
-    title: {
-        margin: theme.spacing(4, 0, 2),
-        textDecorationLine: "underline",
-        textDecorationStyle: "solid",
+    container: {
+        width:"400px"  
+    },   
+    card: {
+      width:"250px"  
     },
     list: {
         textDecoration: "none",
@@ -31,6 +29,9 @@ const useStyles = makeStyles(theme => ({
     },
     root: {
         flexGrow: 1,
+        display: "flex",
+        justifyContent:"center"
+        
     },
     paper: {
         width: '100%',
@@ -53,37 +54,86 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-    }
+    },
+
+    notice:{
+
+        textAlign: 'center',
+    },
+
+    noticeH2:{
+        fontSize: '4rem',
+    },
 }));
 
-const UserManagement = () => {
+const UserManagement = ({users, deleteUser}) => {
     const classes = useStyles();
+    const [confOpen, setConfOpen] = useState(false);
+    const [userToDelete, setUserToDelete] = useState({id:null, name: ''});
+
+    const handleDelete = (id, name) =>{
+        setUserToDelete({id:id, name: name});
+        setConfOpen(true);
+    };
+
+    const handleDeleteUser = () =>{
+        deleteUser(userToDelete.id);
+        setUserToDelete({id:null, name: ''});
+        setConfOpen(false);
+    };
+
+    const handleCancel = () =>{
+        setConfOpen(false);
+    };
 
     return (
+        
         <div className={classes.root}>
-            <Grid container spacing={1}>
+            <Grid className={classes.container} container spacing={1}>
                 <Grid item xs={3}>
                     <Card className={classes.card}>
                         <Typography variant="h6" className={classes.title}>
-                            Snacks Left:
-                            </Typography>
-                        <List className={classes.listContainer}>
-                            <ul >
-                                <a href="Selected Snacks" className={classes.list}>Selected Snacks</a>
-                                <a href="Suggested Snacks" className={classes.list}>Suggested Snacks</a>
-                                <a href="View All Snacks" className={classes.list}>View All Snacks</a>
-                            </ul>
-                        </List>
+                            Registered Users: {users.length}
+                        </Typography>
                     </Card>
                 </Grid>
-
-                <Grid item xs={9} className={classes.table}>
-                    <SnackTable />
-                </Grid>
             </Grid>
+
+
+            {users.length > 0 && <UserTable handleDelete={handleDelete} />}
+            {users.length < 1 && (<Grid className={classes.notice} item xs={6}>
+                <Card>
+                    <h2 className={classes.noticeH2} >404 Unable to Find Users</h2>
+                    <p>If you feel that this is an error please reach out to our support team.</p>
+                    <p> --Snackify Development Team</p>
+                </Card>
+                </Grid>)}
+
+            <Dialog open={confOpen} keepMounted onClose={handleCancel} aria-labelledby="alert-dialog-slide-title" aria-describedby="alert-dialog-slide-description">
+                <DialogTitle id="alert-dialog-slide-title">{'Delete user from the company.'}</DialogTitle>
+                <DialogContent>
+                    <DialogContentText id='alert-dialog-slide-title'>
+                        {`Are you sure you would like to delete ${userToDelete.name} from the company list?`}
+                    </DialogContentText>
+                    <DialogActions>
+                        <Button onClick={handleCancel} color="primary">
+                            Cancel
+                        </Button>
+                        <Button onClick={handleDeleteUser} color="primary">
+                            Delete
+                        </Button>
+                    </DialogActions>
+                </DialogContent>
+            </Dialog>
         </div>
 
     );
 }
 
-export default UserManagement;
+const mapStateToProps = state => {
+    return {
+        users: state.dashboardReducer.users,
+            
+    };
+};
+export default connect(mapStateToProps,{deleteUser})(UserManagement);

@@ -1,3 +1,5 @@
+import {DELETE_USER} from '../actions/dashboardActions';
+
 const initState = {
 
     user: {
@@ -7,7 +9,7 @@ const initState = {
         company: 'Team Cat',
     },
 
-    employees: [
+    users: [
         {
             id: 0,
             email: 'fearthedeveloper@gmail.com',
@@ -35,7 +37,7 @@ const initState = {
             name: "Mark Artishuk",
             role: 'user',
             suggestions: ["Reeses Cups", "Hot Cheetos"],
-        }
+        },
     ], 
 
     order: [
@@ -72,7 +74,14 @@ const initState = {
 };
 
 export const dashboardReducer = (state = initState, action) =>{
+    console.log(`Action Type: ${action.type}, Action Payload: ${action.payload}`);
     switch(action.type){
+
+        case DELETE_USER:
+            console.log(`Hey bro.. reducer here, working hard to delete the scum with the id ${action.payload}`);
+            return{...state, users: state.users.filter(user =>user.id !== action.payload)};
+
+
         default:
             return {...state};
     }
