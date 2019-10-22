@@ -9,17 +9,21 @@ const Register = () => {
     const [register, setRegister] = useState({
         email: '', 
         password: '',
+        confirm: '',
         code: '',
-        company: '',
-        phone: '' ,
-        city: '' ,
-        state: '' ,
-        package: ''
+        companyName: '',
+        companyPhone: '' ,
+        companyLocationCity: '' ,
+        companyLocationState: '' ,
+        companyTeamSize: ''
     });
 
-    const updateUser = (obj) => {
-        // setRegister( obj )
-        setRegister({...register, obj});
+    const updateUser = obj => {
+        let newRegister = register;
+        let items = Object.getOwnPropertyNames(obj);
+        items.map(key => {
+            newRegister[key] = obj[key];
+        })
         console.log(register);
     }
 

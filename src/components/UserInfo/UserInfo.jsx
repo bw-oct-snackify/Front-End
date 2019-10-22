@@ -77,6 +77,7 @@ const FormikUserInfo = withFormik({
     }),
     handleSubmit(values, {props}) {
         if (values.code) {
+            console.log(values);
             //should inherit company info off code. may need to add a check here that company code is valid.
         } else {
             //needs to call a function from register to update values.
