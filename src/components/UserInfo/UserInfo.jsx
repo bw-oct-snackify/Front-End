@@ -75,7 +75,7 @@ const FormikUserInfo = withFormik({
     },
     validationSchema: Yup.object().shape({
         email: Yup.string().email().required('Please enter a valid e-mail!'),
-        password: Yup.string().required('Please enter a valid password!'),
+        password: Yup.string().min(8).required('Please enter a valid password!'),
         confirm: Yup.string()
         .oneOf([Yup.ref('password'), null], 'Password must match')
         .required('Please enter the same password again!')
