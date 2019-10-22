@@ -12,7 +12,7 @@ const SnackView = props => {
             snackname={snack.name}
             brandname={snack.brand}
             image={snack.img_url}
-            amount={1}
+            amount={snack.quantity}
             key={index}
           />
         ))}
