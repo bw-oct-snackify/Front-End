@@ -8,46 +8,51 @@ const CompanyInfo = ({ values, touched, errors }) => {
 
   return (
     <div className={companyinfo.background}>
+      <h2 className={companyinfo.logintitle}>Step 2/3</h2>
       <div className={companyinfo.container}>
         <h2 className={companyinfo.logintitle}>Tell us about your company!</h2>
         <Form>
-          <label>Company Name {touched.companyName && errors.companyName && (
-            <p>{errors.companyName}</p>
-          )}<br></br>
-          <Field
-          type='name'
-          name='companyName'
-          placeholder='Company Name'
-          value={values.companyName}
-          /></label><br></br>
+          <div className={companyinfo.formwrapper}>
+            <label>Company Name {touched.companyName && errors.companyName && (
+              <p className={companyinfo.error}>{errors.companyName}</p>
+            )}
+            <Field className={companyinfo.loginfield}
+            type='name'
+            name='companyName'
+            placeholder='Company Name'
+            value={values.companyName}
+            /></label>
 
-          <label>Company Phone Number {touched.companyPhone && errors.companyPhone && (
-            <p>{errors.companyPhone}</p>
-          )}<br></br>
-          <Field
-          type='name'
-          name='companyPhone'
-          placeholder='(555) 555-0123'
-          value={values.companyPhone}
-          /></label><br></br>
+            <label>Company Phone Number {touched.companyPhone && errors.companyPhone && (
+              <p className={companyinfo.error}>{errors.companyPhone}</p>
+            )}
+            <Field className={companyinfo.loginfield}
+            type='name'
+            name='companyPhone'
+            placeholder='(555) 555-0123'
+            value={values.companyPhone}
+            /></label>
 
-          <label>Location {/*adjust for state or city*/touched.companyLocationCity && errors.companyLocationCity && (
-            <p>{errors.companyLocationCity}</p>
-          )}<br></br>
-          <Field
-          type='name'
-          name='companyLocationCity'
-          placeholder='City'
-          value={values.companyLocationCity}
-          /></label>
-          <Field 
-          type='name'
-          name='companyLocationState'
-          placedholder='State'
-          value={values.companyLocationState}
-          /><br></br>
-
-          <button type='submit'>Pick Package!</button>
+            <label>Location {touched.companyLocationCity && errors.companyLocationCity && (
+              <p className={companyinfo.error}>{errors.companyLocationCity}</p>
+            )}
+            <Field className={companyinfo.loginfield}
+            type='name'
+            name='companyLocationCity'
+            placeholder='City'
+            value={values.companyLocationCity}
+            /></label>
+            <label>{touched.companyLocationState && errors.companyLocationState && (
+              <p className={companyinfo.error}>{errors.companyLocationState}</p>
+            )}
+            <Field className={companyinfo.loginfield}
+            type='name'
+            name='companyLocationState'
+            placeholder='State'
+            value={values.companyLocationState}
+            /></label>
+            <button className={companyinfo.button} type='submit'>Pick Package!</button>
+          </div>
         </Form>
       </div>
     </div>
