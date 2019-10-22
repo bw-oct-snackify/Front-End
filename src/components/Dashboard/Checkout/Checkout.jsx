@@ -6,6 +6,14 @@ import SnackView from "./SnackView/SnackView";
 import { axiosInstance } from "../../../utils/axiosInstance";
 
 const Checkout = props => {
+  const [shippingData, setShippingData] = useState({
+    attention: "",
+    address1: "",
+    address2: "",
+    state: "",
+    city: ""
+  });
+
   const [snackList, setSnackList] = useState([
     {
       name: "Original Skittles",
@@ -24,10 +32,11 @@ const Checkout = props => {
   ]);
 
   //const companyCode = "lambda-school-snackify-123";
+  const companyID = 1;
   useEffect(() => {
     let instance = axiosInstance();
     instance
-      .get(`/company/${1}/snacks`)
+      .get(`/company/${companyID}/snacks`)
       .then(res => {
         console.log(res.data);
       })
@@ -35,6 +44,19 @@ const Checkout = props => {
         console.log(err);
       });
   }, []);
+
+  //Handles shipping form data. Being passed down through props to Shipping component
+  const handleShippingData = event => {
+    setShippingData({
+      ...shippingData,
+      [event.target.name]: event.target.value
+    });
+  };
+
+  //When user clicks 'Confirm Address and Pay' button.
+  const submitForm = event => {
+    console.log("Shipping Data: ", shippingData);
+  };
 
   return (
     <div className={checkout.container}>
@@ -44,8 +66,8 @@ const Checkout = props => {
           deliveryDate={"10/20/19"}
           totalCost="$199.00"
         />
-        <Shipping />
-        <button className={checkout.submitButton} type="submit">
+        <Shipping handleData={handleShippingData} />
+        <button className={checkout.submitButton} onClick={submitForm}>
           Confirm Address and Pay!
         </button>
       </div>
