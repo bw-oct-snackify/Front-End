@@ -1,15 +1,14 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import {Switch, Route} from 'react-router-dom';
 import './styles/global.scss';
 import NavBar from './components/NavBar/NavBar';
 import Dashboard from './components/Dashboard/Dashboard';
-import { SnackManagement, Register, Login, Checkout } from './components';
+import { EmployeeTable, SnackManagement, Register, Login, Checkout} from './components';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import AccountSettings from './components/Dashboard/AccountSettings/AccountSettings';
-import UserManagement from './components/Dashboard/UserManagement/UserManagement';
 
 
-const App = () =>{
+function App() {
   return (
     <div className="App">
       <NavBar />
@@ -18,7 +17,7 @@ const App = () =>{
 
         <PrivateRoute access={true} allowedUser={false} path='/cp/users' redirect='/login'>
           <Dashboard>
-            <UserManagement />             
+            <EmployeeTable />
           </Dashboard>
         </PrivateRoute>
 
@@ -37,7 +36,7 @@ const App = () =>{
         <PrivateRoute access={true} allowedUser={true} path='/cp/checkout' redirect='/login'>
           <Checkout />
         </PrivateRoute>
-
+        
         <Route exact path='/login'>
           <Login />
         </Route>
