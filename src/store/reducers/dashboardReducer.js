@@ -1,10 +1,10 @@
 const initState = {
 
     user: {
-        name: 'Not John',
+        name: 'Snack Cat',
         role: 'admin',
-        image: 'https://avatars3.githubusercontent.com/u/13228579?s=460&v=4',
-        company: 'Team Chris',
+        image: 'https://www.catster.com/wp-content/uploads/2015/06/8698_choc_bosscat_full2.jpg',
+        company: 'Team Cat',
     },
 
     employees: [
