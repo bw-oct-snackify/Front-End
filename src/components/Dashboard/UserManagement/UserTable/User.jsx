@@ -15,17 +15,13 @@ const useStyles = makeStyles({
     },
 });
 
-const handleClick = id =>{
-    alert(`You are attempting to remove it with id: ${id}`);
-};
-
-const Employee = ({id, email, name, suggested}) =>{
+const User = ({id, email, name, suggested, handleDelete}) =>{
 
     const classes = useStyles();
 
     return (
         <TableRow>
-            <TableCell align='center' className={classes.row}><div onClick={() => handleClick(id)} className={classes.deleteBtn}>X</div></TableCell>
+            <TableCell align='center' className={classes.row}><div onClick={() => handleDelete(id, name)} className={classes.deleteBtn}>X</div></TableCell>
             <TableCell align='center' className={classes.row}>{email}</TableCell>
             <TableCell align='center' className={classes.row}>{name}</TableCell>
             <TableCell align='center' className={classes.row}>
@@ -38,4 +34,4 @@ const Employee = ({id, email, name, suggested}) =>{
 
 };
 
-export default Employee;
+export default User;

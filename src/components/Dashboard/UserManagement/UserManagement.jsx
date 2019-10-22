@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import {Card, Grid, Typography, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide} from '@material-ui/core';
 import { purple } from '@material-ui/core/colors';
-import { EmployeeTable } from '../..';
+import UserTable  from './UserTable/UserTable';
+import { connect } from "react-redux";
+import {deleteUser} from '../../../store/actions/dashboardActions';
 
 const useStyles = makeStyles(theme => ({
     demo: {
@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
         width:"400px"  
     },   
     card: {
-      width:"200px"  
+      width:"250px"  
     },
     list: {
         textDecoration: "none",
@@ -54,11 +54,37 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-    }
+    },
+
+    notice:{
+
+        textAlign: 'center',
+    },
+
+    noticeH2:{
+        fontSize: '4rem',
+    },
 }));
 
-const UserManagement = () => {
+const UserManagement = ({users, deleteUser}) => {
     const classes = useStyles();
+    const [confOpen, setConfOpen] = useState(false);
+    const [userToDelete, setUserToDelete] = useState({id:null, name: ''});
+
+    const handleDelete = (id, name) =>{
+        setUserToDelete({id:id, name: name});
+        setConfOpen(true);
+    };
+
+    const handleDeleteUser = () =>{
+        deleteUser(userToDelete.id);
+        setUserToDelete({id:null, name: ''});
+        setConfOpen(false);
+    };
+
+    const handleCancel = () =>{
+        setConfOpen(false);
+    };
 
     return (
         
@@ -67,17 +93,47 @@ const UserManagement = () => {
                 <Grid item xs={3}>
                     <Card className={classes.card}>
                         <Typography variant="h6" className={classes.title}>
-                            Users Left:
-                            </Typography>                        
+                            Registered Users: {users.length}
+                        </Typography>
                     </Card>
-                </Grid>                    
-            </Grid>     
-            <EmployeeTable/>
+                </Grid>
+            </Grid>
+
+
+            {users.length > 0 && <UserTable handleDelete={handleDelete} />}
+            {users.length < 1 && (<Grid className={classes.notice} item xs={6}>
+                <Card>
+                    <h2 className={classes.noticeH2} >404 Unable to Find Users</h2>
+                    <p>If you feel that this is an error please reach out to our support team.</p>
+                    <p> --Snackify Development Team</p>
+                </Card>
+                </Grid>)}
+
+            <Dialog open={confOpen} keepMounted onClose={handleCancel} aria-labelledby="alert-dialog-slide-title" aria-describedby="alert-dialog-slide-description">
+                <DialogTitle id="alert-dialog-slide-title">{'Delete user from the company.'}</DialogTitle>
+                <DialogContent>
+                    <DialogContentText id='alert-dialog-slide-title'>
+                        {`Are you sure you would like to delete ${userToDelete.name} from the company list?`}
+                    </DialogContentText>
+                    <DialogActions>
+                        <Button onClick={handleCancel} color="primary">
+                            Cancel
+                        </Button>
+                        <Button onClick={handleDeleteUser} color="primary">
+                            Delete
+                        </Button>
+                    </DialogActions>
+                </DialogContent>
+            </Dialog>
         </div>
-       
-       
 
     );
 }
 
-export default UserManagement;
+const mapStateToProps = state => {
+    return {
+        users: state.dashboardReducer.users,
+            
+    };
+};
+export default connect(mapStateToProps,{deleteUser})(UserManagement);

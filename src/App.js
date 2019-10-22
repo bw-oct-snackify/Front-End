@@ -3,13 +3,13 @@ import { Switch, Route } from 'react-router-dom';
 import './styles/global.scss';
 import NavBar from './components/NavBar/NavBar';
 import Dashboard from './components/Dashboard/Dashboard';
-import { EmployeeTable, SnackManagement, Register, Login, Checkout } from './components';
+import { SnackManagement, Register, Login, Checkout } from './components';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import AccountSettings from './components/Dashboard/AccountSettings/AccountSettings';
 import UserManagement from './components/Dashboard/UserManagement/UserManagement';
 
 
-function App() {
+const App = () =>{
   return (
     <div className="App">
       <NavBar />

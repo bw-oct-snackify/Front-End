@@ -1,7 +1,7 @@
 
 // Export components
 export {default as SnackTable} from './Dashboard/SnackManagement/SnackTable/SnackTable';
-export {default as EmployeeTable} from './Dashboard/UserManagement/EmployeeTable/EmployeeTable';
+export {default as UserTable} from './Dashboard/UserManagement/UserTable/UserTable';
 export {default as Login} from './Login/Login';
 export {default as Register} from './Register/Register';
 export {default as CompanyInfo} from './CompanyInfo/CompanyInfo';

@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Table, TableBody, TableCell, TableHead, TableRow, Paper } from '@material-ui/core';
-import Employee from './Employee';
+import User from './User';
 import {connect} from 'react-redux';
 
 const useStyles = makeStyles({
@@ -22,7 +22,8 @@ const useStyles = makeStyles({
     },
 });
 
-const EmployeeTable = ({employees}) => {
+
+export const UserTable = ({users, handleDelete}) => {
 
     const classes = useStyles();
 
@@ -39,8 +40,8 @@ const EmployeeTable = ({employees}) => {
                 </TableHead>
 
                 <TableBody>
-                {employees.map(employee => {
-                        return (<Employee key={employee.id} id={employee.id} email={employee.email} name={employee.name} suggested={employee.suggestions} />);
+                {users.map(user => {
+                        return (<User key={user.id} id={user.id} email={user.email} name={user.name} suggested={user.suggestions} handleDelete={handleDelete} />);
                     })}
                 </TableBody>
 
@@ -52,9 +53,9 @@ const EmployeeTable = ({employees}) => {
 
 const mapStateToProps = state =>{
     return{
-        employees: state.dashboardReducer.employees,
+        users: state.dashboardReducer.users,
     };
 };
 
 
-export default connect(mapStateToProps, {})(EmployeeTable);
+export default connect(mapStateToProps, {})(UserTable);
