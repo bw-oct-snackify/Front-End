@@ -35,7 +35,7 @@ const UserInfo = ({ values, touched, errors }) => {
                     placeholder='Password'
                     value={values.password}
                     /></label><br></br>
-
+                    <p>Password must be 8 Characters long</p>
                     <label className={userinfo.fieldlabel}>Confirm Password *{touched.confirm && errors.confirm && (
                         <p>{errors.confirm}</p>
                     )}<br></br>
@@ -46,7 +46,6 @@ const UserInfo = ({ values, touched, errors }) => {
                     value={values.confirm}
                     /></label>
 
-                    <p>Password must be 8 Characters long</p>
                     <label className={userinfo.fieldlabel}>Compony Code (optional) <br></br>
                     <Field className={userinfo.loginfield}
                     type='text'

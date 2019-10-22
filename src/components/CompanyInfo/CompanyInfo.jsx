@@ -14,7 +14,7 @@ const CompanyInfo = ({ values, touched, errors }) => {
           <label>Company Name {touched.companyName && errors.companyName && (
             <p>{errors.companyName}</p>
           )}<br></br>
-          <Field
+          <Field className={companyinfo.loginfield}
           type='name'
           name='companyName'
           placeholder='Company Name'
@@ -24,30 +24,33 @@ const CompanyInfo = ({ values, touched, errors }) => {
           <label>Company Phone Number {touched.companyPhone && errors.companyPhone && (
             <p>{errors.companyPhone}</p>
           )}<br></br>
-          <Field
+          <Field className={companyinfo.loginfield}
           type='name'
           name='companyPhone'
           placeholder='(555) 555-0123'
           value={values.companyPhone}
           /></label><br></br>
 
-          <label>Location {/*adjust for state or city*/touched.companyLocationCity && errors.companyLocationCity && (
+          <label>Location {touched.companyLocationCity && errors.companyLocationCity && (
             <p>{errors.companyLocationCity}</p>
           )}<br></br>
-          <Field
+          <Field className={companyinfo.loginfield}
           type='name'
           name='companyLocationCity'
           placeholder='City'
           value={values.companyLocationCity}
-          /></label>
-          <Field 
+          /></label><br></br>
+          <label>{touched.companyLocationState && errors.companyLocationState && (
+            <p>{errors.companyLocationState}</p>
+          )}
+          <Field className={companyinfo.loginfield}
           type='name'
           name='companyLocationState'
-          placedholder='State'
+          placeholder='State'
           value={values.companyLocationState}
-          /><br></br>
+          /></label><br></br>
 
-          <button type='submit'>Pick Package!</button>
+          <button className={companyinfo.button} type='submit'>Pick Package!</button>
         </Form>
       </div>
     </div>
