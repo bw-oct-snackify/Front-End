@@ -88,10 +88,11 @@ const FormikUserInfo = withFormik({
         .oneOf([Yup.ref('password'), null], 'Password must match')
         .required('Please enter the same password again!')
     }),
-    handleSubmit(values, {props}) {
+    handleSubmit(values, {props }) {
         if (values.code) {
             props.updateUser(values);
             props.createUser();
+            // isSubmitting(false);
             //should inherit company info off code. may need to add a check here that company code is valid.
         } else {
             //needs to call a function from register to update values.

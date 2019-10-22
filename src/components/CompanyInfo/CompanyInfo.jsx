@@ -70,7 +70,7 @@ const FormikCompany = withFormik({
   },
   validationSchema: Yup.object().shape({
     companyName: Yup.string().required('Please enter a company name!'),
-    companyPhone: Yup.string().required('Phone number required'),
+    companyPhone: Yup.string().min(10, 'must be 10 digits long').required('Phone number required'),
     //where we need to find a Yup phone number verifier.
     companyLocationCity: Yup.string().required('Please enter a valid city'),
     companyLocationState: Yup.string().required('Please enter a valid state')

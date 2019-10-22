@@ -40,10 +40,14 @@ const Register = () => {
             name: register.name,
             email: register.email,
             password: register.password,
-
+            company_code: register.code
         })
-        .then()
-        .catch()
+        .then(res => {
+            console.log(res);
+        })
+        .catch(err => {
+            console.log(err.response.data);
+        })
     }
 
     return (

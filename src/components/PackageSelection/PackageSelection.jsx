@@ -16,10 +16,10 @@ const PackageSelection = () => {
             <label className={packageselection.fieldlabel}>Mega Team  -  100+ Employees  -  Contact Us</label>
             <label className={packageselection.fieldlabel}>Please select one from the dropbox below:</label>
             <Field className={packageselection.selectfield}component='select' name='companyTeamSize'>
-              <option value='small'>Small Team  -  0-10 Employees  -  199.00/mo</option>
-              <option value='medium'>Medium Team  -  11-50 Employees  -  $399.00/mo</option>
-              <option value='large'>Large Team  - 51-100 Employees  -  $599.00/mo</option>
-              <option value='mega'>Mega Team  -  100+ Employees  -  Contact Us</option>
+              <option value='1'>Small Team  -  0-10 Employees  -  199.00/mo</option>
+              <option value='2'>Medium Team  -  11-50 Employees  -  $399.00/mo</option>
+              <option value='3'>Large Team  - 51-100 Employees  -  $599.00/mo</option>
+              <option value='4'>Mega Team  -  100+ Employees  -  Contact Us</option>
             </Field>
             <button className={packageselection.button}>Confirm Package!</button>
           </div>
@@ -32,7 +32,7 @@ const PackageSelection = () => {
 const FormikPackageSelection = withFormik({
   mapPropsToValues({ companyTeamSize }) {
     return {
-      companyTeamSize: companyTeamSize || ''
+      companyTeamSize: companyTeamSize || '1'
     }
   },
   handleSubmit(values, {props}) {
@@ -40,7 +40,7 @@ const FormikPackageSelection = withFormik({
     props.incrementPage();
     props.createUser();
   }
-  
+
 })(PackageSelection);
 
 export default FormikPackageSelection;
