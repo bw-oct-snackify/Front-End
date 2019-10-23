@@ -1,10 +1,13 @@
-import React, {useState} from 'react'
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState } from 'react'
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import {Card, Grid, Typography, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide} from '@material-ui/core';
 import { purple } from '@material-ui/core/colors';
 import UserTable  from './UserTable/UserTable';
 import { connect } from "react-redux";
-import {deleteUser} from '../../../store/actions/dashboardActions';
+import { deleteUser } from '../../../store/actions/dashboardActions';
+import Snackifycat from "../../../assets/images/Snackifycat.png";
+
+import { Avatar } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
     demo: {
@@ -14,7 +17,19 @@ const useStyles = makeStyles(theme => ({
         width:"400px"  
     },   
     card: {
-      width:"250px"  
+        padding:"10px",
+        width: "250px",        
+    },
+    Snackifycat: {
+        height:"75%",
+        width: "250px",  
+    },
+    userError:{
+        color: "black",
+        
+        textAlign: "center",
+        height: "100%",   
+      
     },
     list: {
         textDecoration: "none",
@@ -40,7 +55,6 @@ const useStyles = makeStyles(theme => ({
         textAlign: 'center',
         color: theme.palette.text.secondary,
     },
-
     btn: {
         color: theme.palette.getContrastText(purple[500]),
         backgroundColor: purple[500],
@@ -56,13 +70,14 @@ const useStyles = makeStyles(theme => ({
         alignItems: 'center',
     },
 
-    notice:{
-
+    notice: {
+        display: "flex",
+        justifyContent:"center",
         textAlign: 'center',
     },
 
-    noticeH2:{
-        fontSize: '4rem',
+    errorTitle:{
+        fontSize: '2rem',
     },
 }));
 
@@ -86,6 +101,16 @@ const UserManagement = ({users, deleteUser}) => {
         setConfOpen(false);
     };
 
+    const ColorButton = withStyles(theme => ({
+        root: {
+          color: theme.palette.getContrastText(purple[500]),
+          backgroundColor: purple[500],
+          '&:hover': {
+            backgroundColor: purple[700],
+          },
+        },
+      }))(Button);
+
     return (
         
         <div className={classes.root}>
@@ -95,6 +120,9 @@ const UserManagement = ({users, deleteUser}) => {
                         <Typography variant="h6" className={classes.title}>
                             Registered Users: {users.length}
                         </Typography>
+                        <ColorButton variant="contained" color="primary" className={classes.margin}>
+                            Schedule delivery!
+                        </ColorButton>
                     </Card>
                 </Grid>
             </Grid>
@@ -102,10 +130,10 @@ const UserManagement = ({users, deleteUser}) => {
 
             {users.length > 0 && <UserTable handleDelete={handleDelete} />}
             {users.length < 1 && (<Grid className={classes.notice} item xs={6}>
-                <Card>
-                    <h2 className={classes.noticeH2} >404 Unable to Find Users</h2>
-                    <p>If you feel that this is an error please reach out to our support team.</p>
-                    <p> --Snackify Development Team</p>
+                <Card className={classes.userError}>
+                    <div className={classes.errorTitle}>No users exist</div>                    
+                    <Avatar className={classes.Snackifycat} src={Snackifycat} alt="cat-pic"></Avatar>
+                    <p>--Snackify team</p>
                 </Card>
                 </Grid>)}
 
