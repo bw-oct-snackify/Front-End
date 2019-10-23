@@ -50,7 +50,6 @@ const FormikPackageSelection = withFormik({
       company_ID = res.data.company_ID;
     })
     .catch(err => {
-      console.log(err.response.data.message);
       if (err.response.data.message) {
           alert(`failed to register account ${err.response.data.message}`);
       } else {
@@ -68,7 +67,6 @@ const FormikPackageSelection = withFormik({
         package_ID:  parseInt(values.companyTeamSize)
       })
       .then(res => {
-        console.log(res.data);
         props.createUser();
       })
       .catch(err => {

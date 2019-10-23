@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import companyinfo from "./companyInfo.module.scss"
 
 
-const CompanyInfo = ({ values, touched, errors, incrementPage }) => {
+const CompanyInfo = ({ values, touched, errors }) => {
 
   return (
     <div className={companyinfo.background}>
@@ -79,7 +79,6 @@ const FormikCompany = withFormik({
   handleSubmit(values, {props}) {
     props.updateUser(values);
     props.incrementPage();
-    //where we will do our post or move onto next part of registration (maybe?)
   }
 })(CompanyInfo);
 
