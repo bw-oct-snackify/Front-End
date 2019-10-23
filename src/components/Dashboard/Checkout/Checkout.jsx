@@ -47,18 +47,6 @@ const Checkout = props => {
     // });
     // if (response.ok) this.setState({ complete: true });
   };
-  //Will set the shipping date 3 days ahead of today.
-  //Just to simulate getting shipping date from a mailing/shipping api.
-  useEffect(() => {
-    let current = new Date();
-    current.setDate(current.getDate() + 3);
-    let dd = current.getDate();
-    let mm = current.getMonth() + 1; // 0-11
-    let yy = current.getFullYear();
-
-    let dateFormat = dd + "/" + mm + "/" + yy;
-    setShipDate(dateFormat);
-  }, []);
 
   const companyID = 1;
   useEffect(() => {
@@ -73,6 +61,17 @@ const Checkout = props => {
       .catch(err => {
         console.log(err.response);
       });
+
+    //Will set the shipping date 3 days ahead of today.
+    //Just to simulate getting shipping date from a mailing/shipping api.
+    let current = new Date();
+    current.setDate(current.getDate() + 3);
+    let dd = current.getDate();
+    let mm = current.getMonth() + 1; // 0-11
+    let yy = current.getFullYear();
+
+    let dateFormat = dd + "/" + mm + "/" + yy;
+    setShipDate(dateFormat);
   }, []);
 
   const handleFormChange = event => {
