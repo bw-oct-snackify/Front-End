@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { CardElement, injectStripe } from "react-stripe-elements";
-import axios from "axios";
 import styles from "./checkoutform.module.scss";
-import Checkout from "../Checkout";
 
 const CheckoutForm = props => {
-  const [completePayment, setCompletePayment] = useState(false);
+  const [completePayment] = useState(false);
 
   if (completePayment) return <h1>Purchase Complete</h1>;
   const data = props.data;

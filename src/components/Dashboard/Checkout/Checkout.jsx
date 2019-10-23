@@ -13,13 +13,13 @@ const Checkout = props => {
   const [shipDate, setShipDate] = useState("");
   const [totalCost] = useState("$199.00");
   const [snackList, setSnackList] = useState([]);
+  const [companyName, setCompanyName] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     address_city: "",
     address_state: "",
     address_zip: ""
   });
-  console.log(formData);
   const submit = (ev, stripe) => {
     // User clicked submit
     stripe
@@ -66,6 +66,7 @@ const Checkout = props => {
       )
       .then(res => {
         console.log(res.data);
+        setCompanyName(res.data.name);
         setSnackList(res.data.snacks);
       })
       .catch(err => {
@@ -87,6 +88,7 @@ const Checkout = props => {
           totalSnacks={snackList.length}
           deliveryDate={shipDate}
           totalCost={totalCost}
+          company={companyName}
         />
         <StripeProvider apiKey="pk_test_TYooMQauvdEDq54NiTphI7jx">
           <div className="example">

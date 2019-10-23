@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
-import { Link, Redirect, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import login from "./login.module.scss";
@@ -9,14 +9,10 @@ import { loginUser } from "../../store/actions/dashboardActions";
 const Login = ({
   errors,
   touched,
-  status,
-  loginUser,
   isAuthenticating,
   loggedIn,
   authenticationError
 }) => {
-  console.log(authenticationError);
-
   const history = useHistory();
 
   if (isAuthenticating) {
