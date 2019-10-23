@@ -12,7 +12,7 @@ import { axiosInstance } from "../../../utils/axiosInstance";
 const Checkout = props => {
   const [shipDate, setShipDate] = useState("");
   const [totalCost] = useState("$199.00");
-  const [completePayment, setCompletePayment] = useState(false);
+  const [paymentProcess, setPaymentProcess] = useState("idle");
   const [companySnacks, setCompanySnacks] = useState({
     name: "",
     snacks: []
@@ -24,11 +24,14 @@ const Checkout = props => {
     address_state: "",
     address_zip: ""
   });
+
   const submit = (ev, stripe) => {
     // User clicked submit
+    setPaymentProcess("processing");
     stripe
       .createToken({ ...formData })
       .then(res => {
+        //Stricly getting token, if token was not returned, display error messages on form
         if (res.error) {
           console.log(res.error.message);
           setFormErrors({ response: res.error.message });
@@ -41,26 +44,26 @@ const Checkout = props => {
         }
       })
       .then(token => {
+        //We now have a token from valid form data. Now send it to backend and then receive
+        //confirmation once it's complete.
         console.log("Token: ", token.id);
         axiosInstance
           .post("/billing/stripe", { id: token.id, price: 199 })
           .then(res => {
             console.log("Response from backend:", res);
             if (res.status === 200) {
-              setCompletePayment(true);
+              setPaymentProcess("success");
             }
           })
           .catch(err => {
             console.log("Response from backend:", err);
+            setPaymentProcess("failed");
           });
       })
-      .catch(err => console.log(err.message));
-    // let response = await fetch("/charge", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "text/plain" },
-    //   body: token.id
-    // });
-    // if (response.ok) this.setState({ complete: true });
+      .catch(err => {
+        setPaymentProcess("failed");
+        console.log(err.message);
+      });
   };
 
   useEffect(() => {
@@ -111,7 +114,7 @@ const Checkout = props => {
                 data={formData}
                 handleChange={handleFormChange}
                 errors={formErrors}
-                complete={completePayment}
+                process={paymentProcess}
               />
             </Elements>
           </div>
