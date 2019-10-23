@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./snackview.module.scss";
 import MySnack from "./MySnack/MySnack";
+
 const SnackView = props => {
   return (
     <div className={styles.container}>

@@ -81,10 +81,10 @@ const FormikLoginForm = withFormik({
       .min(8, "Your password must be at least 8 characters long.")
   }),
 
-  handleSubmit(values, { setStatus, ...rest }) {
+  handleSubmit(values, { setStatus }) {
     console.log("Logging in with: " + values.username + " " + values.password);
-    let instance = axiosInstance();
-    instance
+
+    axiosInstance()
       .post("/auth/login", {
         email: values.username,
         password: values.password
