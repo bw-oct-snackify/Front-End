@@ -1,12 +1,15 @@
-import {DELETE_USER} from '../actions/dashboardActions';
+import {DELETE_USER, BEGIN_LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE, BEGIN_UPDATE_USER, UPDATE_USER_SUCCESS, UPDATE_USER_FAILURE} from '../actions/dashboardActions';
 
 const initState = {
 
     user: {
-        name: 'Snack Cat',
-        role: 'admin',
+        name: '',
+        user_id: 0,
+        company: '',
+        company_id: 0,
+        admin: false,
+        email: '',
         image: 'https://www.catster.com/wp-content/uploads/2015/06/8698_choc_bosscat_full2.jpg',
-        company: 'Team Cat',
     },
 
     users: [
@@ -14,28 +17,24 @@ const initState = {
             id: 0,
             email: 'fearthedeveloper@gmail.com',
             name: 'John Shoff',
-            role: 'admin',
             suggestions: ['Taco Bites', 'Reeses Cups'],
         },
         {
             id: 1,
             email: 'luisocasio03@gmail.com',
             name: 'Luis Ocasio',
-            role: 'user',
             suggestions: ['Gummy Bears', 'Watermelon Sour Patch Kids'],
         },
         {
             id: 2,
             email: 'easyas123l1@aol.com',
             name: 'Andrew Wilson',
-            role: 'user',
             suggestions: ['Chips', 'Reeses Cups'],
         },
         {
             id: 3,
             email: 'markyshuk@gmail.com',
             name: "Mark Artishuk",
-            role: 'user',
             suggestions: ["Reeses Cups", "Hot Cheetos"],
         },
     ], 
@@ -71,16 +70,44 @@ const initState = {
         },
     ], 
 
+    isAuthenticating: false,
+    loggedIn: false,
+    authenticationError: '',
+
 };
 
 export const dashboardReducer = (state = initState, action) =>{
     console.log(`Action Type: ${action.type}, Action Payload: ${action.payload}`);
     switch(action.type){
 
+        case BEGIN_LOGIN:
+            console.log('Attempting to login..');
+            return{
+                ...state,
+                isAuthenticating: true,
+            };
+
+        case LOGIN_SUCCESS:
+            console.log('LOGIN SUCCESS: ', action.payload);
+            return {
+              ...state,
+              isAuthenticating: false,
+              loggedIn: true,
+              user: {...state.user, name: action.payload.name, user_id: action.payload.user_ID,  email: action.payload.email, company: action.payload.company_name, company_ID: action.payload.company_id, admin: action.payload.admin, image: action.payload.image || state.user.image}
+            };
+
+        case LOGIN_FAILURE:
+            console.log("LOGIN FAILURE:", action.payload);
+            return {
+                ...state,
+                authenticationError: action.payload,
+                isAuthenticating: false,
+            };
+
+
         case DELETE_USER:
             console.log(`Hey bro.. reducer here, working hard to delete the scum with the id ${action.payload}`);
-            return{...state, users: state.users.filter(user =>user.id !== action.payload)};
-
+        return{...state, users: state.users.filter(user =>user.id !== action.payload)};
 
         default:
             return {...state};

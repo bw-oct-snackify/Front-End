@@ -40,9 +40,9 @@ const useStyles = makeStyles(theme =>({
     },
 }));
 
-const NavBar = ({user}) =>{
+const NavBar = ({user, loggedIn}) =>{
     const classes = useStyles();
-
+    console.log(user);
     return(
         <div className={classes.root}>
             <AppBar className={classes.appbar} position='static'>
@@ -50,15 +50,19 @@ const NavBar = ({user}) =>{
                     <h2 className={navbar.company}>{user.company}</h2>                  
                     <div className={navbar.navlist}>
                         <div className={navbar.main}>
-                            {user.role === 'admin' && 
+                            {loggedIn && <Link to='/snacks'>Snacks</Link>}
+                            {user.admin && 
                             <>
                                 <Link to="/cp/snacks">Manage Snacks</Link>     
                                 <Link to="/cp/users">Manage Users</Link> 
                             </>}    
                         </div>     
                         <div className={navbar.secondary}>
-                            <Link to='/settings'>{user.name}</Link>
+                            {loggedIn && <><Link to='/settings'>{user.name}</Link>
                             <Avatar src={user.image}  className={classes.avatar}/> 
+                            <button onClick={() => alert('Logging user out for life..')}>Logout</button></>}
+
+                            {!loggedIn && <><Link to='/login'>Login</Link><Link to='/register'>Register</Link></>}
                         </div>
                     </div>
                 </Toolbar>
@@ -71,6 +75,7 @@ const NavBar = ({user}) =>{
 const mapStateToProps = state =>{
     return{
         user: state.dashboardReducer.user,
+        loggedIn: state.dashboardReducer.loggedIn,
     };
 };
 

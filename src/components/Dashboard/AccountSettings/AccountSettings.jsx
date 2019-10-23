@@ -1,10 +1,12 @@
 import React from 'react';
 import styles from "./accountsettings.module.scss";
+import {connect} from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import {updateUser} from '../../../store/actions/dashboardActions';
 
-const AccountSettings = props =>{
+const AccountSettings = ({user}) =>{
 
     const useStyles = makeStyles(theme => ({
         button: {
@@ -86,4 +88,10 @@ const AccountSettings = props =>{
     )
 };
 
-export default AccountSettings;
+const mapStateToProps = state =>{
+    return{
+        user: state.dashboardReducer.user,
+    };
+};
+
+export default connect(mapStateToProps, {updateUser})(AccountSettings);

@@ -2,16 +2,28 @@ import React from 'react';
 import {Route, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-const PrivateRoute = ({access, allowedUser, path, children, redirect, user}) =>{
-    const loggedInRole = user.role;
+const PrivateRoute = ({path, children, redirect, requiresAdmin=false, exact=false, user}) =>{
+    const loggedIn = localStorage.getItem('snack-token');
 
-    if((access && allowedUser) || loggedInRole === 'admin'){
-        return(
-            <Route path={path} >
-                {children && children}
-            </Route>
-        );
-    }else{    
+    let valid = null;
+
+    if(requiresAdmin){
+        if(user.admin){
+            valid = true;
+        }else{
+            valid = false;
+        }
+    }else{
+        valid = true;
+    }
+
+
+    if(loggedIn && valid)
+    {
+        return(<Route path={path} >
+            {children && children}
+        </Route>);
+    }else{
         return (<Redirect to={redirect} />);
     }
 }

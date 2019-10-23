@@ -1,12 +1,41 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import login from "./login.module.scss";
+import { loginUser } from "../../store/actions/dashboardActions";
 
-import { axiosInstance } from "../../utils/axiosInstance";
+const Login = ({
+  errors,
+  touched,
+  status,
+  loginUser,
+  isAuthenticating,
+  loggedIn,
+  authenticationError
+}) => {
+  console.log(authenticationError);
 
-const Login = ({ errors, touched, status }) => {
+  const history = useHistory();
+
+  if (isAuthenticating) {
+    return (
+      <div>
+        <h2>Authenticating Account Details</h2>
+        <p>
+          We are currently doing stuff and communicating with the backend to get
+          your details.
+        </p>
+        <p>Those scurvy dogs are taking a while.. please hang tight.</p>
+      </div>
+    );
+  }
+
+  if (loggedIn) {
+    history.push("/");
+  }
+
   return (
     <div className={login.background}>
       <div className={login.container}>
@@ -45,9 +74,7 @@ const Login = ({ errors, touched, status }) => {
             <button className={login.loginbutton} type="submit">
               Login
             </button>
-            {status && status.login && (
-              <p className={login.err}>{status.login}</p>
-            )}
+            {authenticationError && <p>{authenticationError}</p>}
           </div>
         </Form>
         <p>
@@ -64,7 +91,7 @@ const Login = ({ errors, touched, status }) => {
 };
 
 const FormikLoginForm = withFormik({
-  mapPropsToValues({ username, password }) {
+  mapPropsToValues({ username, password, loginUser }) {
     return {
       username: username || "",
       password: password || ""
@@ -81,25 +108,25 @@ const FormikLoginForm = withFormik({
       .min(8, "Your password must be at least 8 characters long.")
   }),
 
-  handleSubmit(values, { setStatus }) {
+  handleSubmit(values, { props }) {
+    console.log(props);
     console.log("Logging in with: " + values.username + " " + values.password);
-
-    axiosInstance()
-      .post("/auth/login", {
-        email: values.username,
-        password: values.password
-      })
-      .then(res => {
-        //Successfull login data here!
-        setStatus({ login: "Successfully Logged In!" });
-        console.log(res);
-      })
-      .catch(err => {
-        if (err.response.status === 401) {
-          setStatus({ login: "Email or password incorrect" });
-        }
-      });
+    props.loginUser({
+      email: values.username,
+      password: values.password
+    });
   }
 })(Login);
 
-export default FormikLoginForm;
+const mapStateToProps = state => {
+  return {
+    isAuthenticating: state.dashboardReducer.isAuthenticating,
+    loggedIn: state.dashboardReducer.loggedIn,
+    authenticationError: state.dashboardReducer.authenticationError
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { loginUser }
+)(FormikLoginForm);

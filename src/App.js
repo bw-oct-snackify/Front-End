@@ -7,45 +7,60 @@ import { SnackManagement, Register, Login, Checkout } from './components';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import AccountSettings from './components/Dashboard/AccountSettings/AccountSettings';
 import UserManagement from './components/Dashboard/UserManagement/UserManagement';
+import ViewAllSnacks from './components/Dashboard/SnackManagement/ViewAllSnacks/ViewAllSnacks';
 
 
 const App = () =>{
   return (
     <div className="App">
       <NavBar />
-
       <Switch>
 
-        <PrivateRoute access={true} allowedUser={false} path='/cp/users' redirect='/login'>
+        <PrivateRoute requiresAdmin path='/cp/users' redirect='/login'>
           <Dashboard>
             <UserManagement />             
           </Dashboard>
         </PrivateRoute>
 
-        <PrivateRoute access={true} allowedUser={false} path="/cp/snacks" redirect="/login">
+        <PrivateRoute requiresAdmin path="/cp/snacks" redirect="/login">
           <Dashboard>
-            <SnackManagement />
+            <SnackManagement />           
           </Dashboard>
         </PrivateRoute>
 
-        <PrivateRoute access={true} allowedUser={true} path="/settings" redirect="/login">
+        <PrivateRoute path="/settings" redirect="/login">
           <Dashboard>
             <AccountSettings />
           </Dashboard>
         </PrivateRoute>
 
-        <PrivateRoute access={true} allowedUser={true} path='/cp/checkout' redirect='/login'>
+        <PrivateRoute path="/snacks" redirect="/login">
+          <Dashboard>
+            <ViewAllSnacks />
+          </Dashboard>
+        </PrivateRoute>
+
+        <PrivateRoute requiresAdmin path='/cp/checkout' redirect='/login'>
           <Checkout />
         </PrivateRoute>
 
-        <Route exact path='/login'>
+
+        <PrivateRoute exact path='/' redirect='/login'>
+          <div>
+            <h2>Logged in user, and on the dashboard.</h2>
+            <p>Welcome to the user dashboard, where stuff will exist.</p>
+          </div>
+        </PrivateRoute>
+
+        <Route exact path='/login/'>
+
+        
           <Login />
         </Route>
 
-        <Route path='/register'>
+        <Route path='/register/'>
           <Register />
         </Route>
-
 
       </Switch>
     </div>
