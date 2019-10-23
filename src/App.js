@@ -4,6 +4,7 @@ import "./styles/global.scss";
 import NavBar from "./components/NavBar/NavBar";
 import Dashboard from "./components/Dashboard/Dashboard";
 import SuggestedSnacks from "./components/Dashboard/SnackManagement/SuggestedSnacks/SuggestedSnacks";
+import SelectedSnacks from "./components/Dashboard/SnackManagement/SelectedSnacks/SelectedSnacks"
 import { SnackManagement, Register, Login, Checkout } from "./components";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import AccountSettings from "./components/Dashboard/AccountSettings/AccountSettings";
@@ -30,6 +31,12 @@ const App = () => {
         <PrivateRoute path="/settings" redirect="/login">
           <Dashboard>
             <AccountSettings />
+          </Dashboard>
+        </PrivateRoute>
+
+        <PrivateRoute path="/selectedsnacks" redirect="/login">
+          <Dashboard>
+            <SelectedSnacks />
           </Dashboard>
         </PrivateRoute>
 

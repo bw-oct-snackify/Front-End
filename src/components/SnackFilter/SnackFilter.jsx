@@ -28,7 +28,7 @@ const SnackFilter = () => {
         <br></br>
         <Typography component="p">
           <ul>
-            <Link to="Selected Snacks" className={classes.list}>
+            <Link to="/SelectedSnacks" className={classes.list}>
               Selected Snacks
             </Link>
 
