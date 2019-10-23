@@ -74,7 +74,7 @@ const FormikCompany = withFormik({
     //where we need to find a Yup phone number verifier.
     companyLocationCity: Yup.string().required('Please enter a valid city'),
     companyLocationState: Yup.string().required('Please enter a valid state')
-
+    
   }),
   handleSubmit(values, {props}) {
     props.updateUser(values);
