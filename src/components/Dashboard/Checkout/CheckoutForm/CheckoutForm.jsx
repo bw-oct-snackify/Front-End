@@ -6,7 +6,8 @@ const CheckoutForm = props => {
   const [completePayment] = useState(false);
 
   if (completePayment) return <h1>Purchase Complete</h1>;
-  const data = props.data;
+  const { data, errors } = props;
+  console.log("Errors: ", errors);
   return (
     <div className={styles.cardCheckout}>
       <h1 className={styles.labelTitle}>Card Details</h1>
@@ -58,6 +59,7 @@ const CheckoutForm = props => {
 
       <label className={styles.label}>Card Number</label>
       <CardElement className={styles.cardField} />
+      {errors.response && <p className={styles.error}>{errors.response}</p>}
       <button
         className={styles.submitButton}
         onClick={event => props.submit(event, props.stripe)}

@@ -14,6 +14,7 @@ const Checkout = props => {
   const [totalCost] = useState("$199.00");
   const [snackList, setSnackList] = useState([]);
   const [companyName, setCompanyName] = useState("");
+  const [formErrors, setFormErrors] = useState({});
   const [formData, setFormData] = useState({
     name: "",
     address_city: "",
@@ -27,6 +28,7 @@ const Checkout = props => {
       .then(res => {
         if (res.error) {
           console.log(res.error.message);
+          setFormErrors({ response: res.error.message });
         } else {
           console.log(res);
           return res.token;
@@ -97,6 +99,7 @@ const Checkout = props => {
                 submit={submit}
                 data={formData}
                 handleChange={handleFormChange}
+                errors={formErrors}
               />
             </Elements>
           </div>
