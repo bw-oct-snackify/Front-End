@@ -17,17 +17,22 @@ const PrivateRoute = ({path, children, redirect, requiresAdmin=false, exact=fals
         valid = true;
     }
 
-
     if(loggedIn && valid)
     {
-        return(<Route path={path} >
-            {children && children}
-        </Route>);
+        if(exact){
+            return(<Route exact path={path} >
+                {children && children}
+            </Route>);
+        }else{
+            return(<Route path={path} >
+                {children && children}
+            </Route>);
+        }
+        
     }else{
         return (<Redirect to={redirect} />);
     }
 }
-
 
 const mapStateToProps = state =>{
     return{
