@@ -120,9 +120,13 @@ const UserManagement = ({users, deleteUser}) => {
                         <Typography variant="h6" className={classes.title}>
                             Registered Users: {users.length}
                         </Typography>
+
+
+
                         <ColorButton variant="contained" color="primary" className={classes.margin}>
                             Schedule delivery!
                         </ColorButton>
+
                     </Card>
                 </Grid>
             </Grid>
