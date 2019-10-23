@@ -19,9 +19,9 @@ const App = ({ getUserInfo }) => {
     if (loggedIn) {
       getUserInfo(loggedIn);
     }
-  },[loggedIn, getUserInfo]);
-  
-  return (  
+  }, [loggedIn, getUserInfo]);
+
+  return (
     <div className="App">
       <NavBar />
       <Switch>
@@ -44,9 +44,7 @@ const App = ({ getUserInfo }) => {
         </PrivateRoute>
 
         <PrivateRoute path="/selectedsnacks" redirect="/login">
-          <Dashboard>
-            <SelectedSnacks />
-          </Dashboard>
+          <Dashboard>{/* <SelectedSnacks /> */}</Dashboard>
         </PrivateRoute>
 
         <PrivateRoute path="/snacks" redirect="/login">
@@ -55,23 +53,14 @@ const App = ({ getUserInfo }) => {
           </Dashboard>
         </PrivateRoute>
 
-<<<<<<< HEAD
-        <PrivateRoute requiresAdmin path="/cp/checkout" redirect="/login">
-          <Checkout />
-        </PrivateRoute>
-
-=======
         <PrivateRoute path="/suggested" redirect="/login">
-          <Dashboard>
-            <SuggestedSnacks />
-          </Dashboard>
+          <Dashboard>{/* <SuggestedSnacks /> */}</Dashboard>
         </PrivateRoute>
 
         <PrivateRoute requiresAdmin path="/cp/checkout" redirect="/login">
           <Checkout />
         </PrivateRoute>
 
->>>>>>> d5dfc21ca329928f35003e34f93c19e2ea839a6f
         <PrivateRoute exact path="/" redirect="/login">
           <div>
             <h2>Logged in user, and on the dashboard.</h2>
@@ -90,12 +79,6 @@ const App = ({ getUserInfo }) => {
     </div>
   );
 };
-<<<<<<< HEAD
-=======
-
-const mapStateToProps = state =>{
-  return{
->>>>>>> d5dfc21ca329928f35003e34f93c19e2ea839a6f
 
 const mapStateToProps = state => {
   return {};
