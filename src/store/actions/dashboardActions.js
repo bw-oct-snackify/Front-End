@@ -53,6 +53,24 @@ export const getUserInfo = (id) => dispatch =>{
     });
 };
 
+//LOGOUT USER
+export const BEGIN_LOGOUT = 'BEGIN_LOGOUT';
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
+
+export const logoutUser = () => dispatch =>{
+    dispatch({type: BEGIN_LOGOUT});
+
+    axiosInstance.get(`/auth/logout`)
+    .then(res =>{
+        localStorage.removeItem('snack-token');
+        dispatch({type: LOGOUT_SUCCESS, payload: res.data});
+    })
+    .catch(error =>{
+        dispatch({type: LOGOUT_FAILURE, payload: error.response.data});
+    });
+};
+
 // DELETE USER FROM COMPANY
 export const DELETE_USER = 'DELETE_USER';
 

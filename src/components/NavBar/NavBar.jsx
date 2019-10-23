@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import navBackground from "../../assets/images/snackbox.png";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import {logoutUser} from '../../store/actions/dashboardActions';
 import navbar from "./navbar.module.scss";
 
 const useStyles = makeStyles(theme => ({
@@ -38,7 +39,7 @@ const useStyles = makeStyles(theme => ({
   appbar: {}
 }));
 
-const NavBar = ({ user, loggedIn }) => {
+const NavBar = ({ user, loggedIn, logoutUser }) => {
   const classes = useStyles();
   console.log(user);
   return (
@@ -48,10 +49,8 @@ const NavBar = ({ user, loggedIn }) => {
           <h2 className={navbar.company}>{user.company}</h2>
           <div className={navbar.navlist}>
             <div className={navbar.main}>
-              {loggedIn && <Link to="/snacks">Snacks</Link>}
               {user.admin && (
-                <>
-                  <Link to="/cp/checkout">Manage Checkout</Link>
+                <><Link to="/snacks">Snacks</Link>
                   <Link to="/cp/snacks">Manage Snacks</Link>
                   <Link to="/cp/users">Manage Users</Link>
                 </>
@@ -64,10 +63,8 @@ const NavBar = ({ user, loggedIn }) => {
                   <Avatar src={user.img_url} className={classes.avatar} />
                   <button
                     className={navbar.logout}
-                    onClick={() => alert("Logging user out for life..")}
-                  >
-                    Logout
-                  </button>
+                    onClick={() => logoutUser()}
+                  >Logout</button>
                 </>
               )}
 
@@ -94,5 +91,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  {}
+  {logoutUser}
 )(NavBar);

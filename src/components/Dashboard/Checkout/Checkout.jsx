@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import checkout from "./checkout.module.scss";
 import PackageInfo from "./PackageInfo/PackageInfo";
 import SnackView from "./SnackView/SnackView";
@@ -9,7 +10,7 @@ import { axiosInstance } from "../../../utils/axiosInstance";
 
 // axios.defaults.withCredentials = true;
 // pk_test_wUB22qL2Vb3jUMbGbtVmyDju00dj3coNiz
-const Checkout = props => {
+const Checkout = ({ user }) => {
   const [shipDate, setShipDate] = useState("");
   const [totalCost] = useState("$199.00");
   const [paymentProcess, setPaymentProcess] = useState("idle");
@@ -67,7 +68,7 @@ const Checkout = props => {
   };
 
   useEffect(() => {
-    const companyID = 1;
+    const companyID = user.company_id;
     axiosInstance
       .get(`/company/${companyID}/snacks`)
       .then(res => {
@@ -125,4 +126,13 @@ const Checkout = props => {
   );
 };
 
-export default Checkout;
+const mapStateToProps = state => {
+  return {
+    user: state.dashboardReducer.user
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  {}
+)(Checkout);
