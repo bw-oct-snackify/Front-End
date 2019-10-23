@@ -62,7 +62,10 @@ const NavBar = ({ user, loggedIn }) => {
                 <>
                   <Link to="/settings">{user.name}</Link>
                   <Avatar src={user.img_url} className={classes.avatar} />
-                  <button onClick={() => alert("Logging user out for life..")}>
+                  <button
+                    className={navbar.logout}
+                    onClick={() => alert("Logging user out for life..")}
+                  >
                     Logout
                   </button>
                 </>
