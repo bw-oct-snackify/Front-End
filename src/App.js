@@ -7,6 +7,7 @@ import { SnackManagement, Register, Login, Checkout } from './components';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import AccountSettings from './components/Dashboard/AccountSettings/AccountSettings';
 import UserManagement from './components/Dashboard/UserManagement/UserManagement';
+import ViewAllSnacks from './components/Dashboard/SnackManagement/ViewAllSnacks/ViewAllSnacks';
 
 
 const App = () =>{
@@ -24,7 +25,7 @@ const App = () =>{
 
         <PrivateRoute access={true} allowedUser={false} path="/cp/snacks" redirect="/login">
           <Dashboard>
-            <SnackManagement />
+            <SnackManagement />           
           </Dashboard>
         </PrivateRoute>
 
@@ -37,6 +38,10 @@ const App = () =>{
         <PrivateRoute access={true} allowedUser={true} path='/cp/checkout' redirect='/login'>
           <Checkout />
         </PrivateRoute>
+
+        <Route exact path="/snacks">
+          <ViewAllSnacks />
+        </Route>
 
         <Route exact path='/login'>
           <Login />

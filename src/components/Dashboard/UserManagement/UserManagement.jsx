@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import {Card, Grid, Typography, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide} from '@material-ui/core';
 import { purple } from '@material-ui/core/colors';
 import UserTable  from './UserTable/UserTable';
@@ -101,6 +101,16 @@ const UserManagement = ({users, deleteUser}) => {
         setConfOpen(false);
     };
 
+    const ColorButton = withStyles(theme => ({
+        root: {
+          color: theme.palette.getContrastText(purple[500]),
+          backgroundColor: purple[500],
+          '&:hover': {
+            backgroundColor: purple[700],
+          },
+        },
+      }))(Button);
+
     return (
         
         <div className={classes.root}>
@@ -110,6 +120,9 @@ const UserManagement = ({users, deleteUser}) => {
                         <Typography variant="h6" className={classes.title}>
                             Registered Users: {users.length}
                         </Typography>
+                        <ColorButton variant="contained" color="primary" className={classes.margin}>
+                            Schedule delivery!
+                        </ColorButton>
                     </Card>
                 </Grid>
             </Grid>
