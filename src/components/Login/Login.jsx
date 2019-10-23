@@ -74,7 +74,9 @@ const Login = ({
             <button className={login.loginbutton} type="submit">
               Login
             </button>
-            {authenticationError && <p>{authenticationError}</p>}
+            {authenticationError && (
+              <p className={login.err}>{authenticationError}</p>
+            )}
           </div>
         </Form>
         <p>
