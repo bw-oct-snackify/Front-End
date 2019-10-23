@@ -87,16 +87,12 @@ const Checkout = props => {
         />
         <StripeProvider apiKey="pk_test_TYooMQauvdEDq54NiTphI7jx">
           <div className="example">
-            <h1 className={checkout.cardTitle}>Card Details</h1>
             <Elements>
               <CheckoutForm />
             </Elements>
           </div>
         </StripeProvider>
         {/* <Shipping handleData={handleShippingData} /> */}
-        <button className={checkout.submitButton} onClick={submitForm}>
-          Confirm Address and Pay!
-        </button>
       </div>
       <SnackView snacks={snackList} />
     </div>
