@@ -1,6 +1,7 @@
 import React from 'react';
 import { withFormik, Form, Field } from 'formik';
 import packageselection from './packageselection.module.scss'
+import { axiosInstance } from "../../utils/axiosInstance";
 
 const PackageSelection = () => {
   return (
@@ -35,10 +36,45 @@ const FormikPackageSelection = withFormik({
       companyTeamSize: companyTeamSize || '1'
     }
   },
-  handleSubmit(values, {props}) {
-    props.updateUser(values);
-    props.incrementPage();
-    props.createUser();
+  handleSubmit(values, {setSubmitting, props}) {
+    axiosInstance()
+    .post('/auth/register', {
+      name: props.register.name,
+      email: props.register.email,
+      password: props.register.password,
+    })
+    .then(res => {
+      console.log(res);
+      //props.createUser();
+      return res.data.company_ID;
+    })
+    .then(comp => {
+      axiosInstance()
+      .put(`/auth/register/company/:${comp}`, {
+        name: props.register.companyName,
+        phone: props.register.companyPhone,
+        city: props.register.companyCity,
+        state: props.register.companyState,
+        package_ID:  values.companyTeamSize
+      })
+      .then(res => {
+        console.log(res.response.data);
+      })
+      .catch(err => {
+        console.log(err);
+        console.log(err.response);
+        setSubmitting(false);
+      })
+    })
+    .catch(err => {
+      console.log(err.response.data.message);
+      if (err.response.data.message) {
+          alert(`failed to register account ${err.response.data.message}`);
+      } else {
+          alert( `failed to register account ${err.response.data}` );
+      }
+      setSubmitting(false);
+    })
   }
 
 })(PackageSelection);

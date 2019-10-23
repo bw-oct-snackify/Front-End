@@ -1,4 +1,4 @@
-import React, { useState, useHistory} from 'react';
+import React, { useState } from 'react';
 import { UserInfo, CompanyInfo, PackageSelection } from '../../components';
 import  {connect} from 'react-redux';
 

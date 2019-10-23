@@ -1,5 +1,7 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Switch, Route } from 'react-router-dom';
+import {connect} from 'react-redux';
+import {getUserInfo} from './store/actions/dashboardActions';
 import './styles/global.scss';
 import NavBar from './components/NavBar/NavBar';
 import Dashboard from './components/Dashboard/Dashboard';
@@ -9,22 +11,30 @@ import AccountSettings from './components/Dashboard/AccountSettings/AccountSetti
 import UserManagement from './components/Dashboard/UserManagement/UserManagement';
 import ViewAllSnacks from './components/Dashboard/SnackManagement/ViewAllSnacks/ViewAllSnacks';
 
-
-const App = () =>{
-  return (
+const App = ({getUserInfo}) =>{
+  
+  const loggedIn = localStorage.getItem('snack-token');
+  console.log('snack-token ID: ',loggedIn);
+  
+  useEffect(() =>{
+    if(loggedIn){
+      getUserInfo(loggedIn);
+    }
+  },[loggedIn, getUserInfo]);
+  
+  return (  
     <div className="App">
       <NavBar />
       <Switch>
-
-        <PrivateRoute requiresAdmin path='/cp/users' redirect='/login'>
+        <PrivateRoute requiresAdmin path="/cp/users" redirect="/login">
           <Dashboard>
-            <UserManagement />             
+            <UserManagement />
           </Dashboard>
         </PrivateRoute>
 
         <PrivateRoute requiresAdmin path="/cp/snacks" redirect="/login">
           <Dashboard>
-            <SnackManagement />           
+            <SnackManagement />
           </Dashboard>
         </PrivateRoute>
 
@@ -34,35 +44,56 @@ const App = () =>{
           </Dashboard>
         </PrivateRoute>
 
+        <PrivateRoute path="/selectedsnacks" redirect="/login">
+          <Dashboard>
+            <SelectedSnacks />
+          </Dashboard>
+        </PrivateRoute>
+
         <PrivateRoute path="/snacks" redirect="/login">
           <Dashboard>
             <ViewAllSnacks />
           </Dashboard>
         </PrivateRoute>
 
-        <PrivateRoute requiresAdmin path='/cp/checkout' redirect='/login'>
+        <PrivateRoute path="/suggested" redirect="/login">
+          <Dashboard>
+            <SuggestedSnacks />
+          </Dashboard>
+        </PrivateRoute>
+
+        <PrivateRoute requiresAdmin path="/cp/checkout" redirect="/login">
           <Checkout />
         </PrivateRoute>
 
-
-        <PrivateRoute exact path='/' redirect='/login'>
+        <PrivateRoute exact path="/" redirect="/login">
           <div>
             <h2>Logged in user, and on the dashboard.</h2>
             <p>Welcome to the user dashboard, where stuff will exist.</p>
           </div>
         </PrivateRoute>
 
-        <Route exact path='/login/'>
-
-        
+        <Route exact path="/login/">
           <Login />
         </Route>
 
+<<<<<<< HEAD
         <Route path='/register/' component={Register} />
 
+=======
+        <Route path="/register/">
+          <Register />
+        </Route>
+>>>>>>> d5dfc21ca329928f35003e34f93c19e2ea839a6f
       </Switch>
     </div>
   );
+};
+
+const mapStateToProps = state =>{
+  return{
+
+  }
 }
 
-export default App;
+export default connect(mapStateToProps, {getUserInfo})(App);
