@@ -7,7 +7,6 @@ const CheckoutForm = props => {
 
   if (completePayment) return <h1>Purchase Complete</h1>;
   const { data, errors } = props;
-  console.log("Errors: ", errors);
   return (
     <div className={styles.cardCheckout}>
       <h1 className={styles.labelTitle}>Card Details</h1>

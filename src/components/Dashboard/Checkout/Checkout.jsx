@@ -12,8 +12,10 @@ axios.defaults.withCredentials = true;
 const Checkout = props => {
   const [shipDate, setShipDate] = useState("");
   const [totalCost] = useState("$199.00");
-  const [snackList, setSnackList] = useState([]);
-  const [companyName, setCompanyName] = useState("");
+  const [companySnacks, setCompanySnacks] = useState({
+    name: "",
+    snacks: []
+  });
   const [formErrors, setFormErrors] = useState({});
   const [formData, setFormData] = useState({
     name: "",
@@ -45,7 +47,6 @@ const Checkout = props => {
     // });
     // if (response.ok) this.setState({ complete: true });
   };
-
   //Will set the shipping date 3 days ahead of today.
   //Just to simulate getting shipping date from a mailing/shipping api.
   useEffect(() => {
@@ -59,7 +60,6 @@ const Checkout = props => {
     setShipDate(dateFormat);
   }, []);
 
-  //const companyCode = "lambda-school-snackify-123";
   const companyID = 1;
   useEffect(() => {
     axios
@@ -67,9 +67,8 @@ const Checkout = props => {
         `https://afternoon-tor-81402.herokuapp.com/company/${companyID}/snacks`
       )
       .then(res => {
-        console.log(res.data);
-        setCompanyName(res.data.name);
-        setSnackList(res.data.snacks);
+        console.log("Data: ", res.data);
+        setCompanySnacks(res.data);
       })
       .catch(err => {
         console.log(err.response);
@@ -87,10 +86,10 @@ const Checkout = props => {
     <div className={checkout.container}>
       <div className={checkout.infoContainer}>
         <PackageInfo
-          totalSnacks={snackList.length}
+          totalSnacks={companySnacks.snacks.length}
           deliveryDate={shipDate}
           totalCost={totalCost}
-          company={companyName}
+          company={companySnacks.name}
         />
         <StripeProvider apiKey="pk_test_TYooMQauvdEDq54NiTphI7jx">
           <div className="example">
@@ -104,9 +103,8 @@ const Checkout = props => {
             </Elements>
           </div>
         </StripeProvider>
-        {/* <Shipping handleData={handleShippingData} /> */}
       </div>
-      <SnackView snacks={snackList} />
+      <SnackView snacks={companySnacks.snacks} />
     </div>
   );
 };
