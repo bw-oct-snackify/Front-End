@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styles from "./snackview.module.scss";
 import MySnack from "./MySnack/MySnack";
+
 const SnackView = props => {
   return (
     <div className={styles.container}>
@@ -12,7 +13,8 @@ const SnackView = props => {
             snackname={snack.name}
             brandname={snack.brand}
             image={snack.img_url}
-            amount={1}
+            amount={snack.quantity}
+            key={index}
           />
         ))}
       </div>
