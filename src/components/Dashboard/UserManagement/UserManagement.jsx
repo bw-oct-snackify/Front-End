@@ -101,6 +101,9 @@ const useStyles = makeStyles(theme => ({
   container: {
     textAlign: "center",
     width:"400px;"
+  },
+  textField:{
+    width:"400px"
   }
 }));
 
@@ -188,7 +191,7 @@ const UserManagement = ({ users, deleteUser }) => {
           <DialogContentText id="alert-dialog-slide-title">
             <form className={classes.container} noValidate autoComplete="off">
               Name:
-              <TextField
+              <TextField 
                 id="outlined-name"
                 label="⍰ Name"
                 className={classes.textField}
@@ -199,7 +202,7 @@ const UserManagement = ({ users, deleteUser }) => {
               />
               <br></br>
               Email:
-              <TextField
+              <TextField 
                 id="outlined-email-input"
                 label="⍰ Email"
                 className={classes.textField}

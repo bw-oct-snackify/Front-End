@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Paper from "@material-ui/core/Paper";
 import { purple } from "@material-ui/core/colors";
 import Button from "@material-ui/core/Button";
