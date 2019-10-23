@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { CardElement, injectStripe } from "react-stripe-elements";
 import styles from "./checkoutform.module.scss";
+import SuccessfulPurchase from "./SuccessfulPurchase";
 
 const CheckoutForm = props => {
   const [completePayment] = useState(false);
 
-  if (completePayment) return <h1>Purchase Complete</h1>;
+  if (completePayment) return <SuccessfulPurchase />;
   const { data, errors } = props;
   return (
     <div className={styles.cardCheckout}>
