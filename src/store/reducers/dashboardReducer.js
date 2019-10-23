@@ -4,12 +4,12 @@ const initState = {
 
     user: {
         name: '',
-        user_id: 0,
+        user_id: null,
         company: '',
-        company_id: 0,
+        company_id: null,
         admin: false,
         email: '',
-        image: 'https://www.catster.com/wp-content/uploads/2015/06/8698_choc_bosscat_full2.jpg',
+        img_url: 'https://www.catster.com/wp-content/uploads/2015/06/8698_choc_bosscat_full2.jpg',
     },
 
     users: [
@@ -74,6 +74,10 @@ const initState = {
     loggedIn: false,
     authenticationError: '',
 
+    isUpdating: false,
+    updateError: '',
+    updateSuccess: '',
+
 };
 
 export const dashboardReducer = (state = initState, action) =>{
@@ -93,7 +97,16 @@ export const dashboardReducer = (state = initState, action) =>{
               ...state,
               isAuthenticating: false,
               loggedIn: true,
-              user: {...state.user, name: action.payload.name, user_id: action.payload.user_ID,  email: action.payload.email, company: action.payload.company_name, company_ID: action.payload.company_id, admin: action.payload.admin, image: action.payload.image || state.user.image}
+              user: {
+                  ...state.user, 
+                  name: action.payload.name, 
+                  user_id: action.payload.user_ID,  
+                  email: action.payload.email, 
+                  company: action.payload.company_name, 
+                  company_id: action.payload.company_ID, 
+                  admin: action.payload.admin, 
+                  img_url: action.payload.img_url
+                }
             };
 
         case LOGIN_FAILURE:
@@ -102,6 +115,37 @@ export const dashboardReducer = (state = initState, action) =>{
                 ...state,
                 authenticationError: action.payload,
                 isAuthenticating: false,
+            };
+
+        case BEGIN_UPDATE_USER:
+            return {
+                ...state,
+                isUpdating: true,
+            };
+
+        case UPDATE_USER_SUCCESS:
+            console.log(action.payload)
+                return {
+                    ...state,
+                    isUpdating: false,
+                    updateSuccess: 'You have successfully updated your account information.',
+                    user:{
+                        ...state.user,
+                        name: action.payload.name,
+                         user_id: action.payload.user_ID,
+                         email: action.payload.email,
+                         company: action.payload.company_name,
+                         company_id: action.payload.company_ID,
+                         admin: action.payload.admin,
+                         img_url: action.payload.img_url,
+                    }
+                    };
+
+        case UPDATE_USER_FAILURE:
+            return{
+                ...state,
+                updateError: action.payload,
+                isUpdating: false,
             };
 
 

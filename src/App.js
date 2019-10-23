@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Switch, Route } from 'react-router-dom';
 import './styles/global.scss';
 import NavBar from './components/NavBar/NavBar';
@@ -9,9 +9,16 @@ import AccountSettings from './components/Dashboard/AccountSettings/AccountSetti
 import UserManagement from './components/Dashboard/UserManagement/UserManagement';
 import ViewAllSnacks from './components/Dashboard/SnackManagement/ViewAllSnacks/ViewAllSnacks';
 
-
 const App = () =>{
-  return (
+  
+  const loggedIn = localStorage.getItem('snack-token');
+  
+  useEffect(() =>{
+    if(loggedIn)
+  },[])
+  
+  return (  
+
     <div className="App">
       <NavBar />
       <Switch>
