@@ -1,55 +1,110 @@
 import React, { useState, useEffect } from "react";
 import checkout from "./checkout.module.scss";
 import PackageInfo from "./PackageInfo/PackageInfo";
-import Shipping from "./Shipping/Shipping";
 import SnackView from "./SnackView/SnackView";
-import { axiosInstance } from "../../../utils/axiosInstance";
+
+import { Elements, StripeProvider } from "react-stripe-elements";
+import CheckoutForm from "./CheckoutForm/CheckoutForm";
+import axios from "axios";
+
+axios.defaults.withCredentials = true;
 
 const Checkout = props => {
-  const [snackList, setSnackList] = useState([
-    {
-      name: "Original Skittles",
-      brand: "Wrigley",
-      uom: "54 oz bag",
-      img_url:
-        "https://images-na.ssl-images-amazon.com/images/I/71dHUI2QzEL._SX425_.jpg"
-    },
-    {
-      name: "Original Doritos",
-      brand: "Frito-Lay",
-      uom: "16 x 9oz bags",
-      img_url:
-        "https://target.scene7.com/is/image/Target/GUEST_ac2b08b4-12e8-496c-ab09-dd530740da9c?wid=488&hei=488&fmt=pjpeg"
-    }
-  ]);
-
-  const companyCode = "lambda-school-snackify-123";
-  useEffect(() => {
-    let instance = axiosInstance();
-    instance
-      .get(`/company/${companyCode}/snacks`)
+  const [shipDate, setShipDate] = useState("");
+  const [totalCost] = useState("$199.00");
+  const [companySnacks, setCompanySnacks] = useState({
+    name: "",
+    snacks: []
+  });
+  const [formErrors, setFormErrors] = useState({});
+  const [formData, setFormData] = useState({
+    name: "",
+    address_city: "",
+    address_state: "",
+    address_zip: ""
+  });
+  const submit = (ev, stripe) => {
+    // User clicked submit
+    stripe
+      .createToken({ ...formData })
       .then(res => {
-        console.log(res.data);
+        if (res.error) {
+          console.log(res.error.message);
+          setFormErrors({ response: res.error.message });
+        } else {
+          console.log(res);
+          return res.token;
+        }
+      })
+      .then(token => {
+        console.log("Token: ", token);
+      })
+      .catch(err => console.log(err.message));
+    // let response = await fetch("/charge", {
+    //   method: "POST",
+    //   headers: { "Content-Type": "text/plain" },
+    //   body: token.id
+    // });
+    // if (response.ok) this.setState({ complete: true });
+  };
+  //Will set the shipping date 3 days ahead of today.
+  //Just to simulate getting shipping date from a mailing/shipping api.
+  useEffect(() => {
+    let current = new Date();
+    current.setDate(current.getDate() + 3);
+    let dd = current.getDate();
+    let mm = current.getMonth() + 1; // 0-11
+    let yy = current.getFullYear();
+
+    let dateFormat = dd + "/" + mm + "/" + yy;
+    setShipDate(dateFormat);
+  }, []);
+
+  const companyID = 1;
+  useEffect(() => {
+    axios
+      .get(
+        `https://afternoon-tor-81402.herokuapp.com/company/${companyID}/snacks`
+      )
+      .then(res => {
+        console.log("Data: ", res.data);
+        setCompanySnacks(res.data);
       })
       .catch(err => {
-        console.log(err);
+        console.log(err.response);
       });
   }, []);
+
+  const handleFormChange = event => {
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value
+    });
+  };
 
   return (
     <div className={checkout.container}>
       <div className={checkout.infoContainer}>
         <PackageInfo
-          totalSnacks={snackList.length}
-          deliveryDate={"10/20/19"}
-          totalCost="$199.00"
+          totalSnacks={companySnacks.snacks.length}
+          deliveryDate={shipDate}
+          totalCost={totalCost}
+          company={companySnacks.name}
         />
-        <Shipping />
-        <button className={checkout.submitButton} type="submit">
-          Confirm Address and Pay!
-        </button>
+        <StripeProvider apiKey="pk_test_TYooMQauvdEDq54NiTphI7jx">
+          <div className="example">
+            <Elements>
+              <CheckoutForm
+                submit={submit}
+                data={formData}
+                handleChange={handleFormChange}
+                errors={formErrors}
+              />
+            </Elements>
+          </div>
+        </StripeProvider>
       </div>
-      <SnackView snacks={snackList} />
+      <SnackView snacks={companySnacks.snacks} />
     </div>
   );
 };

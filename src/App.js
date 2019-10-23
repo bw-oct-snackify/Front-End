@@ -13,7 +13,6 @@ import ViewAllSnacks from './components/Dashboard/SnackManagement/ViewAllSnacks/
 import SelectedSnacks from './components/Dashboard/SnackManagement/SelectedSnacks/SelectedSnacks';
 import SuggestedSnacks from './components/Dashboard/SnackManagement/SuggestedSnacks/SuggestedSnacks';
 
-
 const App = ({getUserInfo}) =>{
   
   const loggedIn = localStorage.getItem('snack-token');
@@ -59,6 +58,10 @@ const App = ({getUserInfo}) =>{
           </Dashboard>
         </PrivateRoute>
 
+        <PrivateRoute requiresAdmin path="/cp/checkout" redirect="/login">
+          <Checkout />
+        </PrivateRoute>
+
         <PrivateRoute path="/suggested" redirect="/login">
           <Dashboard>
             <SuggestedSnacks />
@@ -88,10 +91,11 @@ const App = ({getUserInfo}) =>{
   );
 };
 
-const mapStateToProps = state =>{
-  return{
+const mapStateToProps = state => {
+  return {};
+};
 
-  }
-}
-
-export default connect(mapStateToProps, {getUserInfo})(App);
+export default connect(
+  mapStateToProps,
+  { getUserInfo }
+)(App);
