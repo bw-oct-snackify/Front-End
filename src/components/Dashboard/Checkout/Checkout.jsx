@@ -6,6 +6,7 @@ import SnackView from "./SnackView/SnackView";
 import { axiosInstance } from "../../../utils/axiosInstance";
 
 const Checkout = props => {
+  const [shipDate, setShipDate] = useState({});
   const [shippingData, setShippingData] = useState({
     attention: "",
     address1: "",
@@ -32,6 +33,17 @@ const Checkout = props => {
       quantity: 3
     }
   ]);
+
+  useEffect(() => {
+    let current = new Date();
+    current.setDate(current.getDate() + 3);
+    let dd = current.getDate();
+    let mm = current.getMonth() + 1; // 0-11
+    let yy = current.getFullYear();
+
+    let dateFormat = dd + "/" + mm + "/" + yy;
+    setShipDate(dateFormat);
+  }, []);
 
   //const companyCode = "lambda-school-snackify-123";
   const companyID = 1;
@@ -65,7 +77,7 @@ const Checkout = props => {
       <div className={checkout.infoContainer}>
         <PackageInfo
           totalSnacks={snackList.length}
-          deliveryDate={"10/20/19"}
+          deliveryDate={shipDate}
           totalCost="$199.00"
         />
         <Shipping handleData={handleShippingData} />
