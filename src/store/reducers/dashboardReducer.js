@@ -93,7 +93,7 @@ export const dashboardReducer = (state = initState, action) =>{
               ...state,
               isAuthenticating: false,
               loggedIn: true,
-              user: {...state.user, name: action.payload.name, user_id: action.payload.user_ID,  email: action.payload.email, company: action.payload.company_name, company_ID: action.payload.company_id, admin: action.payload.admin}
+              user: {...state.user, name: action.payload.name, user_id: action.payload.user_ID,  email: action.payload.email, company: action.payload.company_name, company_ID: action.payload.company_id, admin: action.payload.admin, image: action.payload.image || state.user.image}
             };
 
         case LOGIN_FAILURE:

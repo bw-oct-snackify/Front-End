@@ -34,6 +34,12 @@ const App = () =>{
           </Dashboard>
         </PrivateRoute>
 
+        <PrivateRoute path="/snacks" redirect="/login">
+          <Dashboard>
+            <ViewAllSnacks />
+          </Dashboard>
+        </PrivateRoute>
+
         <PrivateRoute requiresAdmin path='/cp/checkout' redirect='/login'>
           <Checkout />
         </PrivateRoute>
