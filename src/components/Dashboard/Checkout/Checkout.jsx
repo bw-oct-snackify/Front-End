@@ -5,13 +5,14 @@ import SnackView from "./SnackView/SnackView";
 
 import { Elements, StripeProvider } from "react-stripe-elements";
 import CheckoutForm from "./CheckoutForm/CheckoutForm";
-import axios from "axios";
+import { axiosInstance } from "../../../utils/axiosInstance";
 
-axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = true;
 // pk_test_wUB22qL2Vb3jUMbGbtVmyDju00dj3coNiz
 const Checkout = props => {
   const [shipDate, setShipDate] = useState("");
   const [totalCost] = useState("$199.00");
+  const [completePayment, setCompletePayment] = useState(false);
   const [companySnacks, setCompanySnacks] = useState({
     name: "",
     snacks: []
@@ -40,7 +41,18 @@ const Checkout = props => {
         }
       })
       .then(token => {
-        console.log("Token: ", token);
+        console.log("Token: ", token.id);
+        axiosInstance
+          .post("/billing/stripe", { id: token.id, price: 199 })
+          .then(res => {
+            console.log("Response from backend:", res);
+            if (res.status === 200) {
+              setCompletePayment(true);
+            }
+          })
+          .catch(err => {
+            console.log("Response from backend:", err);
+          });
       })
       .catch(err => console.log(err.message));
     // let response = await fetch("/charge", {
@@ -51,12 +63,10 @@ const Checkout = props => {
     // if (response.ok) this.setState({ complete: true });
   };
 
-  const companyID = 1;
   useEffect(() => {
-    axios
-      .get(
-        `https://afternoon-tor-81402.herokuapp.com/company/${companyID}/snacks`
-      )
+    const companyID = 1;
+    axiosInstance
+      .get(`/company/${companyID}/snacks`)
       .then(res => {
         console.log("Data: ", res.data);
         setCompanySnacks(res.data);
@@ -93,7 +103,7 @@ const Checkout = props => {
           totalCost={totalCost}
           company={companySnacks.name}
         />
-        <StripeProvider apiKey="pk_test_TYooMQauvdEDq54NiTphI7jx">
+        <StripeProvider apiKey="pk_test_wUB22qL2Vb3jUMbGbtVmyDju00dj3coNiz">
           <div className="example">
             <Elements>
               <CheckoutForm
@@ -101,6 +111,7 @@ const Checkout = props => {
                 data={formData}
                 handleChange={handleFormChange}
                 errors={formErrors}
+                complete={completePayment}
               />
             </Elements>
           </div>

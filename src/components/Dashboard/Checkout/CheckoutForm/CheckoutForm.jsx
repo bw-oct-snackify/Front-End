@@ -4,10 +4,10 @@ import styles from "./checkoutform.module.scss";
 import SuccessfulPurchase from "./SuccessfulPurchase";
 
 const CheckoutForm = props => {
-  const [completePayment] = useState(false);
+  const { data, errors, complete } = props;
 
-  if (completePayment) return <SuccessfulPurchase />;
-  const { data, errors } = props;
+  if (complete) return <SuccessfulPurchase />;
+
   return (
     <div className={styles.cardCheckout}>
       <h1 className={styles.labelTitle}>Card Details</h1>

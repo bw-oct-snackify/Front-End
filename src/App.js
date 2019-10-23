@@ -44,9 +44,7 @@ const App = ({ getUserInfo }) => {
         </PrivateRoute>
 
         <PrivateRoute path="/selectedsnacks" redirect="/login">
-          <Dashboard>
-             <SelectedSnacks /> 
-          </Dashboard>
+          <Dashboard>{/* <SelectedSnacks /> */}</Dashboard>
         </PrivateRoute>
 
         <PrivateRoute path="/snacks" redirect="/login">
@@ -60,12 +58,9 @@ const App = ({ getUserInfo }) => {
         </PrivateRoute>
 
         <PrivateRoute path="/suggested" redirect="/login">
+          <Dashboard>{/* <SuggestedSnacks /> */}</Dashboard>
 
-          <Dashboard>
-            {/* <SuggestedSnacks /> */}
-          </Dashboard>
-
-          <Dashboard> <SuggestedSnacks /> </Dashboard>
+          <Dashboard> {/* <SuggestedSnacks />{" "} */}</Dashboard>
         </PrivateRoute>
 
         <PrivateRoute requiresAdmin path="/cp/checkout" redirect="/login">
@@ -83,8 +78,7 @@ const App = ({ getUserInfo }) => {
           <Login />
         </Route>
 
-        <Route path='/register/' component={Register} />
-
+        <Route path="/register/" component={Register} />
       </Switch>
     </div>
   );
