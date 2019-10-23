@@ -7,6 +7,7 @@ import { axiosInstance } from "../../../utils/axiosInstance";
 
 const Checkout = props => {
   const [shipDate, setShipDate] = useState({});
+  const [totalCost] = useState("$199.00");
   const [shippingData, setShippingData] = useState({
     attention: "",
     address1: "",
@@ -34,6 +35,8 @@ const Checkout = props => {
     }
   ]);
 
+  //Will set the shipping date 3 days ahead of today.
+  //Just to simulate getting shipping date from a mailing/shipping api.
   useEffect(() => {
     let current = new Date();
     current.setDate(current.getDate() + 3);
@@ -78,7 +81,7 @@ const Checkout = props => {
         <PackageInfo
           totalSnacks={snackList.length}
           deliveryDate={shipDate}
-          totalCost="$199.00"
+          totalCost={totalCost}
         />
         <Shipping handleData={handleShippingData} />
         <button className={checkout.submitButton} onClick={submitForm}>
