@@ -10,6 +10,8 @@ import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import AccountSettings from "./components/Dashboard/AccountSettings/AccountSettings";
 import UserManagement from "./components/Dashboard/UserManagement/UserManagement";
 import ViewAllSnacks from "./components/Dashboard/SnackManagement/ViewAllSnacks/ViewAllSnacks";
+import SelectedSnacks from "./components/Dashboard/SnackManagement/SelectedSnacks/SelectedSnacks";
+import SuggestedSnacks from "./components/Dashboard/SnackManagement/SuggestedSnacks/SuggestedSnacks";
 
 const App = ({ getUserInfo }) => {
   const loggedIn = localStorage.getItem("snack-token");
@@ -51,6 +53,10 @@ const App = ({ getUserInfo }) => {
           <Dashboard>
             <ViewAllSnacks />
           </Dashboard>
+        </PrivateRoute>
+
+        <PrivateRoute requiresAdmin path="/cp/checkout" redirect="/login">
+          <Checkout />
         </PrivateRoute>
 
         <PrivateRoute path="/suggested" redirect="/login">
