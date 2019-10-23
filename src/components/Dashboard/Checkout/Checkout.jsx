@@ -33,6 +33,9 @@ const Checkout = props => {
           setFormErrors({ response: res.error.message });
         } else {
           console.log(res);
+          if (formErrors.response) {
+            setFormErrors({});
+          }
           return res.token;
         }
       })
