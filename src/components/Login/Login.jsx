@@ -71,7 +71,7 @@ const Login = ({
               Login
             </button>
             {authenticationError && (
-              <p className={login.err}>{authenticationError}</p>
+              <p className={login.err}>{authenticationError.data}</p>
             )}
           </div>
         </Form>

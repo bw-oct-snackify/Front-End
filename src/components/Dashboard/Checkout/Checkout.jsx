@@ -8,7 +8,7 @@ import CheckoutForm from "./CheckoutForm/CheckoutForm";
 import axios from "axios";
 
 axios.defaults.withCredentials = true;
-
+// pk_test_wUB22qL2Vb3jUMbGbtVmyDju00dj3coNiz
 const Checkout = props => {
   const [shipDate, setShipDate] = useState("");
   const [totalCost] = useState("$199.00");
