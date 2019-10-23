@@ -51,7 +51,7 @@ const NavBar = ({ user, loggedIn }) => {
               {loggedIn && <Link to="/snacks">Snacks</Link>}
               {user.admin && (
                 <>
-                  <Link to="/cp/checkout">Checkout</Link>
+                  <Link to="/cp/checkout">Manage Checkout</Link>
                   <Link to="/cp/snacks">Manage Snacks</Link>
                   <Link to="/cp/users">Manage Users</Link>
                 </>
@@ -61,7 +61,7 @@ const NavBar = ({ user, loggedIn }) => {
               {loggedIn && (
                 <>
                   <Link to="/settings">{user.name}</Link>
-                  <Avatar src={user.image} className={classes.avatar} />
+                  <Avatar src={user.img_url} className={classes.avatar} />
                   <button onClick={() => alert("Logging user out for life..")}>
                     Logout
                   </button>

@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
+import { connect } from "react-redux";
+import { getUserInfo } from "./store/actions/dashboardActions";
 import "./styles/global.scss";
 import NavBar from "./components/NavBar/NavBar";
 import Dashboard from "./components/Dashboard/Dashboard";
@@ -9,7 +11,16 @@ import AccountSettings from "./components/Dashboard/AccountSettings/AccountSetti
 import UserManagement from "./components/Dashboard/UserManagement/UserManagement";
 import ViewAllSnacks from "./components/Dashboard/SnackManagement/ViewAllSnacks/ViewAllSnacks";
 
-const App = () => {
+const App = ({ getUserInfo }) => {
+  const loggedIn = localStorage.getItem("snack-token");
+  console.log("snack-token ID: ", loggedIn);
+
+  useEffect(() => {
+    if (loggedIn) {
+      getUserInfo(loggedIn);
+    }
+  }, [loggedIn, getUserInfo]);
+
   return (
     <div className="App">
       <NavBar />
@@ -61,4 +72,11 @@ const App = () => {
   );
 };
 
-export default App;
+const mapStateToProps = state => {
+  return {};
+};
+
+export default connect(
+  mapStateToProps,
+  { getUserInfo }
+)(App);
