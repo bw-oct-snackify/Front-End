@@ -1,19 +1,17 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { CardElement, injectStripe } from "react-stripe-elements";
 import axios from "axios";
 import styles from "./checkoutform.module.scss";
 import Checkout from "../Checkout";
 
-class CheckoutForm extends Component {
-  constructor(props) {
-    super(props);
-    this.submit = this.submit.bind(this);
-    this.state = { complete: false };
-  }
-
-  async submit(ev) {
+const CheckoutForm = props => {
+  const [completePayment, setCompletePayment] = useState(false);
+  const [formData, setFormData] = useState({
+    name: ""
+  });
+  const submit = ev => {
     // User clicked submit
-    this.props.stripe
+    props.stripe
       .createToken({ name: "Name" })
       .then(res => {
         if (res.error) {
@@ -33,21 +31,28 @@ class CheckoutForm extends Component {
     //   body: token.id
     // });
     // if (response.ok) this.setState({ complete: true });
-  }
+  };
+  if (completePayment) return <h1>Purchase Complete</h1>;
 
-  render() {
-    if (this.state.complete) return <h1>Purchase Complete</h1>;
-
-    return (
-      <div className={styles.cardCheckout}>
-        <h1 className={styles.cardTitle}>Card Details</h1>
-        <CardElement className={styles.cardElement} />
-        <button className={styles.submitButton} onClick={this.submit}>
-          Purchase
-        </button>
-      </div>
-    );
-  }
-}
+  return (
+    <div className={styles.cardCheckout}>
+      <h1 className={styles.labelTitle}>Card Details</h1>
+      <label className={styles.label} htmlFor="name">
+        Name
+      </label>
+      <input
+        className={styles.cardField}
+        name="name"
+        type="text"
+        placeholder="Jane Doe"
+      />
+      <label className={styles.label}>Card Number</label>
+      <CardElement className={styles.cardField} />
+      <button className={styles.submitButton} onClick={submit}>
+        Purchase
+      </button>
+    </div>
+  );
+};
 
 export default injectStripe(CheckoutForm);

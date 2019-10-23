@@ -3,40 +3,44 @@ import checkout from "./checkout.module.scss";
 import PackageInfo from "./PackageInfo/PackageInfo";
 import Shipping from "./Shipping/Shipping";
 import SnackView from "./SnackView/SnackView";
-import { axiosInstance } from "../../../utils/axiosInstance";
 
 import { Elements, StripeProvider } from "react-stripe-elements";
 import CheckoutForm from "./CheckoutForm/CheckoutForm";
+import axios from "axios";
+
+axios.defaults.withCredentials = true;
 
 const Checkout = props => {
   const [shipDate, setShipDate] = useState("");
   const [totalCost] = useState("$199.00");
-  const [shippingData, setShippingData] = useState({
-    attention: "",
-    address1: "",
-    address2: "",
-    state: "",
-    city: ""
+  const [snackList, setSnackList] = useState([]);
+  const [formData, setFormData] = useState({
+    name: ""
   });
 
-  const [snackList, setSnackList] = useState([
-    {
-      name: "Original Skittles",
-      brand: "Wrigley",
-      uom: "54 oz bag",
-      img_url:
-        "https://images-na.ssl-images-amazon.com/images/I/71dHUI2QzEL._SX425_.jpg",
-      quantity: 2
-    },
-    {
-      name: "Original Doritos",
-      brand: "Frito-Lay",
-      uom: "16 x 9oz bags",
-      img_url:
-        "https://target.scene7.com/is/image/Target/GUEST_ac2b08b4-12e8-496c-ab09-dd530740da9c?wid=488&hei=488&fmt=pjpeg",
-      quantity: 3
-    }
-  ]);
+  const submit = ev => {
+    // User clicked submit
+    props.stripe
+      .createToken({ ...formData })
+      .then(res => {
+        if (res.error) {
+          console.log(res.error.message);
+        } else {
+          console.log(res);
+          return res.token;
+        }
+      })
+      .then(token => {
+        console.log("Token: ", token);
+      })
+      .catch(err => console.log(err.message));
+    // let response = await fetch("/charge", {
+    //   method: "POST",
+    //   headers: { "Content-Type": "text/plain" },
+    //   body: token.id
+    // });
+    // if (response.ok) this.setState({ complete: true });
+  };
 
   //Will set the shipping date 3 days ahead of today.
   //Just to simulate getting shipping date from a mailing/shipping api.
@@ -54,28 +58,18 @@ const Checkout = props => {
   //const companyCode = "lambda-school-snackify-123";
   const companyID = 1;
   useEffect(() => {
-    axiosInstance()
-      .get(`/company/${companyID}/users`)
+    axios
+      .get(
+        `https://afternoon-tor-81402.herokuapp.com/company/${companyID}/snacks`
+      )
       .then(res => {
         console.log(res.data);
+        setSnackList(res.data.snacks);
       })
       .catch(err => {
         console.log(err.response);
       });
   }, []);
-
-  //Handles shipping form data. Being passed down through props to Shipping component
-  const handleShippingData = event => {
-    setShippingData({
-      ...shippingData,
-      [event.target.name]: event.target.value
-    });
-  };
-
-  //When user clicks 'Confirm Address and Pay' button.
-  const submitForm = event => {
-    console.log("Shipping Data: ", shippingData);
-  };
 
   return (
     <div className={checkout.container}>
