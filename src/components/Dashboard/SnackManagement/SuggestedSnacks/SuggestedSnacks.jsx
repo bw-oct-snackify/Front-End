@@ -5,20 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles(theme => ({
-  list: {
-    root: {
-      padding: theme.spacing(3, 2)
-    },
-    box: {
-      width: "100%"
-    },
-    list: {
-      textDecoration: "none",
-      color: "black",
-      display: "flex",
-      flexDirection: "column"
-    }
-  }
+ 
 }));
 
 const SuggestedSnacks = () => {

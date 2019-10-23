@@ -9,6 +9,16 @@ import Snackifycat from "../../../assets/images/Snackifycat.png";
 
 import { Avatar } from '@material-ui/core';
 
+const ColorButton = withStyles(theme => ({
+    root: {
+      color: theme.palette.getContrastText(purple[500]),
+      backgroundColor: purple[500],
+      '&:hover': {
+        backgroundColor: purple[700],
+      },
+    },
+  }))(Button);
+
 const useStyles = makeStyles(theme => ({
     demo: {
         backgroundColor: theme.palette.background.paper,
@@ -99,17 +109,7 @@ const UserManagement = ({users, deleteUser}) => {
 
     const handleCancel = () =>{
         setConfOpen(false);
-    };
-
-    const ColorButton = withStyles(theme => ({
-        root: {
-          color: theme.palette.getContrastText(purple[500]),
-          backgroundColor: purple[500],
-          '&:hover': {
-            backgroundColor: purple[700],
-          },
-        },
-      }))(Button);
+    };    
 
     return (
         

@@ -6,18 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    padding: theme.spacing(3, 2)
-  },
-  box: {
-    width: "100%"
-  },
-  list: {
-    textDecoration: "none",
-    color: "black",
-    display: "flex",
-    flexDirection: "column"
-  }
+  
 }));
 
 const ViewAllSnacks = () => {
@@ -32,7 +21,7 @@ const ViewAllSnacks = () => {
         <Grid item sm={9}>
           <SearchComponent />
           <br/>
-          <Grid container spacing={2}>
+          <Grid container spacing={1}>
             <SnackCard />
             <SnackCard />
             <SnackCard />
