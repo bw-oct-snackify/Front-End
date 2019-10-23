@@ -5,8 +5,11 @@ import Shipping from "./Shipping/Shipping";
 import SnackView from "./SnackView/SnackView";
 import { axiosInstance } from "../../../utils/axiosInstance";
 
+import { Elements, StripeProvider } from "react-stripe-elements";
+import CheckoutForm from "./CheckoutForm/CheckoutForm";
+
 const Checkout = props => {
-  const [shipDate, setShipDate] = useState({});
+  const [shipDate, setShipDate] = useState("");
   const [totalCost] = useState("$199.00");
   const [shippingData, setShippingData] = useState({
     attention: "",
@@ -51,14 +54,13 @@ const Checkout = props => {
   //const companyCode = "lambda-school-snackify-123";
   const companyID = 1;
   useEffect(() => {
-    let instance = axiosInstance();
-    instance
-      .get(`/company/${companyID}/snacks`)
+    axiosInstance()
+      .get(`/company/${companyID}/users`)
       .then(res => {
         console.log(res.data);
       })
       .catch(err => {
-        console.log(err);
+        console.log(err.response);
       });
   }, []);
 
@@ -83,7 +85,15 @@ const Checkout = props => {
           deliveryDate={shipDate}
           totalCost={totalCost}
         />
-        <Shipping handleData={handleShippingData} />
+        <StripeProvider apiKey="pk_test_TYooMQauvdEDq54NiTphI7jx">
+          <div className="example">
+            <h1 className={checkout.cardTitle}>Card Details</h1>
+            <Elements>
+              <CheckoutForm />
+            </Elements>
+          </div>
+        </StripeProvider>
+        {/* <Shipping handleData={handleShippingData} /> */}
         <button className={checkout.submitButton} onClick={submitForm}>
           Confirm Address and Pay!
         </button>
