@@ -1,7 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Switch, Route, Link } from "react-router-dom";
 import Paper from "@material-ui/core/Paper";
-import { makeStyles } from "@material-ui/core/styles";
+import { purple } from "@material-ui/core/colors";
+import Button from "@material-ui/core/Button";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles(theme => ({
@@ -12,9 +14,20 @@ const useStyles = makeStyles(theme => ({
     textDecoration: "none",
     color: "black",
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
+    fontSize: "1.2rem"
   }
 }));
+
+const ColorButton = withStyles(theme => ({
+  root: {
+    color: theme.palette.getContrastText(purple[500]),
+    backgroundColor: purple[500],
+    "&:hover": {
+      backgroundColor: purple[700]
+    }
+  }
+}))(Button);
 
 const SnackFilter = () => {
   const classes = useStyles();
@@ -22,24 +35,32 @@ const SnackFilter = () => {
     <div className={classes.box}>
       <Paper className={classes.root}>
         <Typography variant="h5" component="h3">
-          SnackFilter
+          Snacks Left:
         </Typography>
+        <br></br>
         <Typography component="p">
           <ul>
-            <Link to="Selected Snacks" className={classes.list}>
+            <Link to="/SelectedSnacks" className={classes.list}>
               Selected Snacks
             </Link>
 
-            <Link to="Suggested Snacks" className={classes.list}>
+            <Link to="/Suggested" className={classes.list}>
               Suggested Snacks
             </Link>
 
-            <Link to="View All Snacks" className={classes.list}>
+            <Link to="/Snacks" className={classes.list}>
               View All Snacks
             </Link>
           </ul>
         </Typography>
       </Paper>
+      <ColorButton
+        variant="contained"
+        color="primary"
+        className={classes.margin}
+      >
+        Schedule Delivery
+      </ColorButton>
     </div>
   );
 };

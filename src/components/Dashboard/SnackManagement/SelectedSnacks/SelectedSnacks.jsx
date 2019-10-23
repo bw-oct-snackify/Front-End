@@ -1,16 +1,16 @@
 import React from "react";
+import SnackFilter from "../../../SnackFilter/SnackFilter";
 import Grid from "@material-ui/core/Grid";
-import { SnackTable } from "../..";
-import SnackFilter from "../../SnackFilter/SnackFilter";
+import SnackTable from "../SnackTable/SnackTable";
 
-const SnackManagement = () => {
+const SelectedSnacks = () => {
   return (
     <div>
       <Grid container spacing={1}>
-        <Grid item xs={3}>
+        <Grid item sm={3}>
           <SnackFilter />
         </Grid>
-        <Grid item xs={9}>
+        <Grid item sm={9}>
           <SnackTable />
         </Grid>
       </Grid>
@@ -18,4 +18,4 @@ const SnackManagement = () => {
   );
 };
 
-export default SnackManagement;
+export default SelectedSnacks;

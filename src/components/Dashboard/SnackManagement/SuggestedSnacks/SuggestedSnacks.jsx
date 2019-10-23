@@ -1,13 +1,9 @@
 import React from "react";
 import SnackFilter from "../../../SnackFilter/SnackFilter";
-import SearchComponent from "./SearchComponent";
-import SnackCard from "./SnackCard";
+import SnackCard from "../ViewAllSnacks/SnackCard";
 import Grid from "@material-ui/core/Grid";
 
-
-
-const ViewAllSnacks = () => {
-
+const SuggestedSnacks = () => {
   return (
     <div>
       <Grid container spacing={1}>
@@ -15,9 +11,7 @@ const ViewAllSnacks = () => {
           <SnackFilter />
         </Grid>
         <Grid item sm={9}>
-          <SearchComponent />
-          <br/>
-          <Grid container spacing={1}>
+          <Grid container spacing={2}>
             <SnackCard />
             <SnackCard />
             <SnackCard />
@@ -34,4 +28,4 @@ const ViewAllSnacks = () => {
   );
 };
 
-export default ViewAllSnacks;
+export default SuggestedSnacks;

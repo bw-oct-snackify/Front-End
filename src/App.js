@@ -23,20 +23,18 @@ const App = ({getUserInfo}) =>{
   },[loggedIn, getUserInfo]);
   
   return (  
-
     <div className="App">
       <NavBar />
       <Switch>
-
-        <PrivateRoute requiresAdmin path='/cp/users' redirect='/login'>
+        <PrivateRoute requiresAdmin path="/cp/users" redirect="/login">
           <Dashboard>
-            <UserManagement />             
+            <UserManagement />
           </Dashboard>
         </PrivateRoute>
 
         <PrivateRoute requiresAdmin path="/cp/snacks" redirect="/login">
           <Dashboard>
-            <SnackManagement />           
+            <SnackManagement />
           </Dashboard>
         </PrivateRoute>
 
@@ -46,38 +44,46 @@ const App = ({getUserInfo}) =>{
           </Dashboard>
         </PrivateRoute>
 
+        <PrivateRoute path="/selectedsnacks" redirect="/login">
+          <Dashboard>
+            <SelectedSnacks />
+          </Dashboard>
+        </PrivateRoute>
+
         <PrivateRoute path="/snacks" redirect="/login">
           <Dashboard>
             <ViewAllSnacks />
           </Dashboard>
         </PrivateRoute>
 
-        <PrivateRoute requiresAdmin path='/cp/checkout' redirect='/login'>
+        <PrivateRoute path="/suggested" redirect="/login">
+          <Dashboard>
+            <SuggestedSnacks />
+          </Dashboard>
+        </PrivateRoute>
+
+        <PrivateRoute requiresAdmin path="/cp/checkout" redirect="/login">
           <Checkout />
         </PrivateRoute>
 
-
-        <PrivateRoute exact path='/' redirect='/login'>
+        <PrivateRoute exact path="/" redirect="/login">
           <div>
             <h2>Logged in user, and on the dashboard.</h2>
             <p>Welcome to the user dashboard, where stuff will exist.</p>
           </div>
         </PrivateRoute>
 
-        <Route exact path='/login/'>
-
-        
+        <Route exact path="/login/">
           <Login />
         </Route>
 
-        <Route path='/register/'>
+        <Route path="/register/">
           <Register />
         </Route>
-
       </Switch>
     </div>
   );
-}
+};
 
 const mapStateToProps = state =>{
   return{
