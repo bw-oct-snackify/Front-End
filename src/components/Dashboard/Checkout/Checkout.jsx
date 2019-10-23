@@ -17,10 +17,10 @@ const Checkout = props => {
   const [formData, setFormData] = useState({
     name: ""
   });
-
-  const submit = ev => {
+  console.log(formData);
+  const submit = (ev, stripe) => {
     // User clicked submit
-    props.stripe
+    stripe
       .createToken({ ...formData })
       .then(res => {
         if (res.error) {
@@ -71,6 +71,13 @@ const Checkout = props => {
       });
   }, []);
 
+  const handleFormChange = event => {
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value
+    });
+  };
+
   return (
     <div className={checkout.container}>
       <div className={checkout.infoContainer}>
@@ -82,7 +89,11 @@ const Checkout = props => {
         <StripeProvider apiKey="pk_test_TYooMQauvdEDq54NiTphI7jx">
           <div className="example">
             <Elements>
-              <CheckoutForm />
+              <CheckoutForm
+                submit={submit}
+                data={formData}
+                handleChange={handleFormChange}
+              />
             </Elements>
           </div>
         </StripeProvider>
