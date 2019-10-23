@@ -46,7 +46,7 @@ const App = ({getUserInfo}) =>{
 
         <PrivateRoute path="/selectedsnacks" redirect="/login">
           <Dashboard>
-            <SelectedSnacks />
+            {/* <SelectedSnacks /> */}
           </Dashboard>
         </PrivateRoute>
 
@@ -58,7 +58,7 @@ const App = ({getUserInfo}) =>{
 
         <PrivateRoute path="/suggested" redirect="/login">
           <Dashboard>
-            <SuggestedSnacks />
+            {/* <SuggestedSnacks /> */}
           </Dashboard>
         </PrivateRoute>
 
@@ -77,14 +77,8 @@ const App = ({getUserInfo}) =>{
           <Login />
         </Route>
 
-<<<<<<< HEAD
         <Route path='/register/' component={Register} />
 
-=======
-        <Route path="/register/">
-          <Register />
-        </Route>
->>>>>>> d5dfc21ca329928f35003e34f93c19e2ea839a6f
       </Switch>
     </div>
   );
