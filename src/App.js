@@ -1,30 +1,29 @@
-import React from 'react';
-import { Switch, Route } from 'react-router-dom';
-import './styles/global.scss';
-import NavBar from './components/NavBar/NavBar';
-import Dashboard from './components/Dashboard/Dashboard';
-import { SnackManagement, Register, Login, Checkout } from './components';
-import PrivateRoute from './components/PrivateRoute/PrivateRoute';
-import AccountSettings from './components/Dashboard/AccountSettings/AccountSettings';
-import UserManagement from './components/Dashboard/UserManagement/UserManagement';
-import ViewAllSnacks from './components/Dashboard/SnackManagement/ViewAllSnacks/ViewAllSnacks';
+import React from "react";
+import { Switch, Route } from "react-router-dom";
+import "./styles/global.scss";
+import NavBar from "./components/NavBar/NavBar";
+import Dashboard from "./components/Dashboard/Dashboard";
+import SuggestedSnacks from "./components/Dashboard/SnackManagement/SuggestedSnacks/SuggestedSnacks";
+import { SnackManagement, Register, Login, Checkout } from "./components";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import AccountSettings from "./components/Dashboard/AccountSettings/AccountSettings";
+import UserManagement from "./components/Dashboard/UserManagement/UserManagement";
+import ViewAllSnacks from "./components/Dashboard/SnackManagement/ViewAllSnacks/ViewAllSnacks";
 
-
-const App = () =>{
+const App = () => {
   return (
     <div className="App">
       <NavBar />
       <Switch>
-
-        <PrivateRoute requiresAdmin path='/cp/users' redirect='/login'>
+        <PrivateRoute requiresAdmin path="/cp/users" redirect="/login">
           <Dashboard>
-            <UserManagement />             
+            <UserManagement />
           </Dashboard>
         </PrivateRoute>
 
         <PrivateRoute requiresAdmin path="/cp/snacks" redirect="/login">
           <Dashboard>
-            <SnackManagement />           
+            <SnackManagement />
           </Dashboard>
         </PrivateRoute>
 
@@ -40,31 +39,33 @@ const App = () =>{
           </Dashboard>
         </PrivateRoute>
 
-        <PrivateRoute requiresAdmin path='/cp/checkout' redirect='/login'>
+        <PrivateRoute path="/suggested" redirect="/login">
+          <Dashboard>
+            <SuggestedSnacks />
+          </Dashboard>
+        </PrivateRoute>
+
+        <PrivateRoute requiresAdmin path="/cp/checkout" redirect="/login">
           <Checkout />
         </PrivateRoute>
 
-
-        <PrivateRoute exact path='/' redirect='/login'>
+        <PrivateRoute exact path="/" redirect="/login">
           <div>
             <h2>Logged in user, and on the dashboard.</h2>
             <p>Welcome to the user dashboard, where stuff will exist.</p>
           </div>
         </PrivateRoute>
 
-        <Route exact path='/login/'>
-
-        
+        <Route exact path="/login/">
           <Login />
         </Route>
 
-        <Route path='/register/'>
+        <Route path="/register/">
           <Register />
         </Route>
-
       </Switch>
     </div>
   );
-}
+};
 
 export default App;

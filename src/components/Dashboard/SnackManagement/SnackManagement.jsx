@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import List from '@material-ui/core/List';
@@ -67,9 +68,9 @@ const SnackManagement = () => {
                             </Typography>
                         <List className={classes.listContainer}>
                             <ul >
-                                <a href="Selected Snacks" className={classes.list}>Selected Snacks</a>
-                                <a href="Suggested Snacks" className={classes.list}>Suggested Snacks</a>
-                                <a href="View All Snacks" className={classes.list}>View All Snacks</a>
+                                <Link to="Selected Snacks" className={classes.list}>Selected Snacks</Link>
+                                <Link to="Suggested Snacks" className={classes.list}>Suggested Snacks</Link>
+                                <Link to="View All Snacks" className={classes.list}>View All Snacks</Link>
                             </ul>
                         </List>
                     </Card>
