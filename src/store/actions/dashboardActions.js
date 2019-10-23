@@ -12,7 +12,7 @@ export const loginUser = credentials => dispatch =>{
 
     dispatch({type: BEGIN_LOGIN});
 
-    axiosInstance().post('/auth/login', credentials)
+    axiosInstance.post('/auth/login', credentials)
         .then(res =>{
             localStorage.setItem('snack-token', res.data.user_ID);
             return dispatch({type: LOGIN_SUCCESS, payload: res.data});
@@ -28,8 +28,7 @@ export const UPDATE_USER_FAILURE = 'UPDATE_USER_FAILURE';
 export const updateUser = (id, data) => dispatch =>{
     dispatch({type: BEGIN_UPDATE_USER});
 
-    // axiosInstance().put(`/users/${id}`, data)
-    axios.put(`https://afternoon-tor-81402.herokuapp.com/users/${id}`, data)
+    axiosInstance.put(`/users/${id}`, data)
     .then(res =>{
         dispatch({type: UPDATE_USER_SUCCESS, payload: res.data})
     })
@@ -38,21 +37,20 @@ export const updateUser = (id, data) => dispatch =>{
 
 
 // GET USER INFO
-export const BEGIN_GET_USER_INFO = 'BEGIN_UPDATE_USER';
-export const GET_USER_INFO_SUCCESS = 'UPDATE_USER_SUCCESS';
-export const GET_USER_INFO_FAILURE = 'UPDATE_USER_FAILURE';
+export const BEGIN_GET_USER_INFO = 'BEGIN_GET_USER_INFO';
+export const GET_USER_INFO_SUCCESS = 'GET_USER_INFO_SUCCESS';
+export const GET_USER_INFO_FAILURE = 'GET_USER_INFO_FAILURE';
 
 export const getUserInfo = (id) => dispatch =>{
-    dispatch({type: BEGIN_UPDATE_USER});
+    dispatch({type: BEGIN_GET_USER_INFO});
 
-    axios.get(`https://afternoon-tor-81402.herokuapp.com/users/${id}`)
+    axiosInstance.get(`/users/${id}`)
     .then(res =>{
-
+        dispatch({type: GET_USER_INFO_SUCCESS, payload: res.data});
     })
     .catch(error =>{
-
+        dispatch({type: GET_USER_INFO_FAILURE, payload: error.response.data});
     });
-
 };
 
 // DELETE USER FROM COMPANY
