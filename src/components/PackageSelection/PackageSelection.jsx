@@ -1,9 +1,8 @@
 import React from 'react';
 import { withFormik, Form, Field } from 'formik';
-import * as Yup from 'yup';
 import packageselection from './packageselection.module.scss'
 
-const PackageSelection = ({ values }) => {
+const PackageSelection = () => {
   return (
     <div className={packageselection.background}>
       <h2 className={packageselection.logintitle}>Step 3/3</h2>
@@ -11,27 +10,18 @@ const PackageSelection = ({ values }) => {
         <h2 className={packageselection.logintitle}>Pick Your Package</h2>
         <Form>
           <div className={packageselection.formwrapper}>
-          <Field 
-          type='radio'
-          name='small'
-          id='small'
-          /><label className={packageselection.fieldlabel} for='small'>Small Team 199.00/mo</label>
-          <Field 
-          type='radio'
-          name='medium'
-          id='medium'
-          /><label className={packageselection.fieldlabel} for='medium'>Medium Team  $399.00/mo</label>
-          <Field 
-          type='radio'
-          name='large'
-          id='large'
-          /><label className={packageselection.fieldlabel} for='large'>Large Team  $599.00/mo</label>
-          <Field 
-          type='radio'
-          name='mega'
-          id='mega'
-          /><label className={packageselection.fieldlabel} for='mega'>Mega Team  Contact Us</label>
-          <button className={packageselection.button}>Confirm Package!</button>
+            <label className={packageselection.fieldlabel}>Small Team  -  0-10 Employees  -  199.00/mo</label>
+            <label className={packageselection.fieldlabel}>Medium Team  -  11-50 Employees  -  $399.00/mo</label>
+            <label className={packageselection.fieldlabel}>Large Team  - 51-100 Employees  -  $599.00/mo</label>
+            <label className={packageselection.fieldlabel}>Mega Team  -  100+ Employees  -  Contact Us</label>
+            <label className={packageselection.fieldlabel}>Please select one from the dropbox below:</label>
+            <Field className={packageselection.selectfield}component='select' name='companyTeamSize'>
+              <option value='1'>Small Team  -  0-10 Employees  -  199.00/mo</option>
+              <option value='2'>Medium Team  -  11-50 Employees  -  $399.00/mo</option>
+              <option value='3'>Large Team  - 51-100 Employees  -  $599.00/mo</option>
+              <option value='4'>Mega Team  -  100+ Employees  -  Contact Us</option>
+            </Field>
+            <button className={packageselection.button}>Confirm Package!</button>
           </div>
         </Form>
       </div>
@@ -40,15 +30,17 @@ const PackageSelection = ({ values }) => {
 }
 
 const FormikPackageSelection = withFormik({
-  mapPropsToValues({ }) {
+  mapPropsToValues({ companyTeamSize }) {
     return {
-      
+      companyTeamSize: companyTeamSize || '1'
     }
   },
-  handleSubmit(values) {
-
-    console.log(values)
+  handleSubmit(values, {props}) {
+    props.updateUser(values);
+    props.incrementPage();
+    props.createUser();
   }
+
 })(PackageSelection);
 
 export default FormikPackageSelection;
