@@ -2,12 +2,9 @@ import React, { useState } from 'react';
 import { UserInfo, CompanyInfo, PackageSelection } from '../../components';
 import  {connect} from 'react-redux';
 
-import { axiosInstance } from "../../utils/axiosInstance";
-
-
-const Register = () => {
-    //have some state to go thru the components.
+const Register = (props) => {
     const [count, setCount] = useState(0);
+    const [goodRegister, setGoodRegister] = useState(false);
     const [register, setRegister] = useState({
         name: '',
         email: '', 
@@ -21,33 +18,25 @@ const Register = () => {
         companyTeamSize: ''
     });
 
+
     const updateUser = obj => {
-        let newRegister = register;
-        let items = Object.getOwnPropertyNames(obj);
-        items.map(key => {
-            newRegister[key] = obj[key];
+        setRegister((state) => {
+            return {...state, ...obj}
         })
-        console.log(register);
     }
+
 
     const incrementPage = () => {
         setCount(count+1);
     }
 
     const createUser = () => {
-        axiosInstance()
-        .post('/auth/register', {
-            name: register.name,
-            email: register.email,
-            password: register.password,
-            company_code: register.code
-        })
-        .then(res => {
-            console.log(res);
-        })
-        .catch(err => {
-            console.log(err.response.data);
-        })
+        setGoodRegister(true);
+    }
+
+
+    if (goodRegister) {
+        props.history.push('/login');
     }
 
     return (

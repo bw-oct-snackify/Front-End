@@ -3,8 +3,11 @@ import { withFormik, Form, Field } from 'formik';
 import {Link} from 'react-router-dom';
 import * as Yup from 'yup';
 import userinfo from './userInfo.module.scss'
+import { axiosInstance } from "../../utils/axiosInstance";
 
 const UserInfo = (  { values, touched, errors, isSubmitting  }) => {
+    
+
     return (
         <div className={userinfo.background}>
             <div className={userinfo.container}>
@@ -83,19 +86,35 @@ const FormikUserInfo = withFormik({
     validationSchema: Yup.object().shape({
         name: Yup.string().required('Name is required'),
         email: Yup.string().email('Email not valid').required('Email is required'),
-        password: Yup.string().min(8, 'Password must be 8 character or longer').required('Please is required!'),
+        password: Yup.string().min(8, 'Password must be 8 character or longer').required('Password is required!'),
         confirm: Yup.string()
         .oneOf([Yup.ref('password'), null], 'Password must match')
         .required('Please enter the same password again!')
     }),
-    handleSubmit(values, {props }) {
+    handleSubmit(values, { setSubmitting, props }) {
         if (values.code) {
             props.updateUser(values);
-            props.createUser();
-            // isSubmitting(false);
-            //should inherit company info off code. may need to add a check here that company code is valid.
+            axiosInstance()
+                .post('/auth/register', {
+                    name: values.name,
+                    email: values.email,
+                    password: values.password,
+                    company_code: values.code
+                })
+                .then(res => {
+                    console.log(props);
+                    props.createUser();
+                })
+                .catch(err => {
+                    console.log(err.response.data.message);
+                    if (err.response.data.message) {
+                        alert(`failed to register account ${err.response.data.message}`);
+                    } else {
+                        alert( `failed to register account ${err.response.data}` );
+                    }
+                    setSubmitting(false);
+                })
         } else {
-            //needs to call a function from register to update values.
             props.updateUser(values);
             props.incrementPage();
         }
