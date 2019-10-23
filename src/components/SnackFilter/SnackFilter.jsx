@@ -1,7 +1,9 @@
 import React from "react";
 import { Switch, Route, Link } from "react-router-dom";
 import Paper from "@material-ui/core/Paper";
-import { makeStyles } from "@material-ui/core/styles";
+import { purple } from "@material-ui/core/colors";
+import Button from "@material-ui/core/Button";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles(theme => ({
@@ -13,9 +15,19 @@ const useStyles = makeStyles(theme => ({
     color: "black",
     display: "flex",
     flexDirection: "column",
-    fontSize:"1.2rem"
+    fontSize: "1.2rem"
   }
 }));
+
+const ColorButton = withStyles(theme => ({
+  root: {
+    color: theme.palette.getContrastText(purple[500]),
+    backgroundColor: purple[500],
+    "&:hover": {
+      backgroundColor: purple[700]
+    }
+  }
+}))(Button);
 
 const SnackFilter = () => {
   const classes = useStyles();
@@ -42,6 +54,13 @@ const SnackFilter = () => {
           </ul>
         </Typography>
       </Paper>
+      <ColorButton
+        variant="contained"
+        color="primary"
+        className={classes.margin}
+      >
+        Schedule Delivery
+      </ColorButton>
     </div>
   );
 };
