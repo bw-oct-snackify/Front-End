@@ -95,6 +95,8 @@ const UserManagement = ({users, deleteUser}) => {
                         <Typography variant="h6" className={classes.title}>
                             Registered Users: {users.length}
                         </Typography>
+
+                        <Button className={classes.btn}>Add user</Button>
                     </Card>
                 </Grid>
             </Grid>
