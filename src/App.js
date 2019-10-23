@@ -58,9 +58,7 @@ const App = () =>{
           <Login />
         </Route>
 
-        <Route path='/register/'>
-          <Register />
-        </Route>
+        <Route path='/register/' component={Register} />
 
       </Switch>
     </div>
