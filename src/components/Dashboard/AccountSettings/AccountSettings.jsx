@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styles from "./accountsettings.module.scss";
 import {connect} from 'react-redux';
 import TextField from '@material-ui/core/TextField';
@@ -6,7 +6,15 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import {updateUser} from '../../../store/actions/dashboardActions';
 
-const AccountSettings = ({user}) =>{
+const AccountSettings = ({user, updateUser, isUpdating}) =>{
+
+    const [userInfo, setUserInfo] = useState(
+        {
+            name: user.name,
+            email: user.email,
+            img_url: user.img_url,
+        }
+    );
 
     const useStyles = makeStyles(theme => ({
         button: {
@@ -16,15 +24,26 @@ const AccountSettings = ({user}) =>{
 
 
     const handleChange = e =>{
-
+        setUserInfo({...userInfo, [e.target.name]:e.target.value});
     };
 
     const handleSubmit = e =>{
         e.preventDefault();
+        updateUser(user.user_id, userInfo);
     };
+
+    console.log(userInfo);
 
 
     const classes = useStyles();
+
+    if(isUpdating){
+        return(
+            <div>
+                <h2>Updating account information..</h2>
+            </div>
+        );
+    }
 
     return(
         <div className={styles.container}>
@@ -40,7 +59,7 @@ const AccountSettings = ({user}) =>{
                     label="Name"
                     name="name"
                     onChange={handleChange}
-                    value="RAWR"
+                    value={userInfo.name}
                     type="text"
                     margin="normal"
                     variant="outlined"
@@ -55,7 +74,7 @@ const AccountSettings = ({user}) =>{
                     label="Email"
                     name="email"
                     onChange={handleChange}
-                    value="RAWR@gmail.com"
+                    value={userInfo.email}
                     type="text"
                     margin="normal"
                     variant="outlined"
@@ -68,9 +87,9 @@ const AccountSettings = ({user}) =>{
                 <TextField
                     id="image"
                     label="Image URL"
-                    name="image"
+                    name="img_url"
                     onChange={handleChange}
-                    value="https://avatars3.githubusercontent.com/u/13228579?s=460&v=4"
+                    value={userInfo.img_url}
                     type="text"
                     margin="normal"
                     variant="outlined"
@@ -91,6 +110,7 @@ const AccountSettings = ({user}) =>{
 const mapStateToProps = state =>{
     return{
         user: state.dashboardReducer.user,
+        isUpdating: state.dashboardReducer.isUpdating,
     };
 };
 

@@ -1,11 +1,4 @@
 import axios from 'axios';
-
-export const axiosInstance = () =>{
-
-    return axios.create({
-        baseURL: 'https://afternoon-tor-81402.herokuapp.com',
-        headers:{
-            withCredentials: true,
-        },
-    });
-};
+axios.defaults.withCredentials = true;
+axios.defaults.baseURL = 'https://afternoon-tor-81402.herokuapp.com';
+export const axiosInstance = axios;
