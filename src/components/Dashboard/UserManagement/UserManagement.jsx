@@ -11,6 +11,7 @@ import {
   DialogContentText,
   DialogTitle
 } from "@material-ui/core";
+import TextField from "@material-ui/core/TextField";
 import { purple } from "@material-ui/core/colors";
 import UserTable from "./UserTable/UserTable";
 import { connect } from "react-redux";
@@ -96,12 +97,17 @@ const useStyles = makeStyles(theme => ({
 
   errorTitle: {
     fontSize: "2rem"
+  },
+  container: {
+    textAlign: "center",
+    width:"400px;"
   }
 }));
 
 const UserManagement = ({ users, deleteUser }) => {
   const classes = useStyles();
   const [confOpen, setConfOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const [userToDelete, setUserToDelete] = useState({ id: null, name: "" });
 
   const handleDelete = (id, name) => {
@@ -119,6 +125,19 @@ const UserManagement = ({ users, deleteUser }) => {
     setConfOpen(false);
   };
 
+  const handleInvite = () => {
+    setOpen(false);
+  };
+
+  const [values, setValues] = React.useState({
+    name: "",
+    email: ""
+  });
+
+  const handleChange = name => event => {
+    setValues({ ...values, [name]: event.target.value });
+  };
+
   return (
     <div>
       <Grid container spacing={1}>
@@ -132,6 +151,7 @@ const UserManagement = ({ users, deleteUser }) => {
             variant="contained"
             color="primary"
             className={classes.margin}
+            onClick={setOpen}
           >
             Invite Users
           </ColorButton>
@@ -153,6 +173,54 @@ const UserManagement = ({ users, deleteUser }) => {
           )}
         </Grid>
       </Grid>
+
+      <Dialog
+        open={open}
+        keepMounted
+        onClose={handleCancel}
+        aria-labelledby="alert-dialog-slide-title"
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle id="alert-dialog-slide-title">
+          {"Invite Team Member"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-title">
+            <form className={classes.container} noValidate autoComplete="off">
+              Name:
+              <TextField
+                id="outlined-name"
+                label="⍰ Name"
+                className={classes.textField}
+                value={values.name}
+                onChange={handleChange("name")}
+                margin="normal"
+                variant="outlined"
+              />
+              <br></br>
+              Email:
+              <TextField
+                id="outlined-email-input"
+                label="⍰ Email"
+                className={classes.textField}
+                type="email"
+                name="email"
+                autoComplete="email"
+                margin="normal"
+                variant="outlined"
+              />
+            </form>
+          </DialogContentText>
+          <DialogActions>
+            <Button onClick={handleInvite} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={handleDeleteUser} style={{backgroundColor:"turquoise", color:"white"}} color="primary">
+              Send Invite
+            </Button>
+          </DialogActions>
+        </DialogContent>
+      </Dialog>
 
       <Dialog
         open={confOpen}
