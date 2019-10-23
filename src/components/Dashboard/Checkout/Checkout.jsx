@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import checkout from "./checkout.module.scss";
 import PackageInfo from "./PackageInfo/PackageInfo";
-import Shipping from "./Shipping/Shipping";
 import SnackView from "./SnackView/SnackView";
 
 import { Elements, StripeProvider } from "react-stripe-elements";
@@ -15,7 +14,10 @@ const Checkout = props => {
   const [totalCost] = useState("$199.00");
   const [snackList, setSnackList] = useState([]);
   const [formData, setFormData] = useState({
-    name: ""
+    name: "",
+    address_city: "",
+    address_state: "",
+    address_zip: ""
   });
   console.log(formData);
   const submit = (ev, stripe) => {

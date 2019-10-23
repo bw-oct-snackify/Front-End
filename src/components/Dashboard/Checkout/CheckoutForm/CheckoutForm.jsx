@@ -23,6 +23,41 @@ const CheckoutForm = props => {
         onChange={props.handleChange}
         value={data.name}
       />
+      <label className={styles.label} htmlFor="address_city">
+        City
+      </label>
+      <input
+        className={styles.cardField}
+        name="address_city"
+        type="text"
+        placeholder="City"
+        onChange={props.handleChange}
+        value={data.address_city}
+      />
+      <label className={styles.label} htmlFor="address_state">
+        State
+      </label>
+      <input
+        className={styles.cardField}
+        name="address_state"
+        type="text"
+        placeholder="State"
+        onChange={props.handleChange}
+        value={data.address_state}
+      />
+
+      <label className={styles.label} htmlFor="address_zip">
+        Zipcode
+      </label>
+      <input
+        className={styles.cardField}
+        name="address_zip"
+        type="text"
+        placeholder="Zipcode"
+        onChange={props.handleChange}
+        value={data.address_zip}
+      />
+
       <label className={styles.label}>Card Number</label>
       <CardElement className={styles.cardField} />
       <button
