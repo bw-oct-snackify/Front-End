@@ -31,7 +31,6 @@ const ColorButton = withStyles(theme => ({
 
 const SnackFilter = props => {
   const classes = useStyles();
-  console.log("Filter props", props);
   return (
     <div className={classes.box}>
       <Paper className={classes.root}>

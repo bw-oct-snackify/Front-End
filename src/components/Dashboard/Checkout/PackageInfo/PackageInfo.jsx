@@ -30,7 +30,7 @@ const PackageInfo = props => {
 
       <div className={styles.textContainer}>
         <span className={styles.subtext}>Total Cost Today: </span>
-        <span className={styles.accentText}>{props.totalCost}</span>
+        <span className={styles.accentText}>${props.totalCost}</span>
       </div>
     </div>
   );
