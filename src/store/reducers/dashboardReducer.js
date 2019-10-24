@@ -1,20 +1,20 @@
-import {DELETE_USER, 
-    BEGIN_LOGIN, 
-    LOGIN_SUCCESS, 
-    LOGIN_FAILURE, 
-    BEGIN_UPDATE_USER, 
-    UPDATE_USER_SUCCESS, 
+import {
+    DELETE_USER,
+    BEGIN_LOGIN,
+    LOGIN_SUCCESS,
+    LOGIN_FAILURE,
+    BEGIN_UPDATE_USER,
+    UPDATE_USER_SUCCESS,
     UPDATE_USER_FAILURE,
     BEGIN_GET_USER_INFO,
     GET_USER_INFO_SUCCESS,
     GET_USER_INFO_FAILURE,
     BEGIN_LOGOUT,
     LOGOUT_SUCCESS,
-    LOGOUT_FAILURE
+    LOGOUT_FAILURE,
 } from '../actions/dashboardActions';
 
 const initState = {
-
     user: {
         name: '',
         user_id: null,
@@ -22,7 +22,8 @@ const initState = {
         company_id: null,
         admin: false,
         email: '',
-        img_url: 'https://www.catster.com/wp-content/uploads/2015/06/8698_choc_bosscat_full2.jpg',
+        img_url:
+            'https://www.catster.com/wp-content/uploads/2015/06/8698_choc_bosscat_full2.jpg',
         snacks: [],
     },
 
@@ -48,41 +49,41 @@ const initState = {
         {
             id: 3,
             email: 'markyshuk@gmail.com',
-            name: "Mark Artishuk",
-            suggestions: ["Reeses Cups", "Hot Cheetos"],
+            name: 'Mark Artishuk',
+            suggestions: ['Reeses Cups', 'Hot Cheetos'],
         },
-    ], 
+    ],
 
     order: [
         {
             id: 0,
-            snack: "Spicey Nuts",
-            brand: "Cummins",
-            uom: "8 oz bag",
-            quantity: 1
+            snack: 'Spicey Nuts',
+            brand: 'Cummins',
+            uom: '8 oz bag',
+            quantity: 1,
         },
         {
             id: 1,
-            snack: "Poptart",
-            brand: "Kellogs",
-            uom: "128 g",
-            quantity: 1
+            snack: 'Poptart',
+            brand: 'Kellogs',
+            uom: '128 g',
+            quantity: 1,
         },
         {
             id: 2,
-            snack: "Gummy Bears",
-            brand: "Haribo",
-            uom: "64 oz bag",
-            quantity: 1
+            snack: 'Gummy Bears',
+            brand: 'Haribo',
+            uom: '64 oz bag',
+            quantity: 1,
         },
         {
             id: 3,
-            snack: "Cheezits",
-            brand: "Kellogs",
-            uom: "32 oz bag",
-            quantity: 1
+            snack: 'Cheezits',
+            brand: 'Kellogs',
+            uom: '32 oz bag',
+            quantity: 1,
         },
-    ], 
+    ],
 
     isAuthenticating: false,
     loggedIn: false,
@@ -98,38 +99,35 @@ const initState = {
     isLoggingOut: true,
     logoutError: '',
     logoutResponse: '',
-
 };
 
-export const dashboardReducer = (state = initState, action) =>{
+export const dashboardReducer = (state = initState, action) => {
     console.log(`Action Type: ${action.type}`);
     console.log(`Action Payload: ${action.payload}`);
-    switch(action.type){
-
-
+    switch (action.type) {
         //HANDLE LOGIN DATA
         case BEGIN_LOGIN:
             console.log('Attempting to login..');
-            return{
+            return {
                 ...state,
                 isAuthenticating: true,
             };
 
         case LOGIN_SUCCESS:
             return {
-              ...state,
-              isAuthenticating: false,
-              loggedIn: true,
-              user: {
-                  ...state.user, 
-                  name: action.payload.name, 
-                  user_id: action.payload.user_ID,  
-                  email: action.payload.email, 
-                  company: action.payload.company_name, 
-                  company_id: action.payload.company_ID, 
-                  admin: action.payload.admin, 
-                  img_url: action.payload.img_url
-                }
+                ...state,
+                isAuthenticating: false,
+                loggedIn: true,
+                user: {
+                    ...state.user,
+                    name: action.payload.name,
+                    user_id: action.payload.user_ID,
+                    email: action.payload.email,
+                    company: action.payload.company_name,
+                    company_id: action.payload.company_ID,
+                    admin: action.payload.admin,
+                    img_url: action.payload.img_url,
+                },
             };
 
         case LOGIN_FAILURE:
@@ -139,7 +137,6 @@ export const dashboardReducer = (state = initState, action) =>{
                 isAuthenticating: false,
             };
 
-
         //HANDLE UPDATE USER DATA
         case BEGIN_UPDATE_USER:
             return {
@@ -148,93 +145,92 @@ export const dashboardReducer = (state = initState, action) =>{
             };
 
         case UPDATE_USER_SUCCESS:
-                return {
-                    ...state,
-                    isUpdating: false,
-                    updateSuccess: 'You have successfully updated your account information.',
-                    user:{
-                        ...state.user,
-                        name: action.payload.name,
-                         user_id: action.payload.user_ID,
-                         email: action.payload.email,
-                         company: action.payload.company_name,
-                         company_id: action.payload.company_ID,
-                         admin: action.payload.admin,
-                         img_url: action.payload.img_url,
-                    }
-                    };
+            return {
+                ...state,
+                isUpdating: false,
+                updateSuccess:
+                    'You have successfully updated your account information.',
+                user: {
+                    ...state.user,
+                    name: action.payload.name,
+                    user_id: action.payload.user_ID,
+                    email: action.payload.email,
+                    company: action.payload.company_name,
+                    company_id: action.payload.company_ID,
+                    admin: action.payload.admin,
+                    img_url: action.payload.img_url,
+                },
+            };
 
         case UPDATE_USER_FAILURE:
-            return{
+            return {
                 ...state,
                 updateError: action.payload,
                 isUpdating: false,
             };
 
-           
-        //HANDLE GET USER INFO 
+        //HANDLE GET USER INFO
         case BEGIN_GET_USER_INFO:
-            console.log('started fetching user data...')
-            return{
+            console.log('started fetching user data...');
+            return {
                 ...state,
                 isGettingUserInfo: true,
-            }
+            };
 
         case GET_USER_INFO_SUCCESS:
-            return{
+            return {
                 ...state,
                 isGettingUserInfo: false,
                 loggedIn: true,
-                user:{
-                name: action.payload.name,
-                user_id: action.payload.user_ID,
-                email: action.payload.email,
-                company: action.payload.company_name,
-                company_id: action.payload.company_ID,
-                admin: action.payload.admin,
-                img_url: action.payload.img_url,
+                user: {
+                    name: action.payload.name,
+                    user_id: action.payload.user_ID,
+                    email: action.payload.email,
+                    company: action.payload.company_name,
+                    company_id: action.payload.company_ID,
+                    admin: action.payload.admin,
+                    img_url: action.payload.img_url,
                 },
-                
-            }
+            };
 
         case GET_USER_INFO_FAILURE:
-            return{
+            return {
                 ...state,
                 isGettingUserInfo: false,
                 userInfoError: action.payload,
-            }
+            };
 
         // HANDLE LOGOUT DATA
         case BEGIN_LOGOUT:
-            return{
+            return {
                 ...state,
                 isLoggingOut: true,
-            }
+            };
 
         case LOGOUT_SUCCESS:
-            return{
+            return {
                 ...state,
                 user: initState.user,
                 isLoggingOut: false,
                 loggedIn: false,
-            }
+            };
 
         case LOGOUT_FAILURE:
-            return{
+            return {
                 ...state,
                 logoutError: action.payload,
-            }
-
-
+            };
 
         case DELETE_USER:
-            console.log(`Hey bro.. reducer here, working hard to delete the scum with the id ${action.payload}`);
-        return{
-            ...state, 
-            users: state.users.filter(user =>user.id !== action.payload)
-        };
+            console.log(
+                `Hey bro.. reducer here, working hard to delete the scum with the id ${action.payload}`
+            );
+            return {
+                ...state,
+                users: state.users.filter(user => user.id !== action.payload),
+            };
 
         default:
-            return {...state};
+            return { ...state };
     }
 };
