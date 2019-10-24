@@ -35,7 +35,8 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.paper
   },
   container: {
-    width: "400px"
+    width: "400px",
+    textAlign: "center"
   },
   card: {
     padding: "10px",
@@ -97,11 +98,7 @@ const useStyles = makeStyles(theme => ({
 
   errorTitle: {
     fontSize: "2rem"
-  },
-  container: {
-    textAlign: "center",
-    width:"400px;"
-  },
+  },  
   textField:{
     width:"400px"
   }
