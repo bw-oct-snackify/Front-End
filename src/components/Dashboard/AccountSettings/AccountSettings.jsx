@@ -19,14 +19,13 @@ const AccountSettings = ({user, updateUser, isUpdating}) =>{
 
     const useStyles = makeStyles(theme => ({
         button: {
-            margin: theme.spacing(1),
             width: '400px',
             height: '50px',
             margin: '0 auto',
           },
           avatar:{
-            width: '250px',
-            height: '250px',
+            width: '200px',
+            height: '200px',
             margin: '0 auto',
           },
           title:{

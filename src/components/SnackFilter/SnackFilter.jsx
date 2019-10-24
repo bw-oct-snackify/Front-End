@@ -54,15 +54,17 @@ const SnackFilter = props => {
           
         </Typography>
       </Paper>
-      <Link to="/cp/checkout">
-        <ColorButton
-          variant="contained"
-          color="primary"
-          className={classes.margin}
-        >
-          Schedule Delivery
-        </ColorButton>
-      </Link>
+        {props.user.admin && (
+          <Link to="/cp/checkout">
+           <ColorButton
+           variant="contained"
+           color="primary"
+           className={classes.margin}
+         >
+           Schedule Delivery
+         </ColorButton>
+         </Link>
+        ) } 
     </div>
   );
 };
