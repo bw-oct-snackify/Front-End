@@ -25,7 +25,7 @@
 }
 
 .submitButton:hover {
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.767);
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.767);
 }
 .labelTitle {
   color: rgb(65, 64, 64);
@@ -75,4 +75,17 @@
     rgba(0, 0, 0, 0.0784314) 0px 1px 3px;
   -webkit-transition: all 150ms ease;
   transition: all 150ms ease;
+}
+
+.process {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-style: none;
+  border-radius: 50px;
+  background: black;
+  color: white;
+  margin-top: 15px;
+  height: 40px;
+  width: 100%;
 }

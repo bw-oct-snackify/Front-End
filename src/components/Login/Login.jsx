@@ -17,13 +17,8 @@ const Login = ({
 
   if (isAuthenticating) {
     return (
-      <div>
-        <h2>Authenticating Account Details</h2>
-        <p>
-          We are currently doing stuff and communicating with the backend to get
-          your details.
-        </p>
-        <p>Those scurvy dogs are taking a while.. please hang tight.</p>
+      <div className={login.processing}>
+        <i className="fa fa-cookie fa-7x fa-spin"></i>
       </div>
     );
   }
@@ -71,7 +66,7 @@ const Login = ({
               Login
             </button>
             {authenticationError && (
-              <p className={login.err}>{authenticationError}</p>
+              <p className={login.err}>{authenticationError.data}</p>
             )}
           </div>
         </Form>
@@ -89,7 +84,7 @@ const Login = ({
 };
 
 const FormikLoginForm = withFormik({
-  mapPropsToValues({ username, password, loginUser }) {
+  mapPropsToValues({ username, password }) {
     return {
       username: username || "",
       password: password || ""
@@ -107,8 +102,6 @@ const FormikLoginForm = withFormik({
   }),
 
   handleSubmit(values, { props }) {
-    console.log(props);
-    console.log("Logging in with: " + values.username + " " + values.password);
     props.loginUser({
       email: values.username,
       password: values.password
