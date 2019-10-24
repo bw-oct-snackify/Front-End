@@ -17,7 +17,6 @@ const useStyles = makeStyles({
 
 const User = ({ id, email, name, suggested, handleDelete }) => {
   const classes = useStyles();
-console.log(suggested)
   return (
     <TableRow>
       <TableCell align="center" className={classes.row}>
@@ -35,9 +34,10 @@ console.log(suggested)
         {name}
       </TableCell>
       <TableCell align="center" className={classes.row}>
-        {suggested && suggested.map((item, index) => {
-          return <Chip className={classes.chip} key={index} label={item} />;
-        })}
+        {suggested &&
+          suggested.map((item, index) => {
+            return <Chip className={classes.chip} key={index} label={item} />;
+          })}
       </TableCell>
     </TableRow>
   );

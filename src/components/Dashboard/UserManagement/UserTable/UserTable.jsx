@@ -30,13 +30,16 @@ const useStyles = makeStyles({
   }
 });
 
-export const UserTable = ({ currentUser, getCompanyUsers, users, handleDelete }) => {
+export const UserTable = ({
+  currentUser,
+  getCompanyUsers,
+  users,
+  handleDelete
+}) => {
   const classes = useStyles();
-
-useEffect(()=>{
+  useEffect(() => {
     getCompanyUsers(currentUser.company_id);
-},[getCompanyUsers, currentUser])
-
+  }, [getCompanyUsers, currentUser]);
 
   return (
     <Paper className={classes.root}>
@@ -60,11 +63,11 @@ useEffect(()=>{
           {users.map(user => {
             return (
               <User
-                key={user.id}
-                id={user.id}
+                key={user.user_ID}
+                id={user.user_ID}
                 email={user.email}
                 name={user.name}
-                suggested={user.suggestions}
+                suggested={user.user_snacks}
                 handleDelete={handleDelete}
               />
             );
@@ -78,7 +81,7 @@ useEffect(()=>{
 const mapStateToProps = state => {
   return {
     users: state.dashboardReducer.users,
-    currentUser: state.dashboardReducer.user,
+    currentUser: state.dashboardReducer.user
   };
 };
 

@@ -78,7 +78,6 @@ const Checkout = ({ user }) => {
       .catch(err => {
         console.log(err.response);
       });
-
     axiosInstance
       .get(`/company/${user.company_id}`)
       .then(res => {
