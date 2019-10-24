@@ -44,6 +44,7 @@ export const addSnackToCompany = (user, snack) => dispatch => {
     axiosInstance
         .post(`/company/${user.company_id}/snacks/${snack.snack_ID}`)
         .then(res => {
+            console.log(res.data);
             dispatch({ type: ADD_SNACK_TO_COMPANY, payload: snack });
         });
 };
