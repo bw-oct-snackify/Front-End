@@ -37,10 +37,54 @@ const AccountSettings = ({ user, updateUser, isUpdating }) => {
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
   };
 
+
   const handleSubmit = e => {
     e.preventDefault();
     updateUser(user.user_id, userInfo);
   };
+
+    const useStyles = makeStyles(theme => ({
+        button: {
+            width: '400px',
+            height: '50px',
+            margin: '0 auto',
+          },
+          avatar:{
+            width: '200px',
+            height: '200px',
+            margin: '0 auto',
+          },
+          title:{
+            fontSize:'2rem',
+            textAlign:'center',
+            fontWeight: '700',
+            marginBottom: '10px',
+          },
+      }));
+
+
+    const handleChange = e =>{
+        setUserInfo({...userInfo, [e.target.name]:e.target.value});
+    };
+
+    const handleSubmit = e =>{
+        e.preventDefault();
+        updateUser(user.user_id, userInfo);
+    };
+
+    console.log(userInfo);
+
+
+    const classes = useStyles();
+
+    if(isUpdating){
+        return(
+            <div>
+                <h2>Updating account information..</h2>
+            </div>
+        );
+    }
+
 
   console.log(userInfo);
 
