@@ -8,7 +8,12 @@ import {
     getUserSuggestions,
 } from '../../../../store/actions/snackActions';
 
-const SuggestedSnacks = ({ suggestions, user, getCompanySuggestions }) => {
+const SuggestedSnacks = ({
+    suggestions,
+    user,
+    getCompanySuggestions,
+    getUserSuggestions,
+}) => {
     useEffect(() => {
         if (user.admin) {
             console.log('Getting company suggestions');
@@ -17,7 +22,7 @@ const SuggestedSnacks = ({ suggestions, user, getCompanySuggestions }) => {
             console.log('Getting User suggestions');
             getUserSuggestions(user);
         }
-    }, [getCompanySuggestions, user]);
+    }, [getCompanySuggestions, getUserSuggestions, user]);
 
     return (
         <div>
@@ -56,5 +61,5 @@ function mapStateToProps(state) {
 
 export default connect(
     mapStateToProps,
-    { getCompanySuggestions }
+    { getCompanySuggestions, getUserSuggestions }
 )(SuggestedSnacks);

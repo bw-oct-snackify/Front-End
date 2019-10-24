@@ -32,12 +32,12 @@ export const snackReducer = (state = initState, action) => {
         case ADD_SNACK_TO_SUGGESTIONS:
             return {
                 ...state,
-                suggestions: state.suggestions.push(action.payload),
+                suggestions: [...state.suggestions, action.payload],
             };
         case ADD_SNACK_TO_COMPANY:
             return {
                 ...state,
-                order: state.order.push(action.payload),
+                order: [...state.order, action.payload],
             };
         default:
             return state;
