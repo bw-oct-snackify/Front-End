@@ -8,11 +8,10 @@ import { Elements, StripeProvider } from "react-stripe-elements";
 import CheckoutForm from "./CheckoutForm/CheckoutForm";
 import { axiosInstance } from "../../../utils/axiosInstance";
 
-// axios.defaults.withCredentials = true;
 // pk_test_wUB22qL2Vb3jUMbGbtVmyDju00dj3coNiz
 const Checkout = ({ user }) => {
   const [shipDate, setShipDate] = useState("");
-  const [totalCost] = useState("$199.00");
+  const [totalCost, setTotalCost] = useState(0);
   const [paymentProcess, setPaymentProcess] = useState("idle");
   const [companySnacks, setCompanySnacks] = useState({
     name: "",
@@ -49,7 +48,7 @@ const Checkout = ({ user }) => {
         //confirmation once it's complete.
         console.log("Token: ", token.id);
         axiosInstance
-          .post("/billing/stripe", { id: token.id, price: 199 })
+          .post("/billing/stripe", { id: token.id, price: totalCost })
           .then(res => {
             if (res.status === 200) {
               setPaymentProcess("success");
@@ -58,6 +57,10 @@ const Checkout = ({ user }) => {
           .catch(err => {
             console.log("Response from backend:", err);
             setPaymentProcess("failed");
+            setFormErrors({
+              response:
+                "Could not process your information. Please check your card details."
+            });
           });
       })
       .catch(err => {
@@ -76,6 +79,14 @@ const Checkout = ({ user }) => {
         console.log(err.response);
       });
 
+    axiosInstance
+      .get(`/company/${user.company_id}`)
+      .then(res => {
+        setTotalCost(res.data.price);
+      })
+      .catch(err => {
+        console.log(err);
+      });
     //Will set the shipping date 3 days ahead of today.
     //Just to simulate getting shipping date from a mailing/shipping api.
     let current = new Date();
