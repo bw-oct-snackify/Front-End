@@ -10,11 +10,11 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 // Import reducers
 import { dashboardReducer } from './store/reducers/dashboardReducer';
-import { companyReducer } from './store/reducers/companyReducer';
+import { snackReducer } from './store/reducers/snackReducer';
 
 const rootReducer = combineReducers({
     dashboardReducer,
-    companyReducer,
+    snackReducer,
 });
 
 const composeEnhancer = compose;

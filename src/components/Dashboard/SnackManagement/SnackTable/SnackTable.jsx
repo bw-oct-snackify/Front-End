@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import Snack from './Snack';
 import { connect } from 'react-redux';
-import { getCompanySnacks } from '../../../../store/actions/companyActions';
+import { getCompanySnacks } from '../../../../store/actions/snackActions';
 
 const useStyles = makeStyles({
     root: {
@@ -74,7 +74,7 @@ const SnackTable = ({ order, user, getCompanySnacks }) => {
 const mapStateToProps = state => {
     console.log(state);
     return {
-        order: state.companyReducer.order,
+        order: state.snackReducer.order,
         user: state.dashboardReducer.user,
     };
 };
