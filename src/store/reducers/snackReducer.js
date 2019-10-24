@@ -3,6 +3,7 @@ import {
     UPDATE_SUGGESTIONS,
     GET_ALL_SNACKS,
     ADD_SNACK_TO_SUGGESTIONS,
+    ADD_SNACK_TO_COMPANY,
 } from '../actions/snackActions';
 
 const initState = {
@@ -32,6 +33,11 @@ export const snackReducer = (state = initState, action) => {
             return {
                 ...state,
                 suggestions: state.suggestions.push(action.payload),
+            };
+        case ADD_SNACK_TO_COMPANY:
+            return {
+                ...state,
+                order: state.order.push(action.payload),
             };
         default:
             return state;

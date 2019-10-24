@@ -10,7 +10,10 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
 import { connect } from 'react-redux';
-import { addSnackToSuggestions } from '../../../../store/actions/snackActions';
+import {
+    addSnackToSuggestions,
+    addSnackToCompany,
+} from '../../../../store/actions/snackActions';
 
 const useStyles = makeStyles({
     bullet: {
@@ -29,7 +32,12 @@ const useStyles = makeStyles({
     },
 });
 
-const SnackCard = ({ user, snack, addSnackToSuggestions }) => {
+const SnackCard = ({
+    user,
+    snack,
+    addSnackToSuggestions,
+    addSnackToComapny,
+}) => {
     const classes = useStyles();
     console.log(snack);
     return (
@@ -59,7 +67,11 @@ const SnackCard = ({ user, snack, addSnackToSuggestions }) => {
                     <Button
                         size="small"
                         onClick={() => {
-                            addSnackToSuggestions(user, snack);
+                            if (user.admin) {
+                                addSnackToComapny(user, snack);
+                            } else {
+                                addSnackToSuggestions(user, snack);
+                            }
                         }}
                     >
                         Add to snacks
@@ -78,5 +90,5 @@ function mapStateToProps(state) {
 
 export default connect(
     mapStateToProps,
-    { addSnackToSuggestions }
+    { addSnackToSuggestions, addSnackToCompany }
 )(SnackCard);

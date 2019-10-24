@@ -3,11 +3,20 @@ import SnackFilter from '../../../SnackFilter/SnackFilter';
 import SnackCard from '../ViewAllSnacks/SnackCard';
 import Grid from '@material-ui/core/Grid';
 import { connect } from 'react-redux';
-import { getCompanySuggestions } from '../../../../store/actions/snackActions';
+import {
+    getCompanySuggestions,
+    getUserSuggestions,
+} from '../../../../store/actions/snackActions';
 
 const SuggestedSnacks = ({ suggestions, user, getCompanySuggestions }) => {
     useEffect(() => {
-        getCompanySuggestions(user);
+        if (user.admin) {
+            console.log('Getting company suggestions');
+            getCompanySuggestions(user);
+        } else {
+            console.log('Getting User suggestions');
+            getUserSuggestions(user);
+        }
     }, [getCompanySuggestions, user]);
 
     return (
