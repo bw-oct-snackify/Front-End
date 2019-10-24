@@ -11,7 +11,8 @@ const useStyles = makeStyles({
     cursor: "pointer"
   },
   chip: {
-    marginRight: "5px"
+    margin: "5px 5px",
+    fontSize: '10px',
   }
 });
 
@@ -36,7 +37,7 @@ const User = ({ id, email, name, suggested, handleDelete }) => {
       <TableCell align="center" className={classes.row}>
         {suggested &&
           suggested.map((item, index) => {
-            return <Chip className={classes.chip} key={index} label={item} />;
+            return <Chip size="small" className={classes.chip} key={index} label={item} />;
           })}
       </TableCell>
     </TableRow>

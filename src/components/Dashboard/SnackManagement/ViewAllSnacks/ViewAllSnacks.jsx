@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import SnackFilter from '../../../SnackFilter/SnackFilter';
 import SearchComponent from './SearchComponent';
 import SnackCard from './SnackCard';
@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { getAllSnacks } from '../../../../store/actions/snackActions';
 
 const ViewAllSnacks = ({ user, snacks, getAllSnacks }) => {
+    
     useEffect(() => {
         getAllSnacks();
     }, [getAllSnacks, user]);
