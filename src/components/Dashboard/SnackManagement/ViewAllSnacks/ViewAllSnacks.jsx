@@ -15,7 +15,7 @@ const ViewAllSnacks = ({ user, snacks, getAllSnacks }) => {
         <div>
             <Grid container spacing={1}>
                 <Grid item sm={3}>
-                    <SnackFilter />
+                    <SnackFilter user={user}/>
                 </Grid>
                 <Grid item sm={9}>
                     <SearchComponent />
