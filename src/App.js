@@ -47,7 +47,6 @@ const App = ({ getUserInfo }) => {
         <PrivateRoute path="/selectedsnacks" redirect="/login">
 
           <Dashboard><SelectedSnacks /></Dashboard>
-
         </PrivateRoute>
 
         <PrivateRoute path="/snacks" redirect="/login">
