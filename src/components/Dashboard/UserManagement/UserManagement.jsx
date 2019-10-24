@@ -98,9 +98,9 @@ const useStyles = makeStyles(theme => ({
 
   errorTitle: {
     fontSize: "2rem"
-  },  
-  textField:{
-    width:"400px"
+  },
+  textField: {
+    width: "400px"
   }
 }));
 
@@ -140,6 +140,59 @@ const UserManagement = ({ users, deleteUser }) => {
 
   return (
     <div>
+
+<Dialog
+        open={open}
+        keepMounted
+        onClose={handleCancel}
+        aria-labelledby="alert-dialog-slide-title"
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle id="alert-dialog-slide-title">
+          {"Invite Team Member"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-title">
+            <form className={classes.container} noValidate autoComplete="off">
+              Name:
+              <TextField
+                id="outlined-name"
+                label="⍰ Name"
+                className={classes.textField}
+                value={values.name}
+                onChange={handleChange("name")}
+                margin="normal"
+                variant="outlined"
+              />
+              <br></br>
+              Email:
+              <TextField
+                id="outlined-email-input"
+                label="⍰ Email"
+                className={classes.textField}
+                type="email"
+                name="email"
+                autoComplete="email"
+                margin="normal"
+                variant="outlined"
+              />
+            </form>
+          </DialogContentText>
+          <DialogActions>
+            <Button onClick={handleInvite} color="primary">
+              Cancel
+            </Button>
+            <Button
+              onClick={handleDeleteUser}
+              style={{ backgroundColor: "turquoise", color: "white" }}
+              color="primary"
+            >
+              Send Invite
+            </Button>
+          </DialogActions>
+        </DialogContent>
+      </Dialog>
+
       <Grid container spacing={1}>
         <Grid item sm={3}>
           <Card className={classes.card}>
@@ -173,54 +226,6 @@ const UserManagement = ({ users, deleteUser }) => {
           )}
         </Grid>
       </Grid>
-
-      <Dialog
-        open={open}
-        keepMounted
-        onClose={handleCancel}
-        aria-labelledby="alert-dialog-slide-title"
-        aria-describedby="alert-dialog-slide-description"
-      >
-        <DialogTitle id="alert-dialog-slide-title">
-          {"Invite Team Member"}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-slide-title">
-            <form className={classes.container} noValidate autoComplete="off">
-              Name:
-              <TextField 
-                id="outlined-name"
-                label="⍰ Name"
-                className={classes.textField}
-                value={values.name}
-                onChange={handleChange("name")}
-                margin="normal"
-                variant="outlined"
-              />
-              <br></br>
-              Email:
-              <TextField 
-                id="outlined-email-input"
-                label="⍰ Email"
-                className={classes.textField}
-                type="email"
-                name="email"
-                autoComplete="email"
-                margin="normal"
-                variant="outlined"
-              />
-            </form>
-          </DialogContentText>
-          <DialogActions>
-            <Button onClick={handleInvite} color="primary">
-              Cancel
-            </Button>
-            <Button onClick={handleDeleteUser} style={{backgroundColor:"turquoise", color:"white"}} color="primary">
-              Send Invite
-            </Button>
-          </DialogActions>
-        </DialogContent>
-      </Dialog>
 
       <Dialog
         open={confOpen}
