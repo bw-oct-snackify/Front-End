@@ -7,7 +7,10 @@ import {DELETE_USER,
     UPDATE_USER_FAILURE,
     BEGIN_GET_USER_INFO,
     GET_USER_INFO_SUCCESS,
-    GET_USER_INFO_FAILURE
+    GET_USER_INFO_FAILURE,
+    BEGIN_LOGOUT,
+    LOGOUT_SUCCESS,
+    LOGOUT_FAILURE
 } from '../actions/dashboardActions';
 
 const initState = {
@@ -92,6 +95,10 @@ const initState = {
     isGettingUserInfo: false,
     userInfoError: '',
 
+    isLoggingOut: true,
+    logoutError: '',
+    logoutResponse: '',
+
 };
 
 export const dashboardReducer = (state = initState, action) =>{
@@ -99,6 +106,8 @@ export const dashboardReducer = (state = initState, action) =>{
     console.log(`Action Payload: ${action.payload}`);
     switch(action.type){
 
+
+        //HANDLE LOGIN DATA
         case BEGIN_LOGIN:
             console.log('Attempting to login..');
             return{
@@ -130,6 +139,8 @@ export const dashboardReducer = (state = initState, action) =>{
                 isAuthenticating: false,
             };
 
+
+        //HANDLE UPDATE USER DATA
         case BEGIN_UPDATE_USER:
             return {
                 ...state,
@@ -160,6 +171,8 @@ export const dashboardReducer = (state = initState, action) =>{
                 isUpdating: false,
             };
 
+           
+        //HANDLE GET USER INFO 
         case BEGIN_GET_USER_INFO:
             console.log('started fetching user data...')
             return{
@@ -191,10 +204,35 @@ export const dashboardReducer = (state = initState, action) =>{
                 userInfoError: action.payload,
             }
 
+        // HANDLE LOGOUT DATA
+        case BEGIN_LOGOUT:
+            return{
+                ...state,
+                isLoggingOut: true,
+            }
+
+        case LOGOUT_SUCCESS:
+            return{
+                ...state,
+                user: initState.user,
+                isLoggingOut: false,
+                loggedIn: false,
+            }
+
+        case LOGOUT_FAILURE:
+            return{
+                ...state,
+                logoutError: action.payload,
+            }
+
+
 
         case DELETE_USER:
             console.log(`Hey bro.. reducer here, working hard to delete the scum with the id ${action.payload}`);
-        return{...state, users: state.users.filter(user =>user.id !== action.payload)};
+        return{
+            ...state, 
+            users: state.users.filter(user =>user.id !== action.payload)
+        };
 
         default:
             return {...state};

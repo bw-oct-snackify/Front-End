@@ -1,30 +1,31 @@
-import React, { useEffect } from "react";
-import {connect} from 'react-redux';
-import { Link, Redirect, useHistory } from "react-router-dom";
+import React from "react";
+import { connect } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import login from "./login.module.scss";
-import {loginUser} from '../../store/actions/dashboardActions';
+import { loginUser } from "../../store/actions/dashboardActions";
 
-const Login = ({ errors, touched, status, loginUser, isAuthenticating, loggedIn, authenticationError}) => {
-  console.log(authenticationError);
-
+const Login = ({
+  errors,
+  touched,
+  isAuthenticating,
+  loggedIn,
+  authenticationError
+}) => {
   const history = useHistory();
 
-  if(isAuthenticating){
+  if (isAuthenticating) {
     return (
-      <div>
-        <h2>Authenticating Account Details</h2>
-        <p>We are currently doing stuff and communicating with the backend to get your details.</p>
-        <p>Those scurvy dogs are taking a while.. please hang tight.</p>
+      <div className={login.processing}>
+        <i className="fa fa-cookie fa-7x fa-spin"></i>
       </div>
     );
   }
 
-  if(loggedIn){
-    history.push('/');
+  if (loggedIn) {
+    history.push("/");
   }
-
 
   return (
     <div className={login.background}>
@@ -65,7 +66,7 @@ const Login = ({ errors, touched, status, loginUser, isAuthenticating, loggedIn,
               Login
             </button>
             {authenticationError && (
-              <p>{authenticationError}</p>
+              <p className={login.err}>{authenticationError.data}</p>
             )}
           </div>
         </Form>
@@ -83,7 +84,7 @@ const Login = ({ errors, touched, status, loginUser, isAuthenticating, loggedIn,
 };
 
 const FormikLoginForm = withFormik({
-  mapPropsToValues({ username, password, loginUser}) {
+  mapPropsToValues({ username, password }) {
     return {
       username: username || "",
       password: password || ""
@@ -100,9 +101,7 @@ const FormikLoginForm = withFormik({
       .min(8, "Your password must be at least 8 characters long.")
   }),
 
-  handleSubmit(values, {props}) {
-    console.log(props);
-    console.log("Logging in with: " + values.username + " " + values.password);
+  handleSubmit(values, { props }) {
     props.loginUser({
       email: values.username,
       password: values.password
@@ -110,12 +109,15 @@ const FormikLoginForm = withFormik({
   }
 })(Login);
 
-const mapStateToProps = state =>{
-  return{
+const mapStateToProps = state => {
+  return {
     isAuthenticating: state.dashboardReducer.isAuthenticating,
     loggedIn: state.dashboardReducer.loggedIn,
-    authenticationError: state.dashboardReducer.authenticationError,
+    authenticationError: state.dashboardReducer.authenticationError
   };
 };
 
-export default connect(mapStateToProps, {loginUser})(FormikLoginForm);
+export default connect(
+  mapStateToProps,
+  { loginUser }
+)(FormikLoginForm);
