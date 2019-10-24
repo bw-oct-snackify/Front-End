@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { getUserInfo } from "./store/actions/dashboardActions";
 import "./styles/global.scss";
@@ -47,11 +47,9 @@ const App = ({ getUserInfo }) => {
 
         <PrivateRoute path="/selectedsnacks" redirect="/login">
           <Dashboard>
-            <SelectedSnacks /> 
+
+             <SelectedSnacks /> 
           </Dashboard>
-
-          <Dashboard> <SelectedSnacks /> </Dashboard>
-
         </PrivateRoute>
 
         <PrivateRoute path="/snacks" redirect="/login">
@@ -75,10 +73,7 @@ const App = ({ getUserInfo }) => {
         </PrivateRoute>
 
         <PrivateRoute exact path="/" redirect="/login">
-          <div>
-            <h2>Logged in user, and on the dashboard.</h2>
-            <p>Welcome to the user dashboard, where stuff will exist.</p>
-          </div>
+          <Redirect to='/snacks'/>
         </PrivateRoute>
 
         <Route exact path="/login/">
