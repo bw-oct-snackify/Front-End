@@ -142,7 +142,6 @@ const FormikUserInfo = withFormik({
                     company_code: values.code,
                 })
                 .then(res => {
-                    console.log(props);
                     props.createUser();
                 })
                 .catch(err => {
