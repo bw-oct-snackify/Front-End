@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import navBackground from "../../assets/images/snackbox.png";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import {logoutUser} from '../../store/actions/dashboardActions';
+import { logoutUser } from "../../store/actions/dashboardActions";
 import navbar from "./navbar.module.scss";
 
 const useStyles = makeStyles(theme => ({
@@ -49,8 +49,9 @@ const NavBar = ({ user, loggedIn, logoutUser }) => {
           <h2 className={navbar.company}>{user.company}</h2>
           <div className={navbar.navlist}>
             <div className={navbar.main}>
+              {loggedIn && <Link to="/snacks">Snacks</Link>}
               {user.admin && (
-                <><Link to="/snacks">Snacks</Link>
+                <>
                   <Link to="/cp/snacks">Manage Snacks</Link>
                   <Link to="/cp/users">Manage Users</Link>
                 </>
@@ -64,7 +65,9 @@ const NavBar = ({ user, loggedIn, logoutUser }) => {
                   <button
                     className={navbar.logout}
                     onClick={() => logoutUser()}
-                  >Logout</button>
+                  >
+                    Logout
+                  </button>
                 </>
               )}
 
@@ -91,5 +94,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  {logoutUser}
+  { logoutUser }
 )(NavBar);
