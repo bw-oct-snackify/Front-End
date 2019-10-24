@@ -87,7 +87,7 @@ const initState = {
       quantity: 1
     }
   ],
-
+  
   isAuthenticating: false,
   loggedIn: false,
   authenticationError: "",

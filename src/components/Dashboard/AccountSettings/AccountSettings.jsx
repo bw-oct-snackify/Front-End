@@ -42,7 +42,15 @@ const AccountSettings = ({ user, updateUser, isUpdating }) => {
     updateUser(user.user_id, userInfo);
   };
 
-  console.log(userInfo);
+    console.log(userInfo);
+
+    if(isUpdating){
+        return(
+            <div>
+                <h2>Updating account information..</h2>
+            </div>
+        );
+    }
 
   const classes = useStyles();
 
