@@ -44,14 +44,9 @@ const App = ({ getUserInfo }) => {
         </PrivateRoute>
 
         <PrivateRoute path="/selectedsnacks" redirect="/login">
-<<<<<<< HEAD
           <Dashboard>
-
-             <SelectedSnacks /> 
+             {/* <SelectedSnacks />  */}
           </Dashboard>
-=======
-          <Dashboard>{/* <SelectedSnacks /> */}</Dashboard>
->>>>>>> 4ccb7940e6df97d62d58aeb0df2012744943d7bf
         </PrivateRoute>
 
         <PrivateRoute path="/snacks" redirect="/login">
@@ -66,11 +61,9 @@ const App = ({ getUserInfo }) => {
 
         <PrivateRoute path="/suggested" redirect="/login">
           <Dashboard>
-<<<<<<< HEAD
+
              <SuggestedSnacks /> 
-=======
-            <SuggestedSnacks />
->>>>>>> 4ccb7940e6df97d62d58aeb0df2012744943d7bf
+
           </Dashboard>
         </PrivateRoute>
 

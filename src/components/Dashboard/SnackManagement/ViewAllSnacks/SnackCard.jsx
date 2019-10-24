@@ -26,7 +26,8 @@ const useStyles = makeStyles({
   }
 });
 
-const SnackCard = () => {
+const SnackCard = (props) => {
+  console.log(props);
   const classes = useStyles();
 
   return (
