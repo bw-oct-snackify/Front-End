@@ -48,3 +48,9 @@ export const addSnackToCompany = (user, snack) => dispatch => {
             dispatch({ type: ADD_SNACK_TO_COMPANY, payload: snack });
         });
 };
+
+export const searchSnacks = search => dispatch => {
+    axiosInstance.get(`/snacks?search=${search}`).then(res => {
+        dispatch({ type: GET_ALL_SNACKS, payload: res.data.snacks });
+    });
+};
