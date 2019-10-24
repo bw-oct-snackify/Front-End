@@ -4,10 +4,9 @@ import styles from "./checkoutform.module.scss";
 import SuccessfulPurchase from "./SuccessfulPurchase";
 
 const CheckoutForm = props => {
-  const { data, errors, complete } = props;
+  const { data, errors, process } = props;
 
-  if (complete) return <SuccessfulPurchase />;
-
+  if (process === "success") return <SuccessfulPurchase />;
   return (
     <div className={styles.cardCheckout}>
       <h1 className={styles.labelTitle}>Card Details</h1>
@@ -60,12 +59,18 @@ const CheckoutForm = props => {
       <label className={styles.label}>Card Number</label>
       <CardElement className={styles.cardField} />
       {errors.response && <p className={styles.error}>{errors.response}</p>}
-      <button
-        className={styles.submitButton}
-        onClick={event => props.submit(event, props.stripe)}
-      >
-        Purchase
-      </button>
+      {process === "processing" ? (
+        <div className={styles.process}>
+          <i className="fa fa-cog fa-spin"></i>{" "}
+        </div>
+      ) : (
+        <button
+          className={styles.submitButton}
+          onClick={event => props.submit(event, props.stripe)}
+        >
+          Purchase
+        </button>
+      )}
     </div>
   );
 };
