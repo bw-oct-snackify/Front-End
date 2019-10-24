@@ -17,13 +17,8 @@ const Login = ({
 
   if (isAuthenticating) {
     return (
-      <div>
-        <h2>Authenticating Account Details</h2>
-        <p>
-          We are currently doing stuff and communicating with the backend to get
-          your details.
-        </p>
-        <p>Those scurvy dogs are taking a while.. please hang tight.</p>
+      <div className={login.processing}>
+        <i className="fa fa-cookie fa-7x fa-spin"></i>
       </div>
     );
   }

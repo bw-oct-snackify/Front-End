@@ -61,7 +61,7 @@ const CheckoutForm = props => {
       {errors.response && <p className={styles.error}>{errors.response}</p>}
       {process === "processing" ? (
         <div className={styles.process}>
-          <i className="fa fa-cog fa-spin"></i>{" "}
+          <i className="fa fa-cog fa-spin"></i>
         </div>
       ) : (
         <button
