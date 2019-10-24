@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import {connect} from 'react-redux';
 import Paper from "@material-ui/core/Paper";
 import { purple } from "@material-ui/core/colors";
 import Button from "@material-ui/core/Button";
@@ -29,9 +30,11 @@ const ColorButton = withStyles(theme => ({
   }
 }))(Button);
 
-const SnackFilter = props => {
+const SnackFilter = ({user}) => {
   const classes = useStyles();
-  console.log("Filter props", props);
+
+  // console.log("Filter props", props);
+
   return (
     <div className={classes.box}>
       <Paper className={classes.root}>
@@ -55,7 +58,7 @@ const SnackFilter = props => {
           
         </Typography>
       </Paper>
-        {props.user.admin && (
+        {user.admin && (
           <Link to="/cp/checkout">
            <ColorButton
            variant="contained"
@@ -70,4 +73,10 @@ const SnackFilter = props => {
   );
 };
 
-export default SnackFilter;
+const fish = state =>{
+  return{
+    user: state.dashboardReducer.user,
+  }
+};
+
+export default connect(fish, {})(SnackFilter);
