@@ -36,15 +36,15 @@ const SnackCard = (props) => {
         <CardActionArea>
           <CardMedia
             className={classes.media}
-            image="/static/images/cards/contemplative-reptile.jpg"
+            image={props.snack.img_url}
             title="Contemplative Reptile"
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
-              Snack title:
+              Snack: {props.snack.name}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              snack sub title
+              Brand: {props.snack.brand}
             </Typography>
           </CardContent>
         </CardActionArea>
