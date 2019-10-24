@@ -44,23 +44,30 @@ const Login = ({
             <label className={login.fieldlabel} htmlFor="username">
               Email *{" "}
             </label>
-            <Field
-              className={login.loginfield}
-              type="text"
-              name="username"
-              id="username"
-              placeholder="jane@janedoe.com"
-            />
+            <div className={login.loginfield}>
+              <i class="fas fa-user"></i>
 
+              <Field
+                type="text"
+                className={login.textfield}
+                name="username"
+                id="username"
+                placeholder="jane@janedoe.com"
+              />
+            </div>
             <label className={login.fieldlabel} htmlFor="password">
               Password *{" "}
             </label>
-            <Field
-              className={login.loginfield}
-              type="password"
-              name="password"
-              id="password"
-            />
+            <div className={login.loginfield}>
+              <i class="fas fa-lock"></i>
+              <Field
+                className={login.textfield}
+                type="password"
+                name="password"
+                placeholder="password"
+                id="password"
+              />
+            </div>
 
             <button className={login.loginbutton} type="submit">
               Login
