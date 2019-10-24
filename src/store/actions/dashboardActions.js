@@ -1,13 +1,9 @@
-
 import { axiosInstance } from "../../utils/axiosInstance";
-import axios from "axios";
 
-axios.defaults.withCredentials = true;
-
-// LOGIN USER AND GET THEIR INFO
-export const BEGIN_LOGIN = "BEGIN_LOGIN";
-export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
-export const LOGIN_FAILURE = "LOGIN FAILURE";
+// LOGIN USER
+export const BEGIN_LOGIN = 'BEGIN_LOGIN';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAILURE = 'LOGIN FAILURE';
 
 export const loginUser = credentials => dispatch => {
   dispatch({ type: BEGIN_LOGIN });
@@ -20,14 +16,6 @@ export const loginUser = credentials => dispatch => {
     })
     .catch(error => dispatch({ type: LOGIN_FAILURE, payload: error.response }));
 };
-
-import {axiosInstance} from '../../utils/axiosInstance';
-
-// LOGIN USER
-export const BEGIN_LOGIN = 'BEGIN_LOGIN';
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const LOGIN_FAILURE = 'LOGIN FAILURE';
-
 
 // UPDATE USER INFO
 export const BEGIN_UPDATE_USER = "BEGIN_UPDATE_USER";

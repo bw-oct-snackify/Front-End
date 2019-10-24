@@ -70,14 +70,13 @@ const SnackFilter = ({ user }) => {
     </div>
   );
 };
-
-const fish = state => {
+const mapStateToProps = state => {
   return {
     user: state.dashboardReducer.user
   };
 };
 
 export default connect(
-  fish,
+  mapStateToProps,
   {}
 )(SnackFilter);
