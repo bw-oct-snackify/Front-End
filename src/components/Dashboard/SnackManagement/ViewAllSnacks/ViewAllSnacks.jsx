@@ -4,10 +4,7 @@ import SearchComponent from "./SearchComponent";
 import SnackCard from "./SnackCard";
 import Grid from "@material-ui/core/Grid";
 
-
-
 const ViewAllSnacks = () => {
-
   return (
     <div>
       <Grid container spacing={1}>
@@ -16,7 +13,7 @@ const ViewAllSnacks = () => {
         </Grid>
         <Grid item sm={9}>
           <SearchComponent />
-          <br/>
+          <br />
           <Grid container spacing={1}>
             <SnackCard />
             <SnackCard />
