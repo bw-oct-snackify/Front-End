@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { CardElement, injectStripe } from "react-stripe-elements";
 import styles from "./checkoutform.module.scss";
 import SuccessfulPurchase from "./SuccessfulPurchase";

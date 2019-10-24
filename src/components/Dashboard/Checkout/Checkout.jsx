@@ -51,7 +51,6 @@ const Checkout = ({ user }) => {
         axiosInstance
           .post("/billing/stripe", { id: token.id, price: 199 })
           .then(res => {
-            console.log("Response from backend:", res);
             if (res.status === 200) {
               setPaymentProcess("success");
             }
@@ -68,11 +67,9 @@ const Checkout = ({ user }) => {
   };
 
   useEffect(() => {
-    const companyID = user.company_id;
     axiosInstance
-      .get(`/company/${companyID}/snacks`)
+      .get(`/company/${user.company_id}/snacks`)
       .then(res => {
-        console.log("Data: ", res.data);
         setCompanySnacks(res.data);
       })
       .catch(err => {
@@ -89,7 +86,7 @@ const Checkout = ({ user }) => {
 
     let dateFormat = dd + "/" + mm + "/" + yy;
     setShipDate(dateFormat);
-  }, []);
+  }, [user.company_id]);
 
   const handleFormChange = event => {
     setFormData({

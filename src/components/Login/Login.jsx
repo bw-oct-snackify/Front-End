@@ -84,7 +84,7 @@ const Login = ({
 };
 
 const FormikLoginForm = withFormik({
-  mapPropsToValues({ username, password, loginUser }) {
+  mapPropsToValues({ username, password }) {
     return {
       username: username || "",
       password: password || ""
@@ -102,8 +102,6 @@ const FormikLoginForm = withFormik({
   }),
 
   handleSubmit(values, { props }) {
-    console.log(props);
-    console.log("Logging in with: " + values.username + " " + values.password);
     props.loginUser({
       email: values.username,
       password: values.password
