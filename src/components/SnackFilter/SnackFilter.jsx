@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Paper from "@material-ui/core/Paper";
 import { purple } from "@material-ui/core/colors";
 import Button from "@material-ui/core/Button";
@@ -39,8 +39,8 @@ const SnackFilter = props => {
           Snacks Left:
         </Typography>
         <br></br>
-        <Typography component="p">
-          <ul>
+        <Typography>
+         
             <Link to="/SelectedSnacks" className={classes.list}>
               Selected Snacks
             </Link>
@@ -52,7 +52,7 @@ const SnackFilter = props => {
             <Link to="/Snacks" className={classes.list}>
               View All Snacks
             </Link>
-          </ul>
+          
         </Typography>
       </Paper>
       <Link to="/cp/checkout">
