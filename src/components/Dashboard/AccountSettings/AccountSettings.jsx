@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
-import styles from "./accountsettings.module.scss";
 import {connect} from 'react-redux';
-import TextField from '@material-ui/core/TextField';
+
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import {Button, TextField, Avatar} from '@material-ui/core/';
+
 import {updateUser} from '../../../store/actions/dashboardActions';
+import styles from "./accountsettings.module.scss";
 
 const AccountSettings = ({user, updateUser, isUpdating}) =>{
 
@@ -19,7 +20,21 @@ const AccountSettings = ({user, updateUser, isUpdating}) =>{
     const useStyles = makeStyles(theme => ({
         button: {
             margin: theme.spacing(1),
-          }
+            width: '400px',
+            height: '50px',
+            margin: '0 auto',
+          },
+          avatar:{
+            width: '250px',
+            height: '250px',
+            margin: '0 auto',
+          },
+          title:{
+            fontSize:'2rem',
+            textAlign:'center',
+            fontWeight: '700',
+            marginBottom: '10px',
+          },
       }));
 
 
@@ -47,6 +62,8 @@ const AccountSettings = ({user, updateUser, isUpdating}) =>{
 
     return(
         <div className={styles.container}>
+            <h2 className={classes.title}>{user.name.toUpperCase()}</h2>
+            <Avatar className={classes.avatar} src={user.img_url} alt={user.name} />
             <form onSubmit={handleSubmit}>
                 {/* <label htmlFor="name">
                     Name: <input type='text' id='name' name='name' onChange={handleChange} value='RAWR' />
