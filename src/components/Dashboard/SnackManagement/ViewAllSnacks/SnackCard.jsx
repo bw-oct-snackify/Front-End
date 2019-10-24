@@ -36,10 +36,10 @@ const SnackCard = ({
     user,
     snack,
     addSnackToSuggestions,
-    addSnackToComapny,
+    addSnackToCompany,
 }) => {
     const classes = useStyles();
-    console.log(snack);
+    //console.log(snack);
     return (
         <Grid item sm={3}>
             <Card className={classes.card}>
@@ -60,6 +60,17 @@ const SnackCard = ({
                         >
                             {snack.brand}
                         </Typography>
+                        {snack.users && (
+                            <Typography
+                                variant="body2"
+                                color="textSecondary"
+                                component="p"
+                            >
+                                {snack.users.reduce((acc, curr) => {
+                                    return curr + ', ' + acc;
+                                }, '')}
+                            </Typography>
+                        )}
                     </CardContent>
                 </CardActionArea>
                 <CardActions>
@@ -68,13 +79,13 @@ const SnackCard = ({
                         size="small"
                         onClick={() => {
                             if (user.admin) {
-                                addSnackToComapny(user, snack);
+                                addSnackToCompany(user, snack);
                             } else {
                                 addSnackToSuggestions(user, snack);
                             }
                         }}
                     >
-                        Add to snacks
+                        {user.admin ? 'Add to snacks' : 'Add to Suggestions'}
                     </Button>
                 </CardActions>
             </Card>
