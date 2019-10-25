@@ -13,8 +13,8 @@ import ViewAllSnacks from "./components/Dashboard/SnackManagement/ViewAllSnacks/
 import SelectedSnacks from "./components/Dashboard/SnackManagement/SelectedSnacks/SelectedSnacks"
 import SuggestedSnacks from "./components/Dashboard/SnackManagement/SuggestedSnacks/SuggestedSnacks";
 const App = ({ getUserInfo }) => {
+  
   const loggedIn = localStorage.getItem("snack-token");
-  console.log("snack-token ID: ", loggedIn);
 
   useEffect(() => {
     if (loggedIn) {
