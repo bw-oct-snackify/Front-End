@@ -112,6 +112,11 @@ const UserManagement = ({ users, deleteUser }) => {
   const [open, setOpen] = useState(false);
 
   const [userToDelete, setUserToDelete] = useState({ id: null, name: "" });
+ 
+  const [values, setValues] = useState({
+    name: "",
+    email: ""
+  });
 
   const handleDelete = (id, name) => {
     setUserToDelete({ id: id, name: name });
@@ -133,68 +138,16 @@ const UserManagement = ({ users, deleteUser }) => {
     setOpen(false);
   };
 
-  const [values, setValues] = React.useState({
-    name: "",
-    email: ""
-  });
+ 
 
-  const handleChange = name => event => {
-    setValues({ ...values, [name]: event.target.value });
+  const handleChange = event => {
+    setValues({...values, [event.target.name]: event.target.value });
   };
 
   return (
     <div>
 
-<Dialog
-        open={open}
-        keepMounted
-        in="true"
-        onClose={handleCancel}
-        aria-labelledby="alert-dialog-slide-title"
-        aria-describedby="alert-dialog-slide-description"
-      >
-        <DialogTitle id="alert-dialog-slide-title">
-          {"Invite Team Member"}
-        </DialogTitle>
-        <DialogContent>
-            <form className={classes.container} noValidate autoComplete="off">
-              Name:
-              <TextField
-                id="outlined-name"
-                label="⍰ Name"
-                className={classes.textField}
-                value={values.name}
-                onChange={handleChange("name")}
-                margin="normal"
-                variant="outlined"
-              />
-              <br></br>
-              Email:
-              <TextField
-                id="outlined-email-input"
-                label="⍰ Email"
-                className={classes.textField}
-                type="email"
-                name="email"
-                autoComplete="email"
-                margin="normal"
-                variant="outlined"
-              />
-            </form>
-          <DialogActions>
-            <Button onClick={handleInvite} color="primary">
-              Cancel
-            </Button>
-            <Button
-              onClick={handleDeleteUser}
-              style={{ backgroundColor: "turquoise", color: "white" }}
-              color="primary"
-            >
-              Send Invite
-            </Button>
-          </DialogActions>
-        </DialogContent>
-      </Dialog>
+
 
       <Grid container spacing={1}>
 
@@ -203,15 +156,17 @@ const UserManagement = ({ users, deleteUser }) => {
             <Typography variant="h6" className={classes.title}>
               Users Left: {users.length}
             </Typography>
-          </Card>
-          <ColorButton
+            <ColorButton
+            disabled
             variant="contained"
             color="primary"
             className={classes.margin}
-            onClick={setOpen}
+            onClick={() => setOpen(true)}
           >
             Invite Users
           </ColorButton>
+          </Card>
+          
         </Grid>
 
         <Grid item sm={9}>
@@ -257,6 +212,61 @@ const UserManagement = ({ users, deleteUser }) => {
           </DialogActions>
         </DialogContent>
       </Dialog>
+      
+      <Dialog
+        open={open}
+        keepMounted
+        onClose={handleCancel}
+        aria-labelledby="alert-dialog-slide-title"
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle id="alert-dialog-slide-title">
+          {"Invite Team Member"}
+        </DialogTitle>
+        <DialogContent>
+            <form className={classes.container} noValidate autoComplete="off">
+              Name:
+              <TextField
+                id="outlined-name"
+                label="⍰ Name"
+                name="name"
+                className={classes.textField}
+                value={values.name}
+                onChange={handleChange}
+                margin="normal"
+                variant="outlined"
+              />
+              <br></br>
+              Email:
+              <TextField
+                id="outlined-email-input"
+                label="⍰ Email"
+                className={classes.textField}
+                type="email"
+                name="email"
+                autoComplete="email"
+                onChange={handleChange}
+                margin="normal"
+                variant="outlined"
+              />
+            </form>
+          <DialogActions>
+            <Button onClick={handleCancel} color="primary">
+              Cancel
+            </Button>
+
+            <Button
+              onClick={handleInvite}
+              style={{ backgroundColor: "turquoise", color: "white" }}
+              color="primary"
+            >
+              Send Invite
+            </Button>
+
+          </DialogActions>
+        </DialogContent>
+      </Dialog>
+
     </div>
   );
 };

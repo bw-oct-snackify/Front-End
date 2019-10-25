@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -8,6 +8,13 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import {
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle
+} from "@material-ui/core";
 
 import { connect } from 'react-redux';
 import {
@@ -22,7 +29,7 @@ const useStyles = makeStyles({
         transform: 'scale(0.8)',
     },
     title: {
-        height:'50px',
+        height: '50px',
         fontSize: 18,
     },
     pos: {
@@ -31,7 +38,7 @@ const useStyles = makeStyles({
     media: {
         height: 140,
     },
-    card:{
+    card: {
         height: '350px',
         padding: '20px'
     }
@@ -43,8 +50,27 @@ const SnackCard = ({
     addSnackToSuggestions,
     addSnackToCompany,
 }) => {
+
+
     const classes = useStyles();
-    //console.log(snack);
+
+    const [snackConfirmationOpen, setSnackConfirmationOpen] = useState(false);
+
+    const handleCancel = () => {
+        setSnackConfirmationOpen(false);
+    };
+
+    const addSuggestSnackHandler = () => {
+        setSnackConfirmationOpen(false);
+        addSnackToSuggestions(user, snack);
+    }
+
+    const addCompanySnackHandler = () =>{
+        setSnackConfirmationOpen(false);
+        addSnackToCompany(user, snack);
+    }
+
+
     return (
         <Grid item sm={3}>
             <Card className={classes.card}>
@@ -83,18 +109,45 @@ const SnackCard = ({
                     <Button
                         size="small"
                         onClick={() => {
-                            if (user.admin) {
-                                addSnackToCompany(user, snack);
-                            } else {
-                                addSnackToSuggestions(user, snack);
-                            }
+                            setSnackConfirmationOpen(true);
                         }}
                     >
-                        {user.admin ? 'Add to snacks' : 'Add to Suggestions'}
+                        Add Snack
                     </Button>
                 </CardActions>
             </Card>
+
+            <Dialog
+                open={snackConfirmationOpen}
+                keepMounted
+                onClose={handleCancel}
+                aria-labelledby="alert-dialog-slide-title"
+                aria-describedby="alert-dialog-slide-description"
+            >
+                <DialogTitle id="alert-dialog-slide-title">
+                    {`Handling the ${snack.name} for you!`}
+                </DialogTitle>
+                <DialogContent>
+                    {user.admin &&
+                        <DialogContentText id="alert-dialog-slide-title">
+                            {`What would you like to do with ${snack.name} ?`}
+                        </DialogContentText>}
+
+                    {user.admin && <DialogActions>
+                        <Button onClick={handleCancel} color="primary">
+                            Cancel
+                    </Button>
+                        <Button onClick={addCompanySnackHandler} color="primary">
+                            Add to Company
+                    </Button>
+                        <Button onClick={addSuggestSnackHandler} color="primary">
+                            Add to Suggested
+                     </Button>
+                    </DialogActions>}
+                </DialogContent>
+            </Dialog>
         </Grid>
+
     );
 };
 

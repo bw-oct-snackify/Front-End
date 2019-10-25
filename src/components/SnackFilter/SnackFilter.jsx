@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import Paper from "@material-ui/core/Paper";
 import { purple } from "@material-ui/core/colors";
@@ -17,6 +17,10 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     flexDirection: "column",
     fontSize: "1.2rem"
+  },
+  btn:{
+    width: '200px',
+    margin: '20px 0px',
   }
 }));
 
@@ -32,6 +36,7 @@ const ColorButton = withStyles(theme => ({
 
 const SnackFilter = ({ user }) => {
   const classes = useStyles();
+  const history = useHistory();
 
   // console.log("Filter props", props);
 
@@ -55,18 +60,19 @@ const SnackFilter = ({ user }) => {
             View All Snacks
           </Link>
         </Typography>
-      </Paper>
-      {user.admin && (
-        <Link to="/cp/checkout">
-          <ColorButton
+
+        {user.admin && (
+          <ColorButton onClick={() => history.push('/cp/checkout')}
             variant="contained"
             color="primary"
-            className={classes.margin}
+            className={classes.btn}
           >
             Schedule Delivery
           </ColorButton>
-        </Link>
       )}
+
+      </Paper>
+     
     </div>
   );
 };

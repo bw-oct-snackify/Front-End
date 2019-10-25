@@ -36,7 +36,9 @@ export const UserTable = ({
   users,
   handleDelete
 }) => {
+
   const classes = useStyles();
+  
   useEffect(() => {
     getCompanyUsers(currentUser.company_id);
   }, [getCompanyUsers, currentUser]);
