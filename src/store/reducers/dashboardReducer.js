@@ -108,12 +108,9 @@ const initState = {
 };
 
 export const dashboardReducer = (state = initState, action) => {
-  console.log(`Action Type: ${action.type}`);
-  console.log(`Action Payload: ${action.payload}`);
   switch (action.type) {
     //HANDLE LOGIN DATA
     case BEGIN_LOGIN:
-      console.log("Attempting to login..");
       return {
         ...state,
         isAuthenticating: true
@@ -177,7 +174,6 @@ export const dashboardReducer = (state = initState, action) => {
 
     //HANDLE GET USER INFO
     case BEGIN_GET_USER_INFO:
-      console.log("started fetching user data...");
       return {
         ...state,
         isGettingUserInfo: true
@@ -235,7 +231,6 @@ export const dashboardReducer = (state = initState, action) => {
       };
 
     case GET_USERS_SUCCESS:
-      console.log(action.payload.users)
       return {
         ...state,
         isGettingUsers: false,
@@ -250,9 +245,6 @@ export const dashboardReducer = (state = initState, action) => {
       };
 
     case DELETE_USER:
-      console.log(
-        `Hey bro.. reducer here, working hard to delete the scum with the id ${action.payload}`
-      );
       return {
         ...state,
         users: state.users.filter(user => user.id !== action.payload)
