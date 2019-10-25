@@ -152,7 +152,6 @@ const UserManagement = ({ users, deleteUser }) => {
           {"Invite Team Member"}
         </DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-slide-title">
             <form className={classes.container} noValidate autoComplete="off">
               Name:
               <TextField
@@ -177,7 +176,6 @@ const UserManagement = ({ users, deleteUser }) => {
                 variant="outlined"
               />
             </form>
-          </DialogContentText>
           <DialogActions>
             <Button onClick={handleInvite} color="primary">
               Cancel

@@ -60,10 +60,10 @@ export const UserTable = ({
         </TableHead>
 
         <TableBody>
-          {users.map(user => {
+          {users.map((user, index) => {
             return (
               <User
-                key={user.user_ID}
+                key={index}
                 id={user.user_ID}
                 email={user.email}
                 name={user.name}
