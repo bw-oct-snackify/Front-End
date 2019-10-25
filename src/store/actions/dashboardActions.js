@@ -83,24 +83,28 @@ export const getCompanyUsers = company_ID => dispatch => {
   axiosInstance
     .get(`/company/${company_ID}/users`)
     .then(res => {
-      console.log(res.data)
       dispatch({ type: GET_USERS_SUCCESS, payload: res.data });
     })
     .catch(error => {
-      console.log(error)
       dispatch({ type: GET_USERS_FAILURE, payload: error.response });
     });
 };
 
 // DELETE USER FROM COMPANY
-export const DELETE_USER = "DELETE_USER";
+export const BEGIN_DELETE_USER = "BEGIN_DELETE_USER";
+export const DELETE_USER_SUCCESS = "DELETE_USER_SUCCESS";
+export const DELETE_USER_FAILURE = "DELETE_USER_FAILURE";
 
-export const deleteUser = id => dispatch => {
-  console.log(
-    `dashboardActions here reporting the user you want to delete has an id of : ${id}! Passing it on to my buddy reducer!`
-  );
-  dispatch({
-    type: DELETE_USER,
-    payload: id
+
+export const deleteUser = (company_id, user_id) => dispatch => {
+
+  dispatch({type:BEGIN_DELETE_USER});
+
+  axiosInstance.delete(`/company/${company_id}/users/${user_id}`)
+  .then(res =>{
+    console.log(res.data);
+    dispatch({type: DELETE_USER_SUCCESS, payload: user_id});
+  }).catch(error =>{
+    dispatch({type: DELETE_USER_FAILURE, payload: error.response});
   });
 };

@@ -42,7 +42,6 @@ const useStyles = makeStyles(theme => ({
 
 const NavBar = ({ user, loggedIn, logoutUser }) => {
   const classes = useStyles();
-  console.log(user);
   return (
     <div className={classes.root}>
       <AppBar className={classes.appbar} position="static">
@@ -74,6 +73,7 @@ const NavBar = ({ user, loggedIn, logoutUser }) => {
 
               {!loggedIn && (
                 <>
+                  <a href='https://snackify-landing.netlify.com/'>Landing Page</a>
                   <Link to="/login">Login</Link>
                   <Link to="/register">Register</Link>
                 </>

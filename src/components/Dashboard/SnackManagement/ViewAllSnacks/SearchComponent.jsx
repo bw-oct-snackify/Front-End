@@ -43,8 +43,8 @@ const SearchComponent = ({ searchSnacks }) => {
                     if (e.keyCode === 13) searchSnacks(search);
                 }}
             />
-            <IconButton className={classes.iconButton} aria-label="search">
-                <SearchIcon onClick={() => searchSnacks(search)} />
+            <IconButton onClick={() => searchSnacks(search)} className={classes.iconButton} aria-label="search">
+                <SearchIcon  />
             </IconButton>
         </Paper>
     );

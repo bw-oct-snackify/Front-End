@@ -33,10 +33,12 @@ const useStyles = makeStyles({
 export const UserTable = ({
   currentUser,
   getCompanyUsers,
-  users,
-  handleDelete
+  handleDelete,
+  users
 }) => {
+
   const classes = useStyles();
+  
   useEffect(() => {
     getCompanyUsers(currentUser.company_id);
   }, [getCompanyUsers, currentUser]);
@@ -60,10 +62,10 @@ export const UserTable = ({
         </TableHead>
 
         <TableBody>
-          {users.map(user => {
+          {users.map((user, index) => {
             return (
               <User
-                key={user.user_ID}
+                key={index}
                 id={user.user_ID}
                 email={user.email}
                 name={user.name}
@@ -80,7 +82,6 @@ export const UserTable = ({
 
 const mapStateToProps = state => {
   return {
-    users: state.dashboardReducer.users,
     currentUser: state.dashboardReducer.user
   };
 };

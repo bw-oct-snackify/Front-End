@@ -12,15 +12,21 @@ import UserManagement from "./components/Dashboard/UserManagement/UserManagement
 import ViewAllSnacks from "./components/Dashboard/SnackManagement/ViewAllSnacks/ViewAllSnacks";
 import SelectedSnacks from "./components/Dashboard/SnackManagement/SelectedSnacks/SelectedSnacks"
 import SuggestedSnacks from "./components/Dashboard/SnackManagement/SuggestedSnacks/SuggestedSnacks";
-const App = ({ getUserInfo }) => {
+const App = ({ getUserInfo, loggedInStatus }) => {
+
   const loggedIn = localStorage.getItem("snack-token");
-  console.log("snack-token ID: ", loggedIn);
 
   useEffect(() => {
     if (loggedIn) {
       getUserInfo(loggedIn);
     }
   }, [loggedIn, getUserInfo]);
+
+
+  if(!loggedInStatus && loggedIn){
+
+  }
+
 
   return (
     <div className="App">
@@ -86,7 +92,9 @@ const App = ({ getUserInfo }) => {
 };
 
 const mapStateToProps = state => {
-  return {};
+  return {
+    loggedInStatus: state.dashboardReducer.loggedIn,  
+  };
 };
 
 export default connect(

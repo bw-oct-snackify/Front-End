@@ -1,5 +1,4 @@
 import {
-  DELETE_USER,
   BEGIN_LOGIN,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
@@ -14,7 +13,10 @@ import {
   LOGOUT_FAILURE,
   BEGIN_GET_USERS,
   GET_USERS_SUCCESS,
-  GET_USERS_FAILURE
+  GET_USERS_FAILURE,
+  BEGIN_DELETE_USER,
+  DELETE_USER_SUCCESS,
+  DELETE_USER_FAILURE
 } from "../actions/dashboardActions";
 
 const initState = {
@@ -104,16 +106,16 @@ const initState = {
   logoutResponse: "",
 
   isGettingUsers: false,
-  gettingUsersError: ""
+  gettingUsersError: "",
+
+  isDeletingUser: false,
+  deletingUserError: ''
 };
 
 export const dashboardReducer = (state = initState, action) => {
-  console.log(`Action Type: ${action.type}`);
-  console.log(`Action Payload: ${action.payload}`);
   switch (action.type) {
     //HANDLE LOGIN DATA
     case BEGIN_LOGIN:
-      console.log("Attempting to login..");
       return {
         ...state,
         isAuthenticating: true
@@ -177,7 +179,6 @@ export const dashboardReducer = (state = initState, action) => {
 
     //HANDLE GET USER INFO
     case BEGIN_GET_USER_INFO:
-      console.log("started fetching user data...");
       return {
         ...state,
         isGettingUserInfo: true
@@ -235,7 +236,6 @@ export const dashboardReducer = (state = initState, action) => {
       };
 
     case GET_USERS_SUCCESS:
-      console.log(action.payload.users)
       return {
         ...state,
         isGettingUsers: false,
@@ -249,14 +249,25 @@ export const dashboardReducer = (state = initState, action) => {
         getUsersError:action.payload,
       };
 
-    case DELETE_USER:
-      console.log(
-        `Hey bro.. reducer here, working hard to delete the scum with the id ${action.payload}`
-      );
+    case BEGIN_DELETE_USER:
+        return{
+            ...state,
+            isDeletingUser: true,
+        };
+
+    case DELETE_USER_SUCCESS:
       return {
         ...state,
+        isDeletingUser: false,
         users: state.users.filter(user => user.id !== action.payload)
       };
+
+    case DELETE_USER_FAILURE:
+        return{
+            ...state,
+            isDeletingUser: false,
+            deletingUserError: action.payload,
+        }
 
     default:
       return { ...state };
