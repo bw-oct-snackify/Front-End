@@ -62,8 +62,8 @@ const SnackTable = ({ order, user, getCompanySnacks }) => {
                 </TableHead>
 
                 <TableBody>
-                    {order.map(snack => {
-                        return <Snack key={snack.id} {...snack} />;
+                    {order.map((snack, index) => {
+                        return <Snack key={index} {...snack} />;
                     })}
                 </TableBody>
             </Table>
@@ -72,7 +72,6 @@ const SnackTable = ({ order, user, getCompanySnacks }) => {
 };
 
 const mapStateToProps = state => {
-    console.log(state);
     return {
         order: state.snackReducer.order,
         user: state.dashboardReducer.user,
