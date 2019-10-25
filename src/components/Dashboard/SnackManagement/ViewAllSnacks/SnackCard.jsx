@@ -22,7 +22,8 @@ const useStyles = makeStyles({
         transform: 'scale(0.8)',
     },
     title: {
-        fontSize: 14,
+        height:'50px',
+        fontSize: 18,
     },
     pos: {
         marginBottom: 12,
@@ -30,6 +31,10 @@ const useStyles = makeStyles({
     media: {
         height: 140,
     },
+    card:{
+        height: '350px',
+        padding: '20px'
+    }
 });
 
 const SnackCard = ({
@@ -50,7 +55,7 @@ const SnackCard = ({
                         title="Contemplative Reptile"
                     />
                     <CardContent>
-                        <Typography gutterBottom variant="h5" component="h2">
+                        <Typography className={classes.title} gutterBottom variant="h5" component="h2">
                             {snack.name}
                         </Typography>
                         <Typography

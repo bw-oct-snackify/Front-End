@@ -106,8 +106,11 @@ const useStyles = makeStyles(theme => ({
 
 const UserManagement = ({ users, deleteUser }) => {
   const classes = useStyles();
+
   const [confOpen, setConfOpen] = useState(false);
+
   const [open, setOpen] = useState(false);
+
   const [userToDelete, setUserToDelete] = useState({ id: null, name: "" });
 
   const handleDelete = (id, name) => {
@@ -123,6 +126,7 @@ const UserManagement = ({ users, deleteUser }) => {
 
   const handleCancel = () => {
     setConfOpen(false);
+    setOpen(false);
   };
 
   const handleInvite = () => {
@@ -144,6 +148,7 @@ const UserManagement = ({ users, deleteUser }) => {
 <Dialog
         open={open}
         keepMounted
+        in="true"
         onClose={handleCancel}
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
@@ -192,6 +197,7 @@ const UserManagement = ({ users, deleteUser }) => {
       </Dialog>
 
       <Grid container spacing={1}>
+
         <Grid item sm={3}>
           <Card className={classes.card}>
             <Typography variant="h6" className={classes.title}>
@@ -207,6 +213,7 @@ const UserManagement = ({ users, deleteUser }) => {
             Invite Users
           </ColorButton>
         </Grid>
+
         <Grid item sm={9}>
           {users.length > 0 && <UserTable handleDelete={handleDelete} />}
           {users.length < 1 && (
@@ -223,6 +230,7 @@ const UserManagement = ({ users, deleteUser }) => {
             </Grid>
           )}
         </Grid>
+
       </Grid>
 
       <Dialog
