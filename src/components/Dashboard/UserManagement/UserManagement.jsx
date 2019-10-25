@@ -15,9 +15,9 @@ import TextField from "@material-ui/core/TextField";
 import { purple } from "@material-ui/core/colors";
 import UserTable from "./UserTable/UserTable";
 import { connect } from "react-redux";
-import { deleteUser } from "../../../store/actions/dashboardActions";
+import { deleteUser, getCompanyUsers } from "../../../store/actions/dashboardActions";
 import Snackifycat from "../../../assets/images/Snackifycat.png";
-
+import {useHistory} from 'react-router-dom';
 import { Avatar } from "@material-ui/core";
 
 const ColorButton = withStyles(theme => ({
@@ -104,8 +104,10 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const UserManagement = ({ users, deleteUser }) => {
+const UserManagement = ({ user, users, deleteUser, getCompanyUsers }) => {
   const classes = useStyles();
+
+  const history = useHistory();
 
   const [confOpen, setConfOpen] = useState(false);
 
@@ -124,9 +126,10 @@ const UserManagement = ({ users, deleteUser }) => {
   };
 
   const handleDeleteUser = () => {
-    deleteUser(userToDelete.id);
+    deleteUser(user.company_id, userToDelete.id);
     setUserToDelete({ id: null, name: "" });
     setConfOpen(false);
+    history.push('/cp/users');
   };
 
   const handleCancel = () => {
@@ -170,7 +173,7 @@ const UserManagement = ({ users, deleteUser }) => {
         </Grid>
 
         <Grid item sm={9}>
-          {users.length > 0 && <UserTable handleDelete={handleDelete} />}
+          {users.length > 0 && <UserTable users={users} handleDelete={handleDelete} />}
           {users.length < 1 && (
             <Grid className={classes.notice} item xs={6}>
               <Card className={classes.userError}>
@@ -273,10 +276,11 @@ const UserManagement = ({ users, deleteUser }) => {
 
 const mapStateToProps = state => {
   return {
-    users: state.dashboardReducer.users
+    users: state.dashboardReducer.users,
+    user: state.dashboardReducer.user
   };
 };
 export default connect(
   mapStateToProps,
-  { deleteUser }
+  { deleteUser, getCompanyUsers }
 )(UserManagement);

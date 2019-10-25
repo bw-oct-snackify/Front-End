@@ -73,6 +73,7 @@ const NavBar = ({ user, loggedIn, logoutUser }) => {
 
               {!loggedIn && (
                 <>
+                  <a href='https://snackify-landing.netlify.com/'>Landing Page</a>
                   <Link to="/login">Login</Link>
                   <Link to="/register">Register</Link>
                 </>

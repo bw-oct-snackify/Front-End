@@ -33,8 +33,8 @@ const useStyles = makeStyles({
 export const UserTable = ({
   currentUser,
   getCompanyUsers,
-  users,
-  handleDelete
+  handleDelete,
+  users
 }) => {
 
   const classes = useStyles();
@@ -82,7 +82,6 @@ export const UserTable = ({
 
 const mapStateToProps = state => {
   return {
-    users: state.dashboardReducer.users,
     currentUser: state.dashboardReducer.user
   };
 };

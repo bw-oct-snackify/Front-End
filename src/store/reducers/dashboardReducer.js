@@ -1,5 +1,4 @@
 import {
-  DELETE_USER,
   BEGIN_LOGIN,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
@@ -14,7 +13,10 @@ import {
   LOGOUT_FAILURE,
   BEGIN_GET_USERS,
   GET_USERS_SUCCESS,
-  GET_USERS_FAILURE
+  GET_USERS_FAILURE,
+  BEGIN_DELETE_USER,
+  DELETE_USER_SUCCESS,
+  DELETE_USER_FAILURE
 } from "../actions/dashboardActions";
 
 const initState = {
@@ -104,7 +106,10 @@ const initState = {
   logoutResponse: "",
 
   isGettingUsers: false,
-  gettingUsersError: ""
+  gettingUsersError: "",
+
+  isDeletingUser: false,
+  deletingUserError: ''
 };
 
 export const dashboardReducer = (state = initState, action) => {
@@ -244,11 +249,25 @@ export const dashboardReducer = (state = initState, action) => {
         getUsersError:action.payload,
       };
 
-    case DELETE_USER:
+    case BEGIN_DELETE_USER:
+        return{
+            ...state,
+            isDeletingUser: true,
+        };
+
+    case DELETE_USER_SUCCESS:
       return {
         ...state,
+        isDeletingUser: false,
         users: state.users.filter(user => user.id !== action.payload)
       };
+
+    case DELETE_USER_FAILURE:
+        return{
+            ...state,
+            isDeletingUser: false,
+            deletingUserError: action.payload,
+        }
 
     default:
       return { ...state };

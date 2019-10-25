@@ -38,8 +38,6 @@ const SnackFilter = ({ user }) => {
   const classes = useStyles();
   const history = useHistory();
 
-  // console.log("Filter props", props);
-
   return (
     <div className={classes.box}>
       <Paper className={classes.root}>

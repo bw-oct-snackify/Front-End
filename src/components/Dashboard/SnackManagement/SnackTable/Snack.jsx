@@ -13,33 +13,32 @@ const useStyles = makeStyles({
 });
 
 const handleClick = id => {
-    alert(`You are attempting to remove it with id: ${id}`);
+    alert(`Feature not implemented no id provided from backend!`);
 };
 
-const Snack = ({ id, name, brand, uom, quantity }) => {
+const Snack = (props) => {
     const classes = useStyles();
-
     return (
         <TableRow>
             <TableCell align="center" className={classes.row}>
                 <div
-                    onClick={() => handleClick(id)}
+                    onClick={() => handleClick(props.snack_ID)}
                     className={classes.deleteBtn}
                 >
                     X
                 </div>
             </TableCell>
             <TableCell align="center" className={classes.row}>
-                {name}
+                {props.name}
             </TableCell>
             <TableCell align="center" className={classes.row}>
-                {brand}
+                {props.brand}
             </TableCell>
             <TableCell align="center" className={classes.row}>
-                {uom}
+                {props.uom}
             </TableCell>
             <TableCell align="center" className={classes.row}>
-                {quantity}
+                {props.quantity}
             </TableCell>
         </TableRow>
     );
