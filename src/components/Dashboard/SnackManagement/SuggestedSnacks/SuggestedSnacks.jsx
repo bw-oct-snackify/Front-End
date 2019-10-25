@@ -16,10 +16,8 @@ const SuggestedSnacks = ({
 }) => {
     useEffect(() => {
         if (user.admin) {
-            console.log('Getting company suggestions');
             getCompanySuggestions(user);
         } else {
-            console.log('Getting User suggestions');
             getUserSuggestions(user);
         }
     }, [getCompanySuggestions, getUserSuggestions, user]);
@@ -52,7 +50,6 @@ const SuggestedSnacks = ({
 };
 
 function mapStateToProps(state) {
-    console.log(state);
     return {
         suggestions: state.snackReducer.suggestions,
         user: state.dashboardReducer.user,

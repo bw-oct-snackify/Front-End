@@ -9,7 +9,7 @@ import styles from "./accountsettings.module.scss";
 
 const useStyles = makeStyles(theme => ({
     button: {
-        margin: "0 auto theme.spacing(1)",
+        margin: "0 auto",
         width: "400px",
         height: "50px"
     },
