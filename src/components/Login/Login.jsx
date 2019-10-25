@@ -45,7 +45,7 @@ const Login = ({
               Email *{" "}
             </label>
             <div className={login.loginfield}>
-              <i class="fas fa-user"></i>
+              <i className="fas fa-user"></i>
 
               <Field
                 type="text"
@@ -59,7 +59,7 @@ const Login = ({
               Password *{" "}
             </label>
             <div className={login.loginfield}>
-              <i class="fas fa-lock"></i>
+              <i className="fas fa-lock"></i>
               <Field
                 className={login.textfield}
                 type="password"
