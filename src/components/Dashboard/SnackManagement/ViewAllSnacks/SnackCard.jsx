@@ -133,12 +133,25 @@ const SnackCard = ({
                             {`What would you like to do with ${snack.name} ?`}
                         </DialogContentText>}
 
+                        {!user.admin &&
+                        <DialogContentText id="alert-dialog-slide-title">
+                            {`Are you sure you want to add ${snack.name} to your suggested list?`}
+                        </DialogContentText>}
+
                     {user.admin && <DialogActions>
                         <Button onClick={handleCancel} color="primary">
                             Cancel
                     </Button>
                         <Button onClick={addCompanySnackHandler} color="primary">
                             Add to Company
+                    </Button>
+                        <Button onClick={addSuggestSnackHandler} color="primary">
+                            Add to Suggested
+                     </Button>
+                    </DialogActions>}
+                    {!user.admin && <DialogActions>
+                        <Button onClick={handleCancel} color="primary">
+                            Cancel
                     </Button>
                         <Button onClick={addSuggestSnackHandler} color="primary">
                             Add to Suggested
